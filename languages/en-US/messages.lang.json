@@ -1,0 +1,5 @@
+{
+    "resendNominationSuccess": "Successfully sent!",
+    "resetPasswordSuccess": " Your account password has successfully been changed. Click <a ui-sref='base.login' href='' i18n='common.here'></a> to login.",
+    "resendSuccess": "Successfully sent!"
+}

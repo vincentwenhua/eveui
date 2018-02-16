@@ -1,0 +1,31 @@
+<div class="popup-login-final popup-decline">
+    <div class="modal-body text-center">
+        <form role="form" name="ShareEmailForm" novalidate ng-submit="ShareEmailForm.$valid && shareByEmail(member, email, profile);">
+            <div class="pb-15">
+                <h3>&nbsp; <i href="javascript:void(0);" ng-click="cancel()" class="close"></i></h3>
+                <p i18n="common.inputEmailAddress"></p>
+
+                <h3 class="mobile"></h3>
+
+                <div class="form-group">
+                    <label ia-label required class="left"><strong i18n="common.emailAddress"></strong></label>
+                    <input type="hidden" ng-model="profile" name="profile" value="{{profile}}"/>
+
+                    <div class="input-email" ng-class="{'has-error': ShareEmailForm.$submitted && ShareEmailForm.password.$invalid}">
+                        <input ng-model="email" class="form-control" name="email" type="email" data-i18n-attr="{placeholder: 'common.emailAddress'}" email required>
+                    </div>
+
+                    <div ng-show="ShareEmailForm.$submitted" ng-messages="ShareEmailForm.email.$error">
+                        <div class="alert alert-danger" ng-message="required"><span i18n="errors.emailRequired"></span></div>
+                        <div class="alert alert-danger" ng-message="email"><span i18n="errors.emailFormat"></span></div>
+                    </div>
+
+                    <div ng-if="error" class="alert alert-danger">{{error.message}}</div>
+                    <div ng-if="success" class="alert alert-success" i18n="common.shareSuccess"></div>
+
+                </div>
+            </div>
+            <p><button type="submit" href="" class="btn btn-theme btn-150 btn-block" i18n="common.share" ng-show="!ShareEmailForm.$submitted"></button></p>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<ng-form name="livingWillForm">
+    <div class="form-person-body additional_notes">
+        <div class="form-group">
+            <label class="ia-label-text" i18n="common.date"></label>
+            <ia-date disabled="viewMode" type="now-birth" model="member.additional_information.records.living_will.date" ng-required="!member.additional_information.records.living_will.notes && !member.additional_information.records.living_will.document" form="livingWillForm"></ia-date>
+        </div>
+ <div class="form-input-delete">
+ <div class="form-group notes_field">
+        <div notes-layout
+             ng-class="{'has-error' : memberForm.$submitted && livingWillForm.living_will_notes.$invalid}"
+             class="form-group"
+             notes="member.additional_information.records.living_will.notes" ng-required="!member.additional_information.records.living_will.date && !member.additional_information.records.living_will.document"></div>
+
+             <div class="delete-input_notes">
+            <a href="javascript:void(0);" ng-if="member.additional_information.records.living_will.notes!==null && member.additional_information.records.living_will.notes!==undefined"  ng-click="resetStatus('living_will', 'records','notes');" class="glyphicon glyphicon-trash error-txt"></a>
+        </div>
+          </div>
+</div>
+ <div class="form-input-delete">
+  <label class="ia-label-text left-column-title" i18n="common.attachment"></label>
+
+        <div class="form-group">
+           
+            <div class="row box-upload">
+
+                <attachment file="member.additional_information.records.living_will.document"></attachment>
+
+                <div class="col-xs-12 photo_upload_text_box">
+                    <div class="upload_avatar">
+                        <button class="btn btn-primary btn-lg btn-block btn-web" type="button">
+                            <span class="upload-btn" i18n="common.upload"></span>
+                        </button>
+
+                        <ng-file size="2048"
+                                 accept="image/*|application/pdf"
+                                 ng-model="::member.additional_information.records.living_will.document"
+                                 model="member.additional_information.records.living_will"
+                                 name="document"></ng-file>
+                    </div>
+                </div>
+            </div>
+<div class="delete-input">
+            <a href="javascript:void(0);" ng-if="member.additional_information.records.living_will.document!==null && 
+            member.additional_information.records.living_will.document!==undefined" ng-click="resetStatus('living_will', 'records','document');" class="glyphicon glyphicon-trash error-txt"></a>
+        </div>
+            <div ng-messages="livingWillForm.document.$error">
+                <div class="alert alert-danger" ng-message="filesize"><span i18n="errors.fileSize"></span></div>
+            </div>
+        </div>
+         </div>
+    </div>
+    <input type="hidden" ng-model="member.additional_information.records.living_will.id"/>
+</ng-form>

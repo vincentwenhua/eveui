@@ -1,0 +1,10 @@
+<div class="confirm-info text-center">
+    <p i18n="common.linkSentToMail" data-email="{{account.email}}"></p>
+</div>
+
+<div class="text-center btn-lg-wrap">
+    <p>
+        <ia-go-email ng-model="account.email" class="btn btn-theme btn-240"></ia-go-email>
+    </p>
+    <a ui-sref="base.contactus" class="underline" i18n="common.needHelp"></a>
+</div>

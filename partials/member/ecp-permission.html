@@ -1,0 +1,289 @@
+<div id="main-load-content" class="view-member">
+<section class="content">
+<div class="container no-padding">
+<h4 class="text-center name-account permission-header" person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}" append="common.onesPermission"></h4>
+<form name="EditMemberPermissionForm" novalidate ng-submit="handle(permission);">
+
+<!-- Basic Information -->
+<div class="title">
+    <h3 i18n="common.basicInfo"></h3>
+</div>
+<div class="section-wrap holder member-box">
+    <div class="clearfix">
+        <div class="section holder">
+            <div class="row pb-15">
+                <div class="col-sm-4 col-xs-4 user_photo_box">
+                    <ia-avatar avatar="{{ member.photo }}" badge="{ 'icon-account_holder_icon': account.id == member.id, 'icon-members_icon': account.id != member.id }"></ia-avatar>
+                </div>
+                <div class="col-sm-8 col-xs-8">
+
+                    <h3>{{member.first_name}} {{member.last_name}} {{member.middle_name}}</h3>
+
+                    <member-id model="member"><span i18n="common.memberId"></span></member-id>
+
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="row pb-15">
+
+                <ul class="nav nav-justified nav-member">
+                    <li class="section-bdr">
+                        <a ng-click="preview(member, permission);" class="nav-print" href=""><i class="icon-preview_icon"></i>
+                            <br><span i18n="common.saveAndPreview"></span></a>
+                    </li>
+                    <li class="section-bdr hide">
+                        <a ng-click="saveToPdf(member);" class="nav-share" href=""><i class="icon-save_as_pdf_icon"></i><br>
+                            <span i18n="common.saveAsPdf"></span></a>
+                    </li>
+                    <li class="section-bdr hide">
+                        <a class="nav-print" print-ice-id size="sm" templateUrl="partials/modal/print-ice-id.html"><i
+                                class="icon-print_id_icon"></i> <br><span i18n="common.printId"></span></a>
+                    </li>
+                    <li class="hide">
+                        <a class="nav-history" href="" email-profile="member"><i class="icon-email_icon"></i> <br><span
+                                i18n="common.email"></span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="box-view-pro basic_info">
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-4 title-pro"><span i18n="common.nationality"></span>:</div>
+                            <div class="col-xs-8 name-pro">{{member.nationality | countryFilter:'name'}}</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-4 title-pro"><span i18n="common.gender"></span>:</div>
+                            <div class="col-xs-8 name-pro">{{member.gender | settingsFilter:'genders':'name'}}</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-4 title-pro"><span i18n="common.cellPhone"></span>:</div>
+                            <div class="col-xs-8 name-pro" full-phone-number phonecode="member.phone.code" phonenumber="member.phone.number"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-4 title-pro"><span i18n="common.dateOfBirth"></span>:</div>
+                            <div class="col-xs-8 name-pro">
+                                <span full-date year="member.birth_date.year" month="member.birth_date.month" day="member.birth_date.day"> </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-4 title-pro"><span i18n="common.emailAddress"></span>:</div>
+                            <div class="col-xs-8 name-pro">{{member.email}}</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-4 title-pro"><span i18n="common.locationTracking"></span>:</div>
+                            <div class="col-xs-8 name-pro">
+                                <select ng-model="member.additional_information.personal.location_track"
+                                        name="member_tracking" class="form-control"
+                                        ng-options="track.value as track.name for track in results = (globals.settings.location_tracks.toArray() | optionsTrans:'name' | optionsSort:'name')">
+                                    <option class="hide" value="" i18n="common.locationTrack"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Basic Information  -->
+
+<!-- Additional Information  -->
+<div class="title">
+    <h3 i18n="common.additionalInfo"></h3>
+</div>
+
+
+<div class="tabber-person data_tab personal_tab permission_tab">
+    <!-- Tab Contents -->
+    <div class="tab-content info_icon" id="accordion">
+
+
+     <!-- Personal -->
+        <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+            <div class="panel-heading">
+              <div class="panel_block">
+               <label for="personalCheckbox" class="control controlcheckbox" ng-click= "hasPersonalData = false">
+                <input type="checkbox" id="personalCheckbox" ng-model="personalCheckbox1" select-all-checkbox>
+                <div class="control__indicator" ng-class="{'active_color': hasPersonalData}"></div>
+                  </label>
+                <div data-toggle="collapse" data-parent="" href="#collapsePersonal" class="collapse-a  collapsed accordion-toggle"
+                    ia-label-main message="tooltips.youMayUploadHospitalRecords" ng-click="storeScroll(); storeTab('Personal', '')">
+                <a href="javascript:void(0);#Personal" class="tab-click tab-click-personal" data-toggle="tab" i18n="common.personal"></a>
+          
+           </div>
+         </div>
+      </div>
+            
+            <div id="collapsePersonal" class="panel-collapse collapse">
+                <div class="panel-body" id="Personal">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel">
+                        <div ng-include="'partials/member/personal/permission.html'"></div>
+                        </div>
+                    </div>
+                    </ng-form>
+                </div>
+            </div>
+        </div>
+       <!-- Personal-->
+
+     <!-- Insurance -->
+        <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+            <div class="panel-heading">
+              <div class="panel_block">
+              <label for="insuranceCheckbox" class="control controlcheckbox"  ng-click = "hasInsuranceData = false">
+                <input type="checkbox" id="insuranceCheckbox" ng-model="insuranceCheckbox" select-all-checkbox>
+                  <div class="control__indicator" ng-class="{'active_color': hasInsuranceData}"></div>
+                 </label>
+                  <div data-toggle="collapse" data-parent="" href="#collapseInsurance" class="collapse-a collapsed accordion-toggle"
+                    ia-label-main message="tooltips.youMayUploadHospitalRecords" ng-click="addInfoItems('Insurance', 'Insurances');">
+              <a href="javascript:void(0);#Insurance" class="tab-click tab-click-insurance" data-toggle="tab" i18n="common.insurance"></a>
+          </div>
+        </div>
+      </div>
+            
+            <div id="collapseInsurance" class="panel-collapse collapse">
+                <div class="panel-body" id="Personal">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel">
+                                <div ng-include="'partials/member/insurance/permission.html'"></div>
+                       </div>
+                    </div>
+                    </ng-form>
+                </div>
+            </div>
+        </div>
+       <!-- Insurance-->
+
+      <!-- Medical -->
+        <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+            <div class="panel-heading">
+              <div class="panel_block">
+               <label for="medicalCheckbox" class="control controlcheckbox" ng-click = "hasMedicalData = false">
+                <input type="checkbox" id="medicalCheckbox" ng-model="medicalCheckbox" select-all-checkbox>
+                <div class="control__indicator" ng-class = "{'active_color':hasMedicalData}"></div>
+                  </label>
+           <div data-toggle="collapse" data-parent="" href="#collapseMedical" class="collapse-a collapsed accordion-toggle" ia-label-main message="tooltips.youMayUploadHospitalRecords">
+          <a href="javascript:void(0);#Medical" class="tab-click tab-click-medical" data-toggle="tab" i18n="common.medical"></a>
+          
+        </div>
+      </div>
+      </div>
+            
+            <div id="collapseMedical" class="panel-collapse collapse">
+                <div class="panel-body" id="Personal">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel">
+                         <div ng-include="'partials/member/medical/permission.html'">
+                                </div>
+                        </div>
+                    </div>
+                    </ng-form>
+                </div>
+            </div>
+        </div>
+       <!-- Medical-->
+
+           <!-- Records -->
+        <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+            <div class="panel-heading">
+              <div class="panel_block">
+              <label for="lifestyleCheckbox" class="control controlcheckbox" ng-click = "hasRecordData = false">
+                <input type="checkbox" id="lifestyleCheckbox" ng-model="lifestyleCheckbox" select-all-checkbox>
+                <div class="control__indicator" ng-class="{'active_color':hasRecordData}"></div>
+                  </label>
+           <div data-toggle="collapse" data-parent="" href="#collapseRecords" class="collapse-a collapsed accordion-toggle" ia-label-main message="tooltips.youMayUploadHospitalRecords">
+              <a href="javascript:void(0);#Lifestyle" class="tab-click tab-click-records" data-toggle="tab" i18n="common.records"></a>
+           </div>
+         </div>
+      </div>
+            
+            <div id="collapseRecords" class="panel-collapse collapse">
+                <div class="panel-body" id="Personal">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel">
+                     <div ng-include="'partials/member/record/permission.html'"></div>
+                        </div>
+                    </div>
+                    </ng-form>
+                </div>
+            </div>
+        </div>
+       <!-- Records-->
+     </div>
+  </div>
+<!-- End Additional Information -->
+
+ <!--Start footer-->
+  <div class="container no-padding full-extend pull-right">
+  <div id="edit-footer" class="container floating-footer">
+          <div class="row leftrow" >
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                  <div class="save-cancel-group">
+       <button type="button" ng-if="!member.id" state="account.show"
+        cancel-confirmation controller="CancelConfirmationModal"
+        class="btn btn-default btn-cancel btn-lg btn-block btn-padding"
+            i18n="common.cancel">
+        </button>
+        <button type="button" ng-if="member.id" state="account.viewMember" params="{member_id: member.id}"
+                cancel-confirmation controller="CancelConfirmationModal"
+                class="btn btn-default btn-cancel btn-lg btn-block btn-padding" i18n="common.cancel">
+        </button>
+         <button type="submit" class="btn btn-primary btn-lg btn-block btn-save btn-web"
+                    i18n="common.save">
+         </button>
+
+                  </div>
+              </div>
+             
+          </div>
+    </div>
+
+    <div id="edit-footer2" class="container floating-footer">
+      <div class="row leftrow" >
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="save-group">
+              <button type="button" ng-if="!member.id" state="account.show" cancel-confirmation controller="CancelConfirmationModal" class="btn btn-default btn-cancel btn-lg btn-block btn-padding" i18n="common.cancel">
+              </button>
+              <button type="button" ng-if="member.id" state="account.viewMember" params="{member_id: member.id}" cancel-confirmation controller="CancelConfirmationModal" class="btn btn-default btn-cancel btn-lg btn-block btn-padding" i18n="common.cancel">
+              </button>
+              <button type="submit" class="btn btn-primary btn-lg btn-block btn-save btn-web" i18n="common.save">
+              </button>
+            </div>
+           </div>
+            
+      </div>
+    </div>
+
+  </div>
+   <!--End footer-->
+  <br>
+</form>
+</div>
+</section>
+</div>

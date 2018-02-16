@@ -1,0 +1,27 @@
+<div class="popup-login-final">
+    <div class="modal-body text-center">
+        <div class="pb-15">
+            <h3>&nbsp; <a href="javascript:void(0);" ng-click="cancel()" class="close"></a></h3>
+
+            <h3 class="mobile"></h3>
+
+            <div class="alert-popup" ng-if="alert.type === 'panic'">
+                <p i18n="common.panicButtonTriggeredMessage" data-full-name="{{ PersonName.build(alert.first_name, alert.middle_name, alert.last_name) || alert.email }}"
+                data-first-name="{{alert.first_name}}" data-last-name="{{alert.last_name}}" data-time="{{alert.alerted_at | timeAgo}}"></p>
+                <p i18n="common.pleaseContact" data-full-name="{{ PersonName.build(alert.first_name, alert.middle_name, alert.last_name) || alert.email }}" data-first-name="{{alert.first_name}}" data-last-name="{{alert.last_name}}" data-formatted-phone="{{alert.phone.number | phoneNumber}}" data-phone="{{alert.phone.number}}"></p>
+                <br/>
+            </div>
+
+            <div class="alert-popup" ng-if="alert.type === 'normal'">
+                <p i18n="common.emergencyAlertTriggeredFor" data-full-name="{{ PersonName.build(alert.first_name, alert.middle_name, alert.last_name) || alert.email }}" data-first-name="{{alert.first_name}}" data-last-name="{{alert.last_name}}" data-time="{{alert.alerted_at | timeAgo}}"></p>
+                <p i18n="common.pleaseContactAngel" data-full-name="{{ PersonName.build(alert.first_name, alert.middle_name, alert.last_name) || alert.email }}" data-first-name="{{alert.first_name}}" data-last-name="{{alert.last_name}}" data-formatted-phone="{{alert.phone.number | phoneNumber}}" data-phone="{{alert.phone.number}}"></p>
+                <br/>
+
+            </div>
+
+            <a ng-click="accessMemberProfile(alert.url);" class="btn btn-theme btn-150 btn-block" href="" i18n="common.accessMemberEmergencyRecords"></a>
+            <!--<a ng-href="{{alert.url}}" class="btn btn-theme btn-150 btn-block" href="" i18n="common.accessMemberEmergencyRecords"></a>-->
+
+        </div>
+    </div>
+</div>

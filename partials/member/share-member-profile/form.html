@@ -1,0 +1,13 @@
+<form action="{{action}}" method="POST" class="share-member-form" ng-switch on="type" >
+    <input type="hidden" name="type" value="{{type}}"/>
+    <input type="hidden" ng-switch-when="download-member-profile" name="profile" value="{{profile}}"/>
+    <input type="hidden" ng-switch-when="download-member-profile" name="permission" value="{{permission}}" />
+    <button type="submit" ng-pdfDownload="true" ng-switch-when="download-member-profile"><i class="icon-save_as_pdf_icon"></i><br> <span i18n="common.saveAsPdf"></span></button>
+    <button type="submit" ng-switch-when="download-member-id" class="btn btn-primary btn-lg btn-block btn-web"><span i18n="common.downloadPdf"></span>
+
+    <i class="fa fa-spinner fa-spin" style="font-size:18px" ng-show= "isPrintLoading"></i></button>
+    <div class="pdf-download fade-in" hidden>
+        <div class="alert alert-info"><span i18n="common.pdfDownload"></span></div>
+    </div>
+</form>
+

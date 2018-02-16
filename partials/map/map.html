@@ -1,0 +1,63 @@
+<div id="main-load-content" class="map-block">
+    <div ng-repeat="alert_history in histories =  (alerts | orderBy:'alerted_at.date':true) track by alert_history.id">
+        <div class="emergency-section alert-view container" ng-if="alert_history.id==stateParams">
+            <div class="account-not-completed account-completed">
+                <p class="text-left" >
+                    <span>{{alert_history.last_name}}{{alert_history.middle_name}}{{alert_history.first_name}}</span><span time-pos="{{alert_history.alerted_at}}"></span>在下述位置由本人触发警告，请尽快联系本人：<span>{{alert_history.phone.number|limitTo:-11}}</span>确认情况，并且尽快联系救护车（120），如有交通事故或者暴力伤害，请同时报警（110），如需要，请点击这里获得他的病史信息，以便转发给有关人员：
+                    <a href="" class="pull-right" header-back-button></a>
+                </p>
+                <div class="mapVar" style="visibility: hidden;height:0;opacity: 0;">
+                    <span id="maplongitude">{{alert_history.location.longitude}}</span>
+                    <span id="maplatitude">{{alert_history.location.latitude}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mapVar" style="visibility: hidden;height:0;opacity: 0;">
+        <button id="address">地址检测</button>
+    </div>
+    <div id="mapContent" class="map-layer">
+        <div class ='msg-panel'>
+            <span id = 'input'></span>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var _mapObj = $('#mapContent');
+        var _h2 = $('.navbar.navbar-fixed-top').outerHeight(true);
+        //var _h3 = $('.map-block .emergency-section').outerHeight(true);
+        $('#footer-include').hide();
+        _mapObj.height($(window).height()-_h2-122);
+
+    $('#address').click(function () {
+        var _t1 = parseFloat($('#maplongitude').html());
+        var _t2 = parseFloat($('#maplatitude').html());
+        <!--高德地图-->
+        var map = new AMap.Map('mapContent',{
+            resizeEnable: true,
+            zoom: 13,
+            center: [_t1, _t2]
+        });
+        AMap.plugin('AMap.Geocoder',function(){
+            var geocoder = new AMap.Geocoder({
+                city: "010"//城市，默认：“全国”
+            });
+            var marker = new AMap.Marker({
+                map:map,
+                bubble:true
+            })
+            var lnglatXY=[_t1, _t2];//地图上所标点的坐标
+            marker.on('click',function(e){
+                console.log(e.pixel);
+                $('.msg-panel').css({top:e.pixel.y,left:e.pixel.x});
+                geocoder.getAddress(lnglatXY,function(status,result){
+                    if(status=='complete'){$('#input').text(result.regeocode.formattedAddress);}
+                })
+            })
+        });
+    });
+    setTimeout(function () {
+        $('#address').click();
+    },1600);
+    </script>
+</div>

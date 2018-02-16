@@ -1,0 +1,39 @@
+.learn-more {
+  &-wrap {
+    bottom: 40px;
+    right: 25%;
+    text-align: right;
+
+    @media @bigsmartphone {
+      bottom: 80px;
+      right: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  @media @bigsmartphone {
+    display: inline-block;
+  }
+
+  .border-radius(@border-radius-size);
+  background: #fafbfc;
+  color: @black;
+  display: inline-block;
+  font-family: @font-family-common;
+  font-size: 12px;
+  padding: 8px 14px;
+
+  @media @ipad{
+    background: rgba(256, 256, 256, 0.8);
+  }
+
+  img, span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  span {
+    padding-right: 7px;
+  }
+}

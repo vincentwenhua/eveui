@@ -1,0 +1,28 @@
+<ng-form name="surgicalForm">
+    <div class="form-person-heading">
+        <span i18n="common.surgicalNumber" data-number="{{$index + 1}}"></span>
+        <a href="javascript:void(0);" class="remove-btn" ng-click="remove('surgical_history', 'medical', $index);">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+    <div class="form-person-body">
+        <div class="form-group">
+            <label ia-label required translation="common.category"></label>
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && surgicalForm.surgical_history_type.$invalid}">
+                <select class="form-control" name="surgical_history_type" ng-model="::surgical.type" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-options="surgery.id as surgery.name for surgery in results = (globals.settings.surgeries.toArray() | optionsTrans:'name' | optionsSort:'name')" required>
+                    <option class="hide" value="" i18n="common.selectSurgeryType"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="ia-label-text" i18n="common.date"></label>
+            <ia-date disabled="viewMode" type="now-birth" model="surgical.date" form="surgicalForm"></ia-date>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : memberForm.$submitted && surgicalForm.surgical_history_reason.$invalid}">
+            <label ia-label required translation="common.reason"></label>
+            <input class="form-control" name="surgical_history_reason" data-i18n-attr="{placeholder: 'common.surgeryReasons'}" ng-model="::surgical.reason" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" required>
+        </div>
+            <div notes-layout class="form-group" notes="surgical.notes"></div>
+    </div>
+    <input type="hidden" ng-model="surgical.id"/>
+</ng-form>

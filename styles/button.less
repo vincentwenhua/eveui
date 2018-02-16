@@ -1,0 +1,372 @@
+@import "variables.less";
+@import "mixins.less";
+
+@charset "utf-8";
+
+.btn {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: @font-size;
+  font-family: 'Roboto';
+  letter-spacing: 0.08em;
+  white-space: normal !important;
+
+  @media @desktop{
+    *font-size: 20px;
+  }
+
+  &-primary {
+    &[disabled] {
+      background-color: @main-blue-color-1;
+    }
+  }
+
+  &-web {
+    background-color: @main-blue-color-1;
+    cursor: pointer !important;
+    border: 0px;
+    width:100%;
+    border-radius: 4px;
+    margin-top:0 !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: @font-size-button;
+    font-family: 'Roboto';
+    letter-spacing: 0.08em;
+    background-image: none !important;
+    padding:8px 0 7px 0 !important;
+    transition: background 0.5s;
+
+    &:hover {
+      background: lighten(@main-blue-color-1, 10%);
+    }
+      span
+     {
+      margin-bottom:0 !important;
+    }
+  }
+  &-cancel{
+    width:100px;
+    display: inline-block;
+    margin:0 auto;
+    display:inline-block;
+    margin-right:30px;
+    padding:8px 0 7px 0 !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: italic;
+    font-size: @font-size-button;
+    font-family: 'Roboto';
+    letter-spacing: 0.08em;
+    color: @grey-text;
+    transition: all 0.5s;
+  }
+  &-save{
+  width: 100px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: @font-size-button;
+  font-family: 'Roboto';
+  letter-spacing: 0.08em;
+  background-image: none !important;
+  padding:8px 0 7px 0 !important;
+
+   span
+     {
+       margin-bottom:0 !important;
+    }
+  }
+  &-close{
+   width:100%;
+  }
+
+  &-padding {
+    padding: 7px;
+  }
+
+  &-group {
+    height: 65px;
+  }
+
+  &-lg-wrap {
+    .btn {
+      padding: 8px 14px;
+      font-size: 20px;
+      font-weight: @font-weight;
+    }
+  }
+
+  &-right {
+    text-align: right;
+  }
+
+  &-theme {
+    background: @main-blue-color;
+    color: #fff;
+
+    &:hover, &:focus, &:active {
+      background: #00b0f5;
+      color: #fff;
+    }
+  }
+
+  &-lg-land {
+    padding: 6px 24px;
+  }
+
+  &-emergency {
+    color: #fff;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size:14px;
+
+    @media @iphone6plus {
+      padding: 4px 7px;
+    }
+
+    @media @smartphone{
+      padding: 3px 5px;
+    }
+
+    .border-radius(16px);
+
+    &:hover {
+      color: #fbb2b2;
+    }
+  }
+
+  &-white {
+    background: #fff;
+    border-color: #d0d0d0;
+    color: @text-color;
+  }
+
+  &.resend-nomination-btn {
+    font-size:9px;
+    padding:6px 8px;
+    border-radius: 5px;
+    margin-right: 10px;
+    border:none;
+     color: #fff;
+     background-color: @ia-color-green;
+       &.resend-nomination-btn:hover{
+       background-color: darken(@ia-color-green, 5%);
+          color: #fff;
+            border:none;
+       }
+  }
+
+  &.sync-btn {
+    float: right;   
+    padding: 3px 15px;   
+     @media @ipad{
+     margin:3px 0px 0 0;
+     }
+    @media @mobile{
+    font-size:13px;
+    padding: 5px 0px;
+    margin:8px 4px 0 0;
+     }
+@media @iphone5{
+    margin: 10px 4px 0 0px;
+    font-size: 10px;
+}
+
+    &.sync {
+      background: @ia-color-green;
+      color: #fff;
+    }
+  }
+}
+
+
+.load_more {
+    background: #ffffff none repeat scroll 0 0;
+    border: 4px solid #fff;
+    border-radius: 50px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+    color: #e84f4f;
+    font-size: 14px;
+    font-family: 'Roboto';
+    font-weight: 900;
+    margin: 20px auto 0;
+    padding: 6px 30px;
+    text-decoration: none;
+
+   &:hover {
+    background: #e84f4f none repeat scroll 0 0;
+    color: #ffffff;
+   }
+
+  .fa-spin {
+     font-size:15pt;
+     vertical-align:middle;
+   }
+
+}
+
+.btn-160 {
+  @media @desktop{
+    min-width: 160px
+  }
+}
+
+.btn-180 {
+  @media @desktop{
+    min-width: 180px
+  }
+}
+
+.btn-150 {
+  min-width: 120px;
+}
+
+.btn-240 {
+  min-width: 240px;
+}
+
+.edit-btn {
+  padding: 4px 18px 5px;
+}
+
+.main-btn {
+  &.synced {
+    p {
+      a {
+        min-width: 255px;
+        font-size: 12px;
+        &.sync-setting {
+          padding: 0;
+          position: absolute;
+          background: none;
+          border: none;
+          min-width: 0 !important;
+          line-height: 70px;
+          vertical-align: middle;
+          img {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  padding: 0px 0 0px;
+  text-align: left;
+
+  p {
+    padding: 0 0 34px;
+  }
+  a {
+    padding: 4px 20px 8px 20px;
+    min-width: 255px;
+    background: @btn-yellow;
+    color: #000;
+    display: inline-block;
+    text-align: center;
+    line-height:15px;
+    font-size: @font-size-landing-header * 0.8;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-weight: normal;
+    border-bottom: 4px solid darken(@btn-yellow, 5%) !important;
+    -webkit-transition: 0.1s linear all;
+
+    &:hover{
+      cursor: pointer;
+      background: darken(@btn-yellow, 5%);
+      border-bottom: 1px solid darken(@btn-yellow, 5%) !important;
+      margin-top: 2px !important;
+    }
+
+    @media @mobile{
+      padding: 0px 5px 4px 55px;
+      font-size: @font-size-landing-header * 0.75;
+
+    }
+        @media @iphone5{
+       padding: 0px 5px 4px 5px;
+       min-width: 90%;
+       font-size: @font-size-landing-header * 0.75;
+       line-height:16px;
+      }
+
+    .border-radius(30px);
+
+    img, span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    img {
+      margin-right: 20px;
+    }
+
+  }
+  a.red-btn {
+    background: @ia-color-red-2;
+    border-color: @btn-border-red;
+  }
+  a.yellow-btn1 {
+    border:none;
+    background-position: 20% center;
+    @media @mobile{
+      background-position: 5% center;
+    }
+ }
+  a.yellow-btn {
+    background: @btn-yellow;
+    border-color: @btn-border-yellow;
+  }
+  .two-line {
+    img {
+      float: left;
+    }
+    strong {
+      display: block;
+      margin: 8px 0 2px;
+    }
+    span {
+      color: darken(@grey-text, 15%);
+      text-transform: initial;
+      font-size: @font-size-landing * 0.6;
+      min-width: 105px;
+        @media @iphone5{
+        font-size: @font-size-landing * 0.5;
+        }
+      &.yellow {
+        color: #8e5013;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+}
+
+.add-label{
+  margin: 0 auto;
+}
+
+button {
+  @media @largescreens{
+    text-transform: none;
+    width: 100%;
+    padding: 10px 5px;
+  }
+}
+
+a.block-mob{margin-bottom:10px;}
+.modal a.block-mob{width:100%;}
+
+a.block-mob {
+  @media @largescreens{
+    width: 100%;
+  }
+}
+
+.small-button {
+  font-size: x-small;
+}

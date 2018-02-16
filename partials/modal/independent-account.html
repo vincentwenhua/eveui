@@ -1,0 +1,32 @@
+<div class="popup-login-final popup-decline">
+    <div class="modal-body text-center">
+        <div class="pb-15">
+            <form role="form" novalidate name="MemberTransferForm" ng-submit="MemberTransferForm.$valid && send_transfer_invitation(transfer.email, member)">
+                <h3>&nbsp; <i href="javascript:void(0);" ng-click="cancel()" class="close"></i></h3>
+                <p i18n="common.enterMemberEmail"></p>
+
+                <div class="form-group">
+                    <label ia-label required class="left"><strong i18n="common.emailAddress"></strong></label>
+
+                    <div class="input-email" ng-class="{'has-error': MemberTransferForm.$submitted && MemberTransferForm.email.$invalid}">
+                        <input enable ng-model="member.email" class="form-control" name="email" type="email" data-i18n-attr="{placeholder: 'common.emailAddress'}" ng-required= "account.email!=member.email" ng-show="account.email!=member.email">
+                        
+                        <input enable ng-model="transfer.email" class="form-control" name="email" type="email" data-i18n-attr="{placeholder: 'common.emailAddress'}" ng-required = "account.email===member.email" ng-show="account.email===member.email">
+                    </div>
+
+                    <div ng-show="MemberTransferForm.$submitted" ng-messages="MemberTransferForm.email.$error">
+                        <div class="alert alert-danger" ng-message="required"><span i18n="errors.emailRequired"></span></div>
+                        <div class="alert alert-danger" ng-message="email"><span i18n="errors.emailFormat"></span></div>
+                    </div>
+                </div>
+
+                <div ng-if="success" class="alert alert-success"> {{message}}</div>
+
+                <div ng-repeat="error in errors">
+                    <div class="alert alert-danger">{{ error.message | i18n }}</div>
+                </div>
+                <p><button type="submit" href="" class="btn btn-theme btn-150 btn-block" i18n="common.sendInvitation" ng-show = "!MemberTransferForm.$submitted"></button></p>
+            </form>
+        </div>
+    </div>
+</div>

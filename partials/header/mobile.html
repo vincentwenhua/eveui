@@ -1,0 +1,55 @@
+<div class="tab-mobile navbar navbar-fixed-top">
+    <a header-back-button ng-if="!isHome" href="javascript:void(0);" class="back-mobile"><i class="icon-back_icon"></i></a>
+
+    <span ng-if="!isHome" class="page-title" page-title>&nbsp;</span>
+    <div class="header-img-mobile-wrap" ng-if="isHome">
+        <img class="header-img-mobile" src="images/ice-logo.svg" alt="iCE Angel">
+         <span class="header-logo-text" i18n="common.iceAngelId"></span>&trade;   
+    </div>
+
+    <div class="nav-mobile">
+        <div class="toggle-mobile">
+            <span class="badge" ng-if="logged">{{ newMessagesCount }}</span>
+            <button data-target="#menu-mobile" data-toggle="collapse" type="button" class="navbar-toggle"
+                    aria-controls="menu-mobile">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="menu-mobile collapse" id="menu-mobile">
+            <ul>
+                <li ng-if = "!logged">
+
+                <a href="{{hrefbase}}/weixin/getUserInfo" ng-if="iswechat"><i class="icon-join_now"></i> <span i18n = "common.joinNow"></span></a>
+                <a href="#/registration/register?external=1" ng-if="!iswechat"><i class="icon-join_now"></i> <span i18n = "common.joinNow"></span></a>
+                    </li>
+                <li>
+                    <a ui-sref="base.home" href=""><i class="icon-home_icon"></i> <span i18n="common.home"></span></a>
+                </li>
+                <li ng-if="logged">
+                    <a href="" ui-sref="account.show"><i class="icon-account_icon"></i> <span i18n="common.myAccount"></span></a>
+                </li>
+                <li ng-if="logged && !showPartner">
+                    <a href="" ui-sref="account.edit"><i class="fa fa-pencil"></i> <span i18n="common.editAccount"></span></a>
+                </li>
+                <li ng-if="logged">
+                    <a href="" ui-sref="account.settings"><i class="icon-setting_icon"></i> <span i18n="common.settings"></span></a>
+                </li>
+                <li ng-if="logged">
+                    <a href="" ui-sref="account.messages">
+                        <i class="icon-message_center_icon"></i> <span i18n="common.messageCenter"></span>
+                        <span class="label label-danger">{{ newMessagesCount }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" ui-sref="base.about"><i class="icon-about_ice_angel_icon"></i> <span i18n="common.about"></span></a>
+                </li>
+                <li ng-if="logged">
+                    <a href="" ng-click="logout()"><i class="icon-log_out_icon"></i> <span i18n="common.logOut"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

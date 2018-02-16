@@ -1,0 +1,267 @@
+<div id="main-load-content" class="view-member">
+    <section class="content">
+        <div class="container no-padding">
+            <!-- Basic Information -->
+            <div class="title">
+                <h3 i18n="common.basicInfo"></h3>
+            </div>
+            <div class="section-wrap holder member-box">
+                <div class="clearfix">
+                    <div class="section holder">
+                        <div class="row pb-15">
+                            <div class="col-sm-4 col-xs-4 user_photo_box">
+                                <ia-avatar avatar="{{ member.photo }}" badge="{ 'icon-account_holder_icon': account.id == member.id, 'icon-members_icon': account.id != member.id }"></ia-avatar>
+                            </div>
+                            <div class="col-sm-8 col-xs-8">
+
+                                <h3 class="name-account" person-name email="{{ member.email }}" first-name="{{ member.first_name }}" middle-name="{{ member.middle_name }}" last-name="{{ member.last_name }}"></h3>
+
+                                <member-id model="member"><span i18n="common.memberId"></span></member-id>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="row pb-15">
+
+                            <ul class="nav nav-justified nav-member">
+                                <li class="section-bdr" ng-hide="publicMode">
+                                    <a ng-click="preview(permission);" class="nav-print" href=""><img src="images/preview.png" class="print_id_show"/><br><span i18n="common.preview"></span></a>
+                                </li>
+                                <li class="section-bdr" ng-hide="publicMode || shareMode">
+                                    <share-member-profile-form member="member" permission="permission" type="download-member-profile"></share-member-profile-form>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-history" member="member" permission="permission" email-profile><img src="images/email.png" class="print_id_show"/><br><span i18n="common.email"></span></a>
+                                </li>
+                                <li class="section-bdr" ng-if="browserName==false">
+                                    <a ng-print print-element-id="printShareProfile" size="sm" href="#" class="nav-print" member="member" permission="permission">
+                                         <img src="images/CardID.png" class="print_id_show"/><br><span i18n="common.idCard"></span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="box-view-pro basic_info">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4 title-pro"><span i18n="common.nationality"></span>:</div>
+                                        <div class="col-xs-8 name-pro">{{member.nationality | countryFilter:'name'}}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4 title-pro"><span i18n="common.gender"></span>:</div>
+                                        <div class="col-xs-8 name-pro">{{member.gender | settingsFilter:'genders':'name'}}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4 title-pro"><span i18n="common.cellPhone"></span>:</div>
+                                        <div class="col-xs-8 name-pro" full-phone-number phonecode="member.phone.code" phonenumber="member.phone.number"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4 title-pro"><span i18n="common.dateOfBirth"></span>:</div>
+                                        <div class="col-xs-8 name-pro">
+                                            <span full-date year="member.birth_date.year" month="member.birth_date.month" day="member.birth_date.day"> </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4 title-pro"><span i18n="common.emailAddress"></span>:</div>
+                                        <div class="col-xs-8 name-pro">{{member.email}}</div>
+                                    </div>
+                                </li>
+
+                                <li ng-if="false">
+                                    <div class="row">
+                                        <div class="col-xs-4 title-pro"><span i18n="common.locationTracking"></span>:</div>
+                                        <div class="col-xs-8 name-pro">
+                                            <select ng-model="member.additional_information.personal.location_track"
+                                                    name="member_tracking" class="form-control"
+                                                    ng-options="track.value as track.name for track in results = (globals.settings.location_tracks.toArray() | optionsTrans:'name' | optionsSort:'name')">
+                                                <option class="hide" value="" i18n="common.locationTrack"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Basic Information  -->
+
+
+            <!-- Emergency Contact Person -->
+            <div class="title" ng-hide="shareMode">
+                <h3 i18n="common.emergencyContactPerson"></h3>
+            </div>
+            <div class="section-wrap member-box" ng-hide="shareMode">
+                <div class="clearfix">
+                    <div class="section" ng-repeat="contact in member.contacts track by $index">
+                        <div ng-include="'partials/member/contacts.html'"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Emergency Contact Person -->
+
+                 <form name="EditMemberPermissionForm" novalidate ng-submit="handle(permission);">
+                <!-- Additional Information  -->
+                <div class="title">
+                    <h3 i18n="common.rescueWallet"></h3>
+                </div>
+ 
+           
+
+            <div class="tabber-person data_tab personal_tab data-tab-inner">
+              <div class="tab-content info_icon" id="accordion">
+                 <!-- Share Personal Information -->
+                 <div class="panel panel-default personal_tab_label" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+                     <div class="panel-heading" >
+                         <div class="panel_block">
+                         <label for="personalCheckbox" class="control controlcheckbox" ng-click= "hasPersonalData = false">
+                            <input type="checkbox" id="personalCheckbox" ng-model="personalCheckbox"  select-all-checkbox >
+                             <div class="control__indicator" ng-class = "{'active_color':hasPersonalData}"></div>
+                             </label>
+                                <div data-toggle="collapse" data-parent="" href="#collapsePersonal" class="collapse-a collapsed accordion-toggle"
+                    ia-label-main message="tooltips.youMayUploadHospitalRecords">
+                           <a href="javascript:void(0);#Personal" class="tab-click tab-click-personal" data-toggle="tab" i18n="common.personal"></a>
+
+                      </div> 
+                 </div>
+            </div>
+            <div id="collapsePersonal" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel">
+                                <div ng-include="'partials/member/personal/permission.html'"></div>
+                            <!--form-tabber-->
+                        </div>
+                    </div>
+                    </ng-form>
+                </div>
+            </div>
+        </div>   <!-- Share Personal Information end -->
+              
+ <!-- Share Insurance Information -->
+            <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+                       <div class="panel-heading">
+                             <div class="panel_block">
+                                  <label for="insuranceCheckbox" class="control controlcheckbox" ng-click = "hasInsuranceData = false"> 
+                                <input type="checkbox" id="insuranceCheckbox" ng-model="insuranceCheckbox" select-all-checkbox >
+                                <div class="control__indicator" ng-class="{'active_color': hasInsuranceData}"></div>
+                                     </label> 
+                    <div data-toggle="collapse" data-parent="" href="#collapseinsurane" class="collapse-a collapsed accordion-toggle"
+                    ia-label-main message="tooltips.youMayUploadHospitalRecords">
+                       <a href="javascript:void(0);#Insurance" class="tab-click tab-click-insurance" data-toggle="tab" i18n="common.insurance"></a>
+
+                </div>
+              </div>
+             </div>
+
+                  <div id="collapseinsurane" class="panel-collapse collapse">
+                   <div class="panel-body">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel">
+                         <div ng-include="'partials/member/insurance/permission.html'">
+                       </div>
+                        </div>
+                    </div>
+                    </ng-form>
+                   </div>
+            </div>
+        </div>  
+  <!-- Share Insurance Information end -->
+                  <!-- Share Medical Information -->
+     <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+          <div class="panel-heading">  
+             <div class="panel_block">
+                <label for="medicalCheckbox" class="control controlcheckbox" ng-click = "hasMedicalData = false">
+                    <input type="checkbox" id="medicalCheckbox" ng-model="medicalCheckbox" select-all-checkbox >
+                    <div class="control__indicator" ng-class = "{'active_color':hasMedicalData}"></div>
+                              </label>
+                                   <div data-toggle="collapse" data-parent="" href="#collapsemedical" class="collapse-a collapsed accordion-toggle"
+                    ia-label-main message="tooltips.youMayUploadHospitalRecords">
+                 
+  <a href="javascript:void(0);#Medical" class="tab-click tab-click-medical" data-toggle="tab" i18n="common.medical"></a>
+
+                        </div> 
+                    </div>
+                </div>
+
+                  <div id="collapsemedical" class="panel-collapse collapse">
+                     <div class="panel-body">
+                    <ng-form name="personalCategoryForm">
+                    <div class="panel-group">
+                        <div class="panel" >
+                             <div id="accordion1" ng-include="'partials/member/medical/permission.html'"></div>
+                            <!--form-tabber-->
+                        </div>
+                    </div>
+                    </ng-form>
+                </div>
+            </div>
+        </div>  
+
+  <!-- Share Medical Information end -->
+    <!-- Share Life Records -->
+            <div class="panel panel-default" ng-show="!viewMode || hasAdditionalInfo('personal', 'personal')">
+                   <div class="panel-heading">  
+                    <div class="panel_block"> 
+                        <label for="lifestyleCheckbox" class="control controlcheckbox" ng-click = "hasRecordData = false">
+                        <input type="checkbox" id="lifestyleCheckbox" ng-model="lifestyleCheckbox" select-all-checkbox >
+                        <div class="control__indicator" ng-class="{'active_color':hasRecordData}"></div>
+                       </label>
+                       <div data-toggle="collapse" data-parent="" href="#liferecords" class="collapse-a collapsed accordion-toggle"
+                ia-label-main message="tooltips.youMayUploadHospitalRecords">
+                <a href="javascript:void(0);#Lifestyle" class="tab-click tab-click-records" data-toggle="tab" i18n="common.records"></a>
+
+                     </div> 
+                 </div>
+            </div>
+
+              <div id="liferecords" class="panel-collapse collapse">
+                  <div class="panel-body">
+                <ng-form name="personalCategoryForm">
+                   <div class="panel-group">
+                    <div class="panel">
+                         <div ng-include="'partials/member/record/permission.html'"></div>
+                        <!--form-tabber-->
+                    </div>
+                </div>
+                </ng-form>
+            </div>
+        </div>
+    </div>  
+
+  <!-- Share Life Records end -->
+                          </div>  
+                    </div>
+                    <div class="edit_mn" style="display:none">
+             <span>
+                 <a href="javascript:void(0);" class="collapseall" ng-click = "expandTab();" ><img src="images/w-all.png"></a>
+             </span>
+             <span>
+                 <a href="javascript:void(0);" class="collapall" ng-click = "collapseTab()"><img src="images/col-al.png"></a>
+             </span>
+        </div>
+                </div>
+                <!-- End Additional Information -->
+            </form>
+        </div>
+    </section>
+</div>

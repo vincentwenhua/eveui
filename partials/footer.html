@@ -1,0 +1,23 @@
+<div id="footer-wrap" ng-class="{ 'is-home': isHome, 'no-show': !isHome, 'desktop-only': !isHome }" ng-show="!isSafariPrivate">
+    <div class="container">
+        <footer id="footer" class="clearfix">
+            <div class="row">
+                <div class="col-sm-5 footer-copy">
+                    <p i18n="common.copyright" data-year={{globals.currentYear}} data-icp="沪ICP备15023233号-1" ></p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="footer-nav">
+                        <ul class="clearfix">
+                            <li><a ui-sref="base.aboutus" i18n="common.aboutUs"></a></li>
+                            <li><a ui-sref="base.faq" i18n="common.faq"></a></li>
+                            <li><a ui-sref="base.contactus" i18n="common.contactUs"></a></li>
+                            <li><a ui-sref="base.terms" i18n="common.termsAndConditions"></a></li>
+                            <li><a ui-sref="base.privacy" i18n="common.privacyPolicy"></a></li>
+                        </ul>
+                        <div class="cl"></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

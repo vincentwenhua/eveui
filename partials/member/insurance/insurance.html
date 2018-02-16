@@ -1,0 +1,68 @@
+<ng-form name="insuranceForm " novalidate>
+    <div class="form-person-heading" ><span i18n="common.insuranceNumber" data-number="{{$index + 1}}"></span>
+        <a ng-hide="viewMode" class="remove-btn" href="javascript:void(0);" ng-click="remove('insurances', 'insurances', $index);">
+            <span class="glyphicon glyphicon-trash error-txt"></span>
+        </a>
+    </div>
+    <div class="form-person-body additional_notes">
+        <div class="form-group">
+            <label ia-label required translation="common.category"></label>
+
+            <div class="custom_select" ng-class="{ 'has-error' : memberForm.$submitted && insuranceForm.insurance_type.$invalid}">
+                <select class="form-control" name="::insurance_type" ng-model="::insurance.insurance_type"
+                        ng-options="type.id as type.name for type in results = (globals.settings.insurance_types.toArray() | optionsTrans:'name' | optionsSort:'name')" required>
+                    <option class="hide" value="" i18n="common.selectInsuranceType"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : memberForm.$submitted && insuranceForm.insurance_company.$invalid}">
+            <label ia-label required message="tooltips.insuranceCompanyName" translation="common.companyName"></label>
+            <input class="form-control" type="text" name="::insurance_company" data-i18n-attr="{placeholder: 'common.insuranceCompany'}"
+                   ng-model="::insurance.company_name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" required>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : memberForm.$submitted && insuranceForm.insurance_number.$invalid}">
+            <label ia-label translation="common.insuranceNumberMsg"></label>
+            <input class="form-control" type="text" name="::insurance_number" data-i18n-attr="{placeholder: 'common.insuranceNumberMsg'}"
+                   ng-model="::insurance.number" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }">
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : memberForm.$submitted && insuranceForm.insurance_plan_type.$invalid}">
+            <label ia-label message="tooltips.insurancePlanName" translation="common.planType"></label>
+            <input class="form-control" type="text" name="::insurance_plan_type" data-i18n-attr="{placeholder: 'common.insurancePlan'}"
+                   ng-model="::insurance.plan_type" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }">
+        </div>
+
+        <div class="form-group">
+            <label ia-label required message="tooltips.insurancePhone" translation="common.telephone"></label>
+
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="custom_select" ng-class="{ 'has-error' : memberForm.$submitted && insuranceForm.insurance_phone_code.$invalid}">
+                        <select class="form-control" name="::insurance_phone_code" ng-model="insurance.company_phone.code" ng-options="item.id as (item.name + ' ' + item.phonecode) for item in results = (globals.settings.countries.toArray() | optionsTrans:'name' | optionsSort:'name')" required>
+                            <option class="hide" value="" i18n="common.countryCode"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-7" ng-class="{ 'has-error' : memberForm.$submitted && insuranceForm.insurance_phone_number.$invalid}">
+                    <input class="form-control"
+                           phone-number
+                           phone-code="insurance.company_phone.code"
+                           name="::insurance_phone_number"
+                           ng-model="insurance.company_phone.number"
+                           ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                           data-i18n-attr="{placeholder: 'common.insurancePhoneNumber'}" required ng-keydown = "checkLength($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label ia-label translation="common.expiryDate"></label>
+            <ia-date disabled="::viewMode" type="now-future" model="::insurance.expiry_date" form="memberForm"></ia-date>
+        </div>
+
+        <div notes-layout class="form-group" notes="insurance.notes"></div>
+    </div>
+    <input type="hidden" ng-model="::insurance.id"/>
+</ng-form>

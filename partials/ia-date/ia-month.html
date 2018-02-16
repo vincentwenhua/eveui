@@ -1,0 +1,3 @@
+<select class="form-control" ng-disabled="disabled || !model.year" ng-init="model.month" ng-model="model.month" ng-options="month.id as month.name for month in months" ng-required="required" name="month"  ng-class="{ 'has-error': form.$submitted && form.month.$invalid }">
+    <option style="display: none" value="" i18n="common.month" ng-if="false"></option>
+</select>

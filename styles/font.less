@@ -1,0 +1,331 @@
+@import "variables.less";
+
+@font-face {
+  font-family: 'iceangel';
+  src: url('@{font-folder}iceangel.eot?31069641');
+  src: url('@{font-folder}iceangel.eot?31069641#iefix') format('embedded-opentype'),
+  url('@{font-folder}iceangel.woff?31069641') format('woff'),
+  url('@{font-folder}iceangel.ttf?31069641') format('truetype'),
+  url('@{font-folder}iceangel.svg?31069641#iceangel') format('svg');
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'iceangel-2';
+  src:url('@{font-folder}iceangel-2.eot?7d047e');
+  src:url('@{font-folder}iceangel-2.eot?#iefix7d047e') format('embedded-opentype'),
+    url('@{font-folder}iceangel-2.woff?7d047e') format('woff'),
+    url('@{font-folder}iceangel-2.ttf?7d047e') format('truetype'),
+    url('@{font-folder}iceangel-2.svg?7d047e#iceangel-2') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('@{font-folder}roboto-light-webfont.eot?') format('embedded-opentype'),
+  url('@{font-folder}roboto-light-webfont.woff') format('woff2'),
+  url('@{font-folder}roboto-light-webfont.woff') format('woff'),
+  url('@{font-folder}roboto-light-webfont.ttf') format('truetype'),
+  url('@{font-folder}roboto-light-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: 'Roboto-regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url('@{font-folder}roboto-regular-webfont.eot?') format('embedded-opentype'),
+  url('@{font-folder}roboto-regular-webfont.woff') format('woff2'),
+  url('@{font-folder}roboto-regular-webfont.woff') format('woff'),
+  url('@{font-folder}roboto-regular-webfont.ttf') format('truetype'),
+  url('@{font-folder}roboto-regular-webfont.svg') format('svg');
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: @font-family-iceangel;
+    src: url('@{font-folder}iceangel.svg?31069641#iceangel') format('svg');
+  }
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: @font-family-iceangel;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  margin-left: .2em;
+
+}
+
+[class*="_info_icon"]:before,  [class*="_record_icon"]:before {
+  
+    display: -webkit-box !important;
+    width: 26px;
+    height: 26px;
+    margin-right: 10px;
+    content: "  ";
+
+}
+
+.icon-about_ice_angel_icon:before { content: '\e800'; }
+.icon-view_history_icon:before { content: '\e82c'; }
+.icon-account_icon:before { content: '\e802'; }
+.fa-pencil:before {
+    content: "\f040";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+}
+.icon-allergy_info_icon:before { 
+  display: inline-block;
+  width: 18px;
+  height: 28px;
+  margin-right: 5px;
+  margin-top: 5px;
+  content: "";
+  background: url(../images/i_allergy_info.png) no-repeat 0 0;
+  background-size: contain !important;
+
+}
+.icon-back_icon:before { content: '\e804'; } /* '' */
+
+.icon-blood_info_icon:before { 
+  display: inline-block;
+  width: 14px;
+  height: 24px;
+  margin-right: 5px;
+  margin-top: 5px;
+  content: "";
+  background: url(../images/i_blood_info.png) no-repeat 0 0;
+  background-size: contain !important;
+  margin-left: 0.3em;
+
+}
+.icon-checked_icon:before { content: '\e806'; } /* '' */
+.icon-choose_from_list_icon:before { content: '\e807'; } /* '' */
+.icon-delete_icon:before { content: '\e808'; } /* '' */
+.icon-doctor_info_icon:before { 
+display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-top: 5px;
+  content: "";
+    background: url(../images/i_doctor_info.png) no-repeat 0 0;
+    background-size: contain !important;
+   }
+.icon-ecp_icon:before { content: '\e80a'; } /* '' */
+.icon-email_icon:before { content: '\e80b'; } /* '' */
+.icon-emergency_small_icon:before { content: '\e80c'; } /* '' */
+.icon-familys_past_medical_history_info_icon:before { 
+
+    display: inline-block;
+    width: 18px;
+    height: 28px;
+    margin-right: 0px;
+    content: "";
+    background: url(../images/i_family_m_info.png) no-repeat 0 0;
+    background-size: contain !important;
+}
+
+
+.icon-join_now::before {
+  content: '\e82c';
+}
+
+.icon-friends_in_need_icon:before { content: '\e80e'; } /* '' */
+.icon-guardians_icon:before { content: '\e80f'; } /* '' */
+.icon-home_icon:before { content: '\e810'; } /* '' */
+.icon-immunization_info_icon:before { 
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    margin-top: 5px;
+    content: "";
+    background: url(../images/i_immunization_info.png) no-repeat 0 0;
+    background-size: contain !important;
+} 
+.icon-living_will_record_icon:before { 
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  content: "";
+  background: url(../images/i_living_record.png) no-repeat 0 0;
+  background-size: contain !important;
+}
+.icon-emergency_record_icon:before { 
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  content: "";
+  background: url(../images/i_emergency_record.png) no-repeat 0 0;
+  background-size: contain !important;
+}
+.icon-hospital_record_icon:before { 
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  content: "";
+  background: url(../images/i_hospital_record.png) no-repeat 0 0;
+  background-size: contain !important;
+}
+.icon-log_out_icon:before { content: '\e813'; } /* '' */
+.icon-medical_condition_info_icon:before { 
+  display: inline-block;
+  width: 25px;
+  height: 28px;
+  margin-right: 0px;
+  margin-top: 5px;
+  content: "";
+  background: url(../images/i_condition_info.png) no-repeat 0 0;
+  background-size: contain !important;
+  margin-left: -.1em;
+}
+.icon-members_icon:before { content: '\e815'; } /* '' */
+.icon-account_holder_icon:before { content: '\e801'; } /* '' */
+.icon-message_center_icon:before { content: '\e817'; } /* '' */
+.icon-no_ecp_icon:before { content: '\e818'; } /* '' */
+.icon-nominate_myself_icon:before { content: '\e819'; } /* '' */
+.icon-nominate_new_person_icon:before { content: '\e81a'; } /* '' */
+.icon-organ_donor_status_info_icon:before { 
+    display: inline-block;
+    width: 23px;
+    height: 28px;
+    margin-right: 5px;
+    margin-top: 5px;
+    content: "";
+    background: url(../images/i_organ_info.png) no-repeat 0 0;
+    background-size: 100%;
+}
+.icon-password_icon:before { content: '\e81c'; } /* '' */
+.icon-phone_icon:before { content: '\e81d'; } /* '' */
+.icon-preview_icon:before { content: '\e81e'; } /* '' */
+.icon-print_icon:before { content: '\e81f'; } /* '' */
+.icon-print_id_icon:before { content: '\e820'; } /* '' */
+.icon-qr_code_icon:before { content: '\e821'; } /* '' */
+
+
+.icon-question_icon{
+  display:none;
+}
+
+.icon-question_icon:before { 
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  margin-top: 5px;    
+  content: '';
+  padding: 5px;
+
+  background: url(../images/info_tool_white.png) no-repeat 0 0;
+  background-size: 80%;
+  background-position-x: 4px;
+  background-position-y: 4px;
+
+  @media @desktop {
+    padding: 8px 10px;
+    background-size: 70%;
+    background-position-x: 6px;
+    background-position-y: 6px;
+
+  }
+
+}
+
+.icon-question_icon_main:before { 
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  margin-top: 0px;    
+  content: '';
+  padding: 5px;
+
+  @media @desktop {
+    padding: 8px 10px;
+  }
+
+  background: url(../images/info_tool.png) no-repeat 0 0;
+  background-size: 70%;
+  background-position: 4px 6px;
+
+}
+.tabber-person {
+  .icon-question_icon_main:before { 
+    background-position: 6px 0;
+  }
+}
+
+
+.icon-save_as_pdf_icon:before { content: '\e824'; } /* '' */
+.icon-setting_icon:before { content: '\e825'; } /* '' */
+.icon-share_profile_icon:before { content: '\e826'; } /* '' */
+.icon-star_icon:before { content: '\e827'; } /* '' */
+.icon-surgical_history_info_icon:before { 
+
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    margin-top: 5px;    
+    content: "";
+    background: url(../images/i_surgical_info.png) no-repeat 0 0;
+    background-size: 100%;
+}
+.icon-syc_fail_icon:before { content: '\e829'; } /* '' */
+.icon-syc_fail_icon.red:before { content: '\e829'; color: red !important;} /* '' */
+.icon-syc_success_icon:before { content: '\e82a'; } /* '' */
+.icon-transfer_icon:before { content: '\e82b'; } /* '' */
+.icon-menu_icon:before { content: '\e816'; }
+
+.icon-medication_info_icon:before {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    margin-top: 5px;
+    content: "";
+    background: url(../images/i_medical_info.png) no-repeat 0 0;
+    background-size: 100%;
+}
+
+.icon-transfer_icon:before {
+  content: '\e600';
+  font-family: 'iceangel-2';
+}
+
+@-moz-document url-prefix() {
+
+
+
+}

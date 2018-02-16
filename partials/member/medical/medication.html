@@ -1,0 +1,115 @@
+<ng-form name="medicationForm" novalidate>
+    <div class="form-person-heading">
+        <span i18n="common.medicationNumber" data-number="{{$index + 1}}"></span>
+        <a href="javascript:void(0);" class="remove-btn" ng-click="remove('medications', 'medical', $index);">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+    <div class="form-person-body">
+        <div class="form-group" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_name.$invalid}">
+
+            <label ia-label required translation="common.nameOfThing"></label>
+
+            <input class="form-control" name="medication_name" data-i18n-attr="{placeholder: 'common.medicationName'}" ng-model="::medication.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                   required>
+
+        </div>
+        <div class="form-group">
+            <label ia-label message="tooltips.medicationStatus" translation="common.status"></label>
+
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_status.$invalid}">
+                <select class="form-control" name="medication_status" ng-model="::medication.status"
+                        ng-options="status.id as status.status for status in results = (globals.settings.medications.statuses.toArray() | optionsTrans:'status' | optionsSort:'status' )">
+                    <option class="hide" value="" i18n="common.selectMedicationStatus"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label ia-label message="tooltips.medicationDose" translation="common.medicationDose"></label>
+
+            <div class="row">
+                <div class="col-xs-6 no-right-padding">
+                    <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_dosage_unit.$invalid}">
+                        <select class="form-control"
+                                name="medication_dosage_unit"
+                                ng-model="::medication.dosage_unit"
+                                ng-change="medication.dosage = null"
+                                ng-options="medication_dosage_unit.id as medication_dosage_unit.name for medication_dosage_unit in results = (globals.settings.medications.dosages.toArray() | optionsTrans:'name')">
+                            <option class="hide" value="" i18n="common.selectDosage"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6 no-left-padding left_10" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_dosage.$invalid}">
+                    <input class="form-control"
+                           name="medication_dosage"
+                           data-i18n-attr="{placeholder: 'common.dosage'}"
+                           ng-model="::medication.dosage"
+                           ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-disabled = "!medication.dosage_unit || viewMode">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label ia-label message="tooltips.medicationFrequency" translation="common.frequencyOfUse"></label>
+
+            <div class="row">
+                <div class="col-xs-6 no-right-padding">
+                    <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_frequency_unit.$invalid}">
+                        <select class="form-control"
+                                name="medication_frequency_unit"
+                                ng-model="::medication.frequency_unit"
+                                ng-change="medication.frequency = null"
+                                ng-options="frequency_unit.id as frequency_unit.name for frequency_unit in results = (globals.settings.medications.frequencies.toArray() | optionsTrans:'name')"
+                                ng-change="changeFrequencyUnit({{$index}})">
+                            <option class="hide" value="" i18n="common.selectFrequencyOfUse"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6 no-left-padding left_10" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_frequency.$invalid}">
+                    <!--<div ng-if="medication.frequency_unit == 6">-->
+                     <div ng-if="medication.frequency_unit == 6">
+                        <input class="form-control medication_frequency"
+                               name="medication_frequency"
+                               data-i18n-attr="{placeholder: 'common.medicationFrequency'}"
+                               ng-model="::medication.frequency"
+                               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                               ng-disabled="true">
+                    </div>
+                    <div ng-if="medication.frequency_unit != 6 && medication.frequency_unit != 7">
+                        <input class="form-control medication_frequency"
+                               name="medication_frequency"
+                               data-i18n-attr="{placeholder: 'common.medicationFrequency'}"
+                               ng-model="::medication.frequency"
+                               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-required = "medication.frequency_unit" ng-disabled = "!medication.frequency_unit || viewMode">
+                    </div>
+                    <div ng-if="medication.frequency_unit == 7">
+                        <input class="form-control medication_frequency"
+                               name="medication_frequency"
+                               data-i18n-attr="{placeholder: 'common.medicationFrequency'}" ng-disabled = "!medication.frequency_unit || viewMode"
+                               ng-model="::medication.frequency"
+                               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : memberForm.$submitted && medicationForm.medication_purpose.$invalid}">
+            <label ia-label message="tooltips.medicationPurpose" translation="common.purpose"></label>
+            <input class="form-control"
+                   name="medication_purpose"
+                   data-i18n-attr="{placeholder: 'common.medicationPurpose'}"
+                   ng-model="::medication.purpose"
+                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }">
+        </div>
+
+        <div class="form-group">
+            <label ia-label message="tooltips.medicationDates" translation="common.from"></label>
+            <ia-date disabled="viewMode" type="now-birth" model="medication.from" form="memberForm"></ia-date>
+        </div>
+        <div class="form-group">
+            <label ia-label message="tooltips.medicationDates" translation="common.to"></label>
+            <ia-date disabled="viewMode" type="birth-now" model="medication.to" form="memberForm" min-date="{{ medication.from }}"></ia-date>
+        </div>
+        <div notes-layout class="form-group" notes="medication.notes"></div>
+    </div>
+    <input type="hidden" ng-model="::medication.id"/>
+</ng-form>

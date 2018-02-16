@@ -1,0 +1,79 @@
+
+
+<div id="main-load-content">
+    <div class="main-wrap">
+
+<!--ui-sref="account.viewMember({member_id: account.id})" ng-click = "redirectEcpLocation(account.members[0].id)"-->
+     <div href=""  class="clickable emergency-section" ng-show="account.members[0].contacts.length == 0" ng-if = "account.members[0].id === account.id">
+     <div class="account-not-completed"  i18n="common.addAnEcp">
+     </div>
+     </div>
+
+        <div class="container no-padding">
+
+            <div class="article-wrap">
+                
+                <div class="row account_holder_box">
+
+                    <div class="col-sm-12 col-lg-12 col-xs-12 col-md-12 account_holder_left_box">
+
+                     <div class="article-title article-icon-right">
+                    <h2>
+                        <i class="account_holder_icon"></i>
+                        <span i18n="common.accountHolder"></span>
+                    </h2>
+                    <div ng-if="false">
+                        <a ui-sref="account.edit" class="setting-link">
+                            <img src="images/icon-setting.png" alt="">
+                        </a>
+                    </div>
+                </div>
+ <div class="col-lg-8">
+ <!--ui-sref="account.viewMember({member_id: account.id})" -->
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-4 col-sm-4 pd-0-tablet account_holder_photo">
+                                <ia-avatar avatar="{{ account.photo }}" class="clickable" ></ia-avatar>
+                            </div>
+
+<!-- ui-sref="account.viewMember({member_id: account.id})" -->
+                         <div href=""  class="row pb-15 clickable">
+
+                            <div class="col-xs-12 col-lg-8 col-sm-8 pd-0-tablet account_holder_name account_holder_info">
+                                <div class="photo-info">
+                                    <h1 class="name-account" class="name-account" person-name email="{{ account.email }}" first-name="{{ account.first_name }}" middle-name="{{ account.middle_name }}" last-name="{{ account.last_name }}"></h1>
+                                <div class="col-xs-12 col-md-6 col-sm-4 col-lg-6 account_info">                              
+                                    <div class="ecp_account ecp_acc_holder">
+                                        <div class="member-contact-box ">
+                                            <span class="name-account" i18n = "common.emergencyContactPersonFor" data-number="{{friends.contacts.length || 0}}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>                  
+<!-- ui-sref="account.viewMember({member_id: account.id})" -->
+                        </div>                       
+                        </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <!--article-wrap -->
+
+            <div id="tabs-with-directive" data-tabs>
+                  <ul class="tabs">
+                    <li><a href="#" data-tabs-link="1"><span i18n="common.friendsInNeed"></span></a></li>
+                    <li><a href="#" data-tabs-link="2"><span i18n="common.newMember"></a></li>
+                  </ul>      
+                  <div class="panes">
+                    <div data-tabs-pane="1" class="pane active">
+                      <div ng-include="'partials/partner/FIN.html'"></div>
+                    </div>
+                    <div data-tabs-pane="2" class="pane">
+                       <div ng-include="'partials/partner/add.html'"></div>
+                    </div>
+                  </div>
+            </div>                       
+        </div>
+    </div>
+</div>
+ 

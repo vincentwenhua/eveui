@@ -1,0 +1,346 @@
+@import "variables.less";
+@import "mixins.less";
+
+@charset "utf-8";
+
+select.has-error {
+  border: 1px solid #a94442;
+}
+
+#forms p {
+  font-size: 16px;
+  font-weight: bold;
+}
+#help-form textarea {
+  height: 60px;
+}
+
+form{
+  &#ChangeEmailForm {
+    padding-top: 50px;
+  }
+
+  @media @desktop{
+
+    .left_10 {
+      padding-left: 10px;
+    }
+
+  }
+
+  #edit-member-permission-form {
+    ul.list-group {
+      li.list-group-item {
+        label {
+          display: inline;
+        }
+      }
+    }
+  }
+
+  &.setup-panic,
+  &#trigger-alert,
+  &#resend-active-email {
+    padding-top: 5.2rem;
+    div.form-sub-in {
+      &.clearfix {
+        margin-bottom: 20px;
+      }
+      label {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &#DeleteAccountForm {
+    button {
+      width: 100%;
+      padding: 10px 5px;
+    }
+  }
+
+  &.panic-sync-confirmation-form,
+  &.unsync-panic-button-form {
+    height: 100%;
+    vertical-align: middle;
+    padding: 40px 0;
+    .full-width {
+      margin: 10px 0;
+    }
+  }
+}
+
+.ia-label {
+  display: -webkit-inline-box;
+}
+
+.ia-label-text {
+  display: inline-table !important;
+  vertical-align: middle;
+  font-family: 'Roboto' !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  color: lighten(@grey-text, 10%) !important;
+  letter-spacing: 0.05em !important;
+  @media @desktop {
+    white-space: nowrap;
+  }
+   @media @mobile {
+   display: inline !important;
+  }
+}
+
+.ia-label-require {
+  display: inline-block;
+  vertical-align: middle;
+
+  i:before {
+    color: #f00;
+    font-size: 18px;
+  }
+}
+
+.ia-label-tooltip-icon-container {
+  vertical-align: middle;
+}
+
+.ia-label-tooltip-icon {
+  color: #c6c6ca;
+  font-size: inherit;
+
+  @media @largescreens{
+    font-size: 22px;
+  }
+}
+
+.form{
+  &-group {
+    label {
+      font-weight: inherit;
+
+      @media @largescreens{
+        font-weight: 400;
+        font-size: inherit;
+      }
+
+      i {
+        &:extend(.ia-label-tooltip-icon);
+      }
+    }
+
+    .form-control {
+      @media @largescreens{
+        font-size: inherit;
+        overflow: visible;
+      }
+    }
+  }
+
+  &-section {
+    @media @ipad{
+      margin: 0 -5px;
+
+      > div {
+        padding: 0 5px;
+      }
+    }
+  }
+
+  &-in {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  &-sub-in {
+    max-width: 600px;
+    margin: 0 auto;
+
+    .custom_select:before {
+      @media @desktop{
+        top: 0px;
+      }
+    }
+    label {
+      font-weight: normal;
+      color: @text-color;
+      display: block;
+      margin: 0 0 7px;
+    }
+  }
+
+  &-tabber {
+    .box-register {
+      .border-radius(4px);
+      border: 1px solid #eceeef;
+      border-bottom: 3px solid #eceeef;
+      @media @smartphone{
+        width: 100%;
+      }
+      @media @bigsmartphone{
+        width: 100%;
+      }
+    }
+    .form-person-body {
+      padding: 20px;
+      @media @largescreens{
+        padding: 10px;
+      }
+    }
+    hr {
+      @media @desktop{
+        margin: 0 0 15px !important;
+      }
+    }
+    .left-column-title {
+      @media @desktop{
+        font-weight: 400;
+      }
+    }
+  }
+
+  &-person-heading {
+    border-bottom: 1px solid #eceeef;
+    padding: 20px;
+    font-size: 1.2em;
+    text-align: center;
+    position: relative;
+    font-weight: 200;
+    text-transform: uppercase;
+    font-style: italic;
+
+    a {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      color: @ia-color-red;
+      display: block;
+      font-size: 15px;
+    }
+  }
+
+  &-person-bottom {
+    padding: 20px;
+    font-size: @font-size-info-button;
+    text-align: center;
+  }
+
+  &-input-delete {
+    .form-group {
+      position: relative;
+      margin-right: 30px;
+    }
+    margin-bottom: 15px;
+  }
+
+  &-mid {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+
+  &-outer {
+    padding: 30px 0 0;
+  }
+
+
+  &-control.field-user,
+  &-control.field-pass {
+    background: #fff url(../images/user-field.png) no-repeat;
+    background-position: 15px center;
+    background-size: 22px 22px;
+    padding: 15px 20px 15px 45px;
+    color: #000;
+    font-size: 16px;
+
+    @media @bigsmartphone, @ipad, @ipadportrait, @smartphone {
+      height: auto;
+    }
+  }
+
+  &-control.field-pass {
+    background-image: url(../images/pass-field.png);
+  }
+
+  &-control {
+
+    .border-radius(0px);
+    border: @border-property-1px;
+    font-family: @font-family-base;
+    font-weight: @font-weight;
+    font-size: inherit;
+    margin-bottom: 20px;
+    height: 44px;
+    padding: 10px 12px 11px;
+
+    @media @desktop{
+      color: #555;
+      margin-bottom: 20px;
+      height: 44px;
+      margin-left: 0;
+    }
+
+  }
+
+  &-wrap {
+    p {
+      color: #666666;
+    }
+  }
+}
+.name_info{
+   label{
+      @media @mobile{
+      width:80px
+      }
+  }
+}
+
+
+
+.login-form-password {
+  margin: 20px 0;
+}
+
+.ia-date {
+  .form-control {
+    margin: 0;
+  }
+}
+
+.member-save {
+  font-weight: 700;
+  font-style: italic;
+  font-size: @font-size-section;
+  font-family: 'Roboto';  
+  position: absolute;
+  width: auto;
+  right: -45px;
+  z-index: 10;
+
+  @media @ipad{
+  right: 90px;
+  }
+  
+  @media @smartphone{
+    font-size: 12px;
+    position: fixed;
+    right: auto;
+    bottom: 5px;
+  }
+}
+
+.pdf-download {
+  position: absolute;
+  width: 200px;
+  left: -50px;
+  z-index: 10;
+}
+
+.name-account {
+  font-weight: 600 !important;
+
+}
+
+#repeat-password{
+  display:none;
+}

@@ -1,0 +1,19 @@
+<div class="popup-login">
+    <div class="popup1 popup-un-sys">
+        <div class="modal-body text-center">
+
+            <div class="pb-15" ng-hide="error" ng-cloak>
+                <h3>{{nominate_email}}</h3>
+                <p i18n="common.guardianNominationSent" data-email="{{nominate_email}}"></p>
+            </div>
+
+            <div class="pb-15" ng-show="error" ng-cloak>
+                <h3 i18n="common.error"></h3>
+                <p>{{guardian_error}}</p>
+            </div>
+
+            <p><a href="javascript:void(0);" ng-click="ok()" class="btn btn-theme btn-150 btn-block" i18n="common.ok"></a></p>
+
+        </div>
+    </div>
+</div>

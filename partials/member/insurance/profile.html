@@ -1,0 +1,45 @@
+<ul class="row">
+    <li class="col-sm-6" clearfix ng-repeat="insurance in member.additional_information.insurances track by insurance.id">
+        <div class="col-sm-12 profile-insurance text-left">
+            <div class="col-sm-12 text-center"><strong i18n="common.insuranceNumber" data-number="{{$index + 1}}"></strong></div>
+            <div>
+                <div class="list-item">
+                    <label class="col-xs-4"><b ia-label translation="common.companyName"></b></label>
+                    <span class="right col-xs-8">{{insurance.company}}</span>
+                </div>
+            </div>
+            <div>
+                <div class="list-item">
+                    <label class="col-xs-4"><b ia-label translation="common.insuranceType"></b></label>
+                    <span class="right col-xs-8">{{insurance.insurance_type | settingsFilter:'insurance_types':'name'}}</span>
+                </div>
+            </div>
+            <div>
+                <div class="list-item">
+                    <label class="col-xs-4"><b ia-label translation="common.planType"></b></label>
+                    <span class="right col-xs-8">{{insurance.plan_type}}</span>
+                </div>
+            </div>
+            <div>
+                <div class="list-item">
+                    <label class="col-xs-4"><b ia-label translation="common.insurancePhoneNumber"></b></label>
+                    <span class="right col-xs-8" full-phone-number phonecode="insurance.phone.code" phonenumber="insurance.phone.number"></span>
+                </div>
+            </div>
+            <div>
+                <div class="list-item">
+                    <label class="col-xs-4"><b ia-label translation="common.expiryDate"></b></label>
+                    <span class="right col-xs-8">
+                        <span full-date year="insurance.expiry_date.year" month="insurance.expiry_date.month" day="insurance.expiry_date.day"> </span>
+                    </span>
+                </div>
+            </div>
+            <div>
+                <div class="list-item">
+                    <label class="col-xs-4"><b ia-label translation="common.expiryDate"></b></label>
+                    <span class="right col-xs-8">{{insurance.notes}}</span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

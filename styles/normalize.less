@@ -1,0 +1,368 @@
+@import "variables.less";
+@import "mixins.less";
+
+@charset "utf-8";
+
+* {
+  margin: 0;
+}
+
+*, *:before, *:after {
+  word-break: break-word;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+/*
+  Default Font Styles
+  ______________________
+*/
+body, input, select, textarea {
+  .font-base(@font-family-base, @font-weight, @font-default-size);
+  color: @text-color;
+  line-height: @line-height-base;
+}
+
+body {
+  background: @body-bg;
+  padding: 0 2px;
+
+  @media @bigsmartphone{
+    font-size: @font-size-media-360;
+    line-height: @line-height-media;
+  }
+
+  @media @smartphone{
+    font-size: @font-size-media-320;
+    line-height: @line-height-media;
+  }
+  @media @largescreens{
+    line-height: @line-height-media;
+    font-size: @font-size-media-360;
+  }
+}
+
+/*
+  Headings
+  ______________________
+*/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  color: @text-color;
+  line-height: @line-height-base;
+  margin: 0 0 15px;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+header {
+  @media @bigsmartphone{
+    display: none;
+  }
+  @media @smartphone{
+    display: none;
+  }
+}
+
+/* Links
+______________________*/
+a {
+  color: @main-blue-color-1;
+  .delete {
+    color: @ia-color-red;
+  }
+  .sync-setting {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 20px 0;
+    min-width: 40px;
+    img {
+      width: 40px;
+      height: 40px;
+      margin-right: 0;
+    }
+  }
+
+    span.glyphicon-trash{
+    color: @ia-color-red;
+    padding: 2px;
+    border: none;
+    margin: 2px;
+    border-radius: 5px;
+  }
+   span.trash_border{
+      color: @ia-color-red;
+      padding:6px 8px;
+      margin: 2px;
+      border-radius: 5px;
+     border: solid transparent 1px;
+  
+     &:hover{
+
+      color: darken(@ia-color-red, 15%) !important;
+
+     }
+  }
+
+  span.glyphicon-wrench{
+    color: @main-blue-color;
+    padding: 6px;
+    border: solid @grey-border-color-4 1px;
+    margin: 2px;
+    border-radius: 5px; 
+  }
+}
+
+a:hover {
+  color: @grey-text;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  border: none;
+}
+
+img {
+  border: none;
+}
+
+/*
+  p, blockquote, address
+  ______________________
+*/
+p {
+  margin: 0;
+  padding: 0 0 10px;
+  @media @desktop{
+    margin: 0;
+    padding: 0 0 16px;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/* Lists
+______________________*/
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout
+______________________*/
+.container {
+  width: auto;
+  margin: 0 auto;
+  @media @ipad,@tablet {
+    width: auto;
+  }
+  @media @desktop{
+    width: 980px;
+  }
+  @media @largescreens{
+    width: auto;
+  }
+}
+
+.cl {
+  clear: both;
+  font-size: 0;
+  height: 0;
+}
+
+.clearfix:after {
+  clear: both;
+  content: ' ';
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/*Positions*/
+.fl {
+  float: left
+}
+
+.fr {
+  float: right;
+  @media @desktop{
+  padding-right: 10px;
+}
+}
+
+.center {
+  text-align: center
+}
+
+.right {
+  text-align: right
+}
+
+.top {
+  vertical-align: top
+}
+
+.middle {
+  vertical-align: middle
+}
+
+.pb-15 {
+  padding-bottom: 15px;
+}
+
+.pt-7 {
+  padding-top: 7px !important;
+}
+
+.pt-35 {
+  padding-top: 35px !important;
+}
+
+.form-group .error,
+.error::-webkit-input-placeholder,
+.error {
+  color: @ia-color-red;
+}
+
+td > strong {
+  font-weight: normal;
+}
+
+hr {
+  border-top: 1px solid @grey-border-color;
+  margin: 10px 0px;
+  color: #c7c8cd;
+  height: 1px;
+  background-color: #c7c8cd;
+  border: none;
+  @media @bigsmartphone {
+    display: none;
+  }
+}
+
+.require-input {
+  .require {
+    @media @largescreens{
+      font-size: 24px;
+    }
+  }
+}
+
+span[class^='skype_pnh_container'] {
+  display: none !important;
+}
+
+span[class^='skype_pnh_print_container'] {
+  display: inline !important;
+}
+
+footer {
+  @media @ipad{
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 14px;
+    line-height: @line-height-media;
+  }
+}
+
+.select-wrapper {
+  display: block;
+  position: relative;
+
+  &:after {
+    content: '\f0d7';
+    font-family: 'FontAwesome';
+    font-size: 16px;
+    height: 100%;
+    line-height: @input-height-base;
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+    position: absolute;
+    right: 10px;
+    text-align: right;
+    top: 0;
+    width: 16px;
+  }
+
+
+
+  select {
+    position:relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 16px + 16px / 4;
+  }
+}
+
+select {
+  @media @largescreens{
+    text-transform: none;
+    width: 100%;
+    padding: 10px 5px;
+  }
+
+  .form-control {
+    @media @largescreens, @largescreens1{
+      padding: 10px 12px 11px;
+      height: 44px;
+      line-height: 52px;
+      border-radius: 0px;
+    }
+  }
+}
+
+b {
+  font-family: "Roboto-regular", sans-serif;
+  font-weight: normal;
+}
+
+label {
+
+  font-family: "Roboto-regular", sans-serif;
+  font-weight: normal;
+
+  .checkbox {
+    font-weight: @font-weight;
+    margin: 0px;
+    padding: 0px;
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+ 

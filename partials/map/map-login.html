@@ -1,0 +1,18 @@
+<div id="main-load-content" class="map-block">
+        <div class="emergency-section alert-view container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="account-not-completed account-completed textmaxlen">
+                        <p class="text-left" i18n="common.friendHasTriggered" >
+                            </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!logged" class="content container">
+            <p class="text-center" i18n="common.pleaseLogin"></p>
+            <ng-include src="'partials/login/form.html'"></ng-include>
+        </div>
+
+
+</div>

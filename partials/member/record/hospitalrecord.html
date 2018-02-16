@@ -1,0 +1,93 @@
+<ng-form name="hospitalRecordForm">
+    <div class="form-person-heading">
+        <span i18n="common.hospitalRecordNumber" data-number="{{$index + 1}}"></span>
+        <a href="javascript:void(0);" class="remove-btn" ng-click="remove('hospital_records', 'records', $index);">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+    <div class="form-person-body additional_notes">
+        <div class="form-group hidden">
+            <label ia-label translation="common.hasMemberPreparedWill"></label>
+
+            <div class="custom_select">
+                <select class="form-control" ng-model="hospital_record.will">
+                    <option class="hide" value="" i18n="common.will"></option>
+                    <option value="Yes" i18n="common.yes"></option>
+                    <option value="No" i18n="common.no"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group hidden">
+            <label ia-label translation="common.isThereOtherImportantInformation"></label>
+            <select class="form-control" ng-model="::hospital_record.disclose">
+                <option value="" i18n="common.disclose"></option>
+                <option value="Yes" i18n="common.yes"></option>
+                <option value="No" i18n="common.no"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="ia-label-text" i18n="common.date"></label>
+            <ia-date disabled="viewMode" type="now-birth" model="hospital_record.date" ng-required="!hospital_record.practitioner && !hospital_record.category && !hospital_record.notes && !hospital_record.file" form="hospitalRecordForm"></ia-date>
+        </div>
+        <div class="form-group">
+            <label class="ia-label-text" i18n="common.category"></label>
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && hospitalRecordForm.hospital_record_category.$invalid}">
+                <select class="form-control"
+                        ng-model="::hospital_record.category"
+                        name="hospital_record_category"
+                        ng-options="hospitalisation_reason.id as hospitalisation_reason.name for hospitalisation_reason in results = (globals.settings.hospitalisation_reasons.toArray() | optionsTrans:'name' | optionsSort:'name')"
+                        ng-required="!hospital_record.practitioner && !hospital_record.date && !hospital_record.notes && !hospital_record.file">
+                    <option class="hide" value="" i18n="common.selectHospitalRecordCategory"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row no-right-margin-desktop">
+                <div class="col-xs-12">
+                    <label ia-label translation="common.practitionerName"></label>
+                </div>
+            </div>
+            <div class="row no-right-margin-desktop">
+                <div class="col-xs-6" ng-class="{'has-error' : memberForm.$submitted && hospitalRecordForm.hospital_record_practitioner_last_name.$invalid}">
+                    <input class="form-control" name="hospital_record_practitioner_last_name" ng-model="hospital_record.practitioner.last_name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" data-i18n-attr="{placeholder: 'common.lastName'}" ng-required="!hospital_record.date && !hospital_record.category && !hospital_record.notes && !hospital_record.file">
+                </div>
+                <div class="col-xs-6" ng-class="{'has-error' : memberForm.$submitted && hospitalRecordForm.hospital_record_practitioner_first_name.$invalid}">
+                    <input class="form-control" name="hospital_record_practitioner_first_name" ng-model="hospital_record.practitioner.first_name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" data-i18n-attr="{placeholder: 'common.firstName'}" ng-required="!hospital_record.date && !hospital_record.category && !hospital_record.notes && !hospital_record.file">
+                </div>
+            </div>
+        </div>
+        <div notes-layout
+             class="form-group"
+             ng-class="{'has-error' : memberForm.$submitted && hospitalRecordForm.hospital_record_notes.$invalid}"
+             notes="hospital_record.notes" ng-required="!hospital_record.practitioner && !hospital_record.category && !hospital_record.date && !hospital_record.file"></div>
+
+
+        <div class="form-group">
+            <label class="ia-label-text left-column-title" i18n="common.attachment"></label>
+
+            <div class="row box-upload">
+                <attachment file="hospital_record.file"></attachment>
+
+                <div class="col-xs-12 photo_upload_text_box">
+                    <div class="upload_avatar">
+                        <button class="btn btn-primary btn-lg btn-block btn-web" type="button">
+                            <span class="upload-btn" i18n="common.upload"></span>
+                        </button>
+                        <ng-file size="2048"
+                                 ng-model="::hospital_record.file"
+                                 model="hospital_record"
+                                 ng-required="!hospital_record.practitioner && !hospital_record.category && !hospital_record.notes && !hospital_record.date"
+                                 name="file"></ng-file>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-messages="hospitalRecordForm.file.$error">
+                <div class="alert alert-danger" ng-message="filesize"><span i18n="errors.fileSize"></span></div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" ng-model="hospital_record.id"/>
+</ng-form>

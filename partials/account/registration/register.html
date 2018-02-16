@@ -1,0 +1,117 @@
+<form role="form" id="registration-form" ia-form-error-scroller novalidate name="registrationForm" ng-submit="registrationForm.$valid && handle(account)">
+  <span class="title heading_txt" page-title></span>
+    <div class="box-register account_info_box">
+        <div class="form-group">
+            <label ia-label required message="tooltips.dateOfBirth" translation="common.dateOfBirth"></label>
+            <ia-date required type="past-16" model="account.birth_date" form="registrationForm"></ia-date>
+            <div ng-show="(registrationForm.$submitted && (registrationForm.year.$invalid || registrationForm.month.$invalid || registrationForm.date.$invalid)) || (registrationForm.year.$hasVisited && registrationForm.year.$invalid) || (registrationForm.month.$hasVisited && registrationForm.month.$invalid) || (registrationForm.date.$hasVisited && registrationForm.date.$invalid)">
+                <div class="alert alert-danger"><span i18n="errors.birthDateRequired"></span></div>
+            </div>
+            <p class="guide" i18n="common.registrationAgeMessage"></p>
+        </div>
+        <div class="form-group" ng-class="{'has-error': (registrationForm.email.$hasVisited || registrationForm.$submitted) && registrationForm.email.$invalid}">
+            <label ia-label required message="tooltips.email" translation="common.emailAddress"></label>
+            <input class="form-control" name="email" ng-model="account.email"
+                   onCopy="return false" onPaste="return false" autocomplete=off
+                   data-i18n-attr="{placeholder: 'common.emailAddress'}"
+                   validate-email-available account-id="{{account.id}}" type="email" ng-maxlength="64" required> 
+
+            <div ng-show="registrationForm.email.$hasVisited || registrationForm.$submitted" ng-messages="registrationForm.email.$error">
+                <div class="alert alert-danger" ng-message="required"><span i18n="errors.emailRequired"></span></div>
+                <div class="alert alert-danger" ng-message="email"><span i18n="errors.emailFormat"></span></div>
+                <div class="alert alert-danger" ng-message="maxlength"><span i18n="errors.emailMaxLength"></span></div>
+                <div class="alert alert-danger" ng-message="available"><span i18n="errors.emailNotAvailable"></span></div>
+                <div class="alert alert-danger" ng-message="active"><span i18n="errors.emailInactive"></span></div>
+                <div class="alert alert-danger" ng-message="member"><span i18n="errors.memberEmailNotValid"></span></div>
+            </div>
+        </div>
+         <div class="form-group" ng-class="{ 'has-error' : (registrationForm.password.$hasVisited || registrationForm.$submitted) && registrationForm.password.$invalid}">
+            <label ia-label required message="tooltips.password" translation="common.password"></label>
+
+            <input type="{{display_password ? 'text' : 'password'}}"
+                   class="form-control password"
+                   ng-model="account.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{1,}"
+                   onCopy="return false" onPaste="return false" autocomplete=off
+                   data-i18n-attr="{placeholder: 'common.password'}"
+                   ng-minlength=8 ng-maxlength=12 name="password" required>
+            <div ng-show="registrationForm.$error.pattern">
+                <div class="alert alert-danger"><span i18n="errors.alphanumericPassword"></span>
+                </div>
+            </div>
+            <div ng-show="registrationForm.password.$hasVisited || registrationForm.$submitted" ng-messages="registrationForm.password.$error">
+                <div class="alert alert-danger" ng-message="required"><span i18n="errors.passwordRequired"></span></div>
+              <!--   <div class="alert alert-danger" ng-message="minlength"><span i18n="errors.minlength"></span></div>
+                <div class="alert alert-danger" ng-message="maxlength"><span i18n="errors.maxlength"></span></div> -->
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <label for="display_password" i18n="common.displayRegisterPassword"></label>
+            <input type="checkbox" name="display_password" id="display_password" ng-model="display_password"/>
+            <div id="repeat-password">
+               <input type="input" name="repeat_password" id="repeat-password" ng-model="hnyInput" ng-init="hnyInput=''" value="" />
+            </div>
+            <div ng-if="registrationForm.repeat_password.$viewValue != ''">
+            <label ia-label required message="tooltips.captcha" translation="common.captcha"></label>
+               <captcha class="row no-margin">
+                   <div class="col-xs-8">
+                       <input type="text"
+                              ng-model="captcha1"
+                              class="form-control"
+                              captcha-validator
+                              data-i18n-attr="{placeholder: 'common.inputCaptcha'}"
+                              name="captcha1"
+                              required>
+                   </div>
+                   <div class="col-xs-4">
+                       <canvas ia-captcha class="col-offset-3_3" width="85" height="32"></canvas>
+                   </div>
+               </captcha>
+            <div ng-show="registrationForm.$submitted" ng-messages="registrationForm.captcha1.$error">
+                <div class="alert alert-danger" ng-message="required"><span i18n="errors.captchaRequired"></span></div>
+                <div class="alert alert-danger" ng-message="captcha"><span i18n="errors.captchaNotValid"></span></div>
+            </div>
+           </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="box-register">
+        <div class="form-group">
+            <div class="terms-link" i18n="common.iHaveReadTerms"></div>
+            <div ng-show="registrationForm.$submitted" ng-messages="registrationForm.terms.$error">
+                <div class="alert alert-danger" ng-message="required"><span i18n="errors.termsChecked"></span></div>
+            </div>
+        </div>
+        <div ng-show="registrationForm.$submitted && errors">
+            <div class="alert alert-danger" ng-repeat="error in errors">
+                {{error.message}}
+            </div>
+        </div>
+    </div>
+
+    <!--box-register-->
+
+    <hr>
+
+    <div class="box-register">
+        <div class="botttom-button">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block btn-web" i18n="common.register"></button>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <a state="base.login" cancel-confirmation controller="CancelConfirmationModal" class="btn btn-default btn-lg btn-block btn-padding" i18n="common.cancel"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-register">
+        <div class="login-register">
+            <p>
+                <a ui-sref="base.login" href="" class="center underline" size="sm" i18n="common.logIn"></a>
+            </p>
+        </div>
+  </div>
+    <!--box-register-->
+</form>

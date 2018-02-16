@@ -1,0 +1,84 @@
+<div id="container-fluid">
+    <div id="main-load-content">
+        <div class="main-wrap">
+            <div class="container no-padding">
+                <div class="section-wrap section-wrap-combine article-title friend_question_icon">
+                    <h2>
+                        <span i18n="common.guardianFor" data-number="{{ friends.guardians.length || 0 }}"></span>
+                        <i class="fa icon-question_icon" ia-tooltip="tooltips.guardianFor" tooltip-placement="auto top" tooltip-append-to-body ="true"></i>
+                    </h2>
+                    <div class="no-info no-info-guard" ng-if="friends.guardians.length===0" i18n="common.noInformationToDisplay"></div>
+                    <br/>
+                    <div class="section-bdr clearfix">
+                        <div class="section guardian" clearfix ng-repeat="guardian in friends.guardians track by $index">
+                            <div class="row pb-15">
+                                <div class="col-sm-4 col-xs-4">
+                                    <ia-avatar avatar="{{ guardian.photo }}" badge="'icon-guardians_icon'"></ia-avatar>
+                                </div>
+                                <div class="col-sm-8 col-xs-8 pl-0-mob">
+                                    <h3 person-name email="{{ guardian.email }}" first-name="{{ guardian.first_name }}" middle-name="{{ guardian.middle_name }}" last-name="{{ guardian.last_name }}">
+                                    </h3>
+									<h3 class="name-account" person-name email="{{ guardian.email }}" first-name="{{ guardian.first_name }}" middle-name="{{ guardian.middle_name }}" last-name="{{ guardian.last_name }}"></h3>
+                                    <div class="info-section">
+                                        <p><em class="phone"><img src="images/sm-1.png" alt=""></em> <span full-phone-number phonecode="guardian.phone.code" phonenumber="guardian.phone.number"></span>
+                                        </p>
+
+                                        <p><em class="envelop"><img src="images/sm-2.png" alt=""></em> <span>{{guardian.email}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" class="fa fa-trash-o" size="sm" remove-guardian-for templateUrl="partials/guardian/templates/removeGuardianFor.html"></a>
+                        </div>
+                        <!--section -->
+
+                        <div class="section" ng-show="guardians.length < 2">
+                            <div class="add-section">
+                                <p><a size="sm" add-guardian-modal class="btn btn-success"> <span i18n="common.add"></span> </a></p>
+
+                                <p i18n="common.addGuardian"></p>
+                            </div>
+                        </div>
+
+                        <!--section -->
+                    </div>
+                </div>
+                <!--section-wrap -->
+
+                <div class="section-wrap wrap_section section-wrap-combine article-title tooltip_alignment friend_question_icon">
+    				<div class="section-wrap wrap_section section-wrap-combine article-title tooltip_alignment">
+                    <h2> <span i18n="common.emergencyContactPersonFor" data-number="{{friends.contacts.length || 0}}"></span>
+                         <i class="fa icon-question_icon" ia-tooltip="tooltips.emergencyContactPersonFor" tooltip-placement="auto top" tooltip-append-to-body="true" ></i></h2>
+                    <div class="no-info" ng-if="friends.contacts.length===0" i18n="common.noInformationToDisplay"></div>
+                    <br/>
+
+                    <div class="section-bdr clearfix">
+
+                        <div class="section guardian" clearfix ng-repeat="contact in friends.contacts track by $index" contactfor="contact" alert-friend>
+                            <div class="row pb-15">
+                                <div class="col-sm-4 col-xs-4">
+                                    <ia-avatar avatar="{{ contact.photo }}" badge="'icon-ecp_icon'"></ia-avatar>
+                                </div>
+                                <div class="col-sm-8 col-xs-8 pl-0-mob">
+                                    <h3 person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}"></h3>
+
+                                    <div class="info-section">
+                                        <p><em class="phone"><img src="images/sm-1.png" alt=""></em> <span full-phone-number phonecode="contact.phone.code" phonenumber="contact.phone.number"></span>
+                                        </p>
+
+                                        <p><em class="envelop"><img src="images/sm-2.png" alt=""></em> <span>{{contact.email}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" class="fa fa-trash-o" size="sm" remove-contact-for templateUrl="partials/contact/templates/removeContactFor.html"></a>
+                        </div>
+                        <!--section -->
+
+                    </div>
+                </div>
+                <!--section-wrap -->
+            </div>
+        </div>
+    </div>
+</div>

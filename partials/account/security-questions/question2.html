@@ -1,0 +1,48 @@
+<form role="form" name="ChangeSecurityQuestion2Form" novalidate ng-submit="ChangeSecurityQuestion2Form.$valid && verifySecurityQuestion(answer, 2);">
+    <div class="form-in pt-35">
+        <div class="widget">
+            <div>
+                <p i18n="common.pleaseAnswerToReset"></p>
+                <div class="help-block error text-center" ng-show="showError" i18n="common.securityAnswerIncorrect"></div>
+                <div class="help-block error text-center" ng-show="errors" ng-repeat="error in errors">
+                    {{error.message}}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-sub-in">
+            <label ia-label required>{{questions[1][getLocalizedField('title')]}}</label>
+            <div class="no-margin">
+                <div class="col-md-12  no-padding" ng-class="{'has-error': ChangeSecurityQuestion2Form.$submitted && ChangeSecurityQuestion2Form.security_answer2.$invalid}">
+                    <input name="security_answer2" class="form-control" data-i18n-attr="{placeholder: 'common.securityAnswer2'}" ng-model="answer" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label ia-label required message="tooltips.captcha" translation="common.captcha"></label>
+                <captcha class="row no-margin">
+                    <div class="col-xs-8" ng-class="{'has-error': ChangeSecurityQuestion2Form.$submitted && ChangeSecurityQuestion2Form.captcha2.$invalid}">
+                        <input type="text" ng-model="captcha2" class="form-control" captcha-validator data-i18n-attr="{placeholder: 'common.inputCaptcha'}" name="captcha2"
+                               required>
+                    </div>
+                    <div class="col-xs-4">
+                        <canvas ia-captcha class="col-offset-3_3" width="85" height="32"></canvas>
+                    </div>
+                </captcha>
+            </div>
+            <div ng-show="ChangeSecurityQuestion2Form.$submitted" ng-messages="ChangeSecurityQuestion2Form.security_answer2.$error">
+                <div class="alert alert-danger" ng-message="required"><span i18n="errors.securityAnswer2Required"></span></div>
+            </div>
+            <div ng-show="ChangeSecurityQuestion2Form.$submitted" ng-messages="ChangeSecurityQuestion2Form.captcha2.$error">
+                <div class="alert alert-danger" ng-message="required"><span i18n="errors.captchaRequired"></span></div>
+                <div class="alert alert-danger" ng-message="captcha"><span i18n="errors.captchaNotValid"></span></div>
+            </div>
+            <div class="text-center btn-lg-wrap">
+                <p>
+                    <button type="submit" class="btn btn-theme btn-150 block-mobile" i18n="common.next"></button>
+                </p>
+                <a ui-sref="base.contactus" class="underline" i18n="common.needHelp"></a>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,50 @@
+<div class="popup-login-final" id="printModal">
+    <div class="">
+        <div class="modal-body text-center">
+            <section class="content">
+                <h3>
+                    <span i18n="common.printIceAngelId"></span>
+                    <i href="javascript:void(0);" ng-click="cancel()" class="close"></i>
+                </h3>
+
+                <div class="banner-print">
+                    <img src="images/banner-print.jpg" class="img-print" alt="">
+                </div>
+
+                <div class="title">
+                    <h3 i18n="common.printInstructions"></h3>
+                </div>
+
+                <div class="box-print">
+                    <p>
+                        <span class="number-print">1</span>
+                        <span i18n="common.printStep1"></span>
+                    </p>
+
+                    <p>
+                        <span class="number-print">2</span>
+                        <span i18n="common.printStep2"></span>
+                    </p>
+
+                    <p>
+                        <span class="number-print">3</span>
+                        <span i18n="common.printStep3"></span>
+                    </p>
+
+                    <p>
+                        <span class="number-print">4</span>
+                        <span i18n="common.printStep4"></span>
+                    </p>
+                </div>
+              
+          <div ng-if="member!==undefined">
+<share-member-profile-form member="member" type="download-member-id"></share-member-profile-form>
+              </div>
+             <div ng-if="member===undefined">
+              <share-member-profile-form member="account.members[0]" type="download-member-id"></share-member-profile-form>
+             </div>
+      
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="col-sm-1"></div>
+<div class="col-sm-10  alert_trigger">
+    <div class="widget trigger_an_alert text-center">
+        <h1 i18n="common.thankYouForHelping"></h1>
+        <h1 class="exclamation" class="name-account" person-name first-name="{{ alert.member.first_name }}" middle-name="{{ alert.member.middle_name }}" last-name="{{ alert.member.last_name }}"></h1>
+        <div>
+            <p i18n="common.yourAlertHasBeenTriggered" data-name="{{alert.member.first_name}}"></p>
+            <p full-phone-number phonenumber="alert.angel.number" ></p>
+            <div ng-show="alert.contacts.length > 0" >
+                <div class="divider"><span i18n="common.or"></span></div>
+                <p class="forgot-password-p" i18n="common.youCanCallThemRightNow"></p>
+                <div class="row widget tickets">
+                    <div class="col-xs-6 ecp_list" ng-repeat="contact in alert.contacts track by $index">
+                        <h1 class="name-account" person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}"></h1>
+                    </div>
+                </div>
+                 <div class="row widget tickets">
+                    <div class="col-xs-6 ecp_list" ng-repeat="contact in alert.contacts track by $index">
+                        <p full-phone-number phonecode="contact.phone.code" phonenumber="contact.phone.number"></p>
+                        <a href="tel:{{contact.phone.number}}" class="btn btn-theme btn-lg-land" i18n="common.call"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+<div id="main-load-content">
+    <div class="main-wrap">
+        <div class="container no-padding">
+            <form autocomplete="off" novalidate role="form" name="SetupPanicButtonForm" class="setup-panic" ng-submit="SetupPanicButtonForm.$valid && syncDevice(alert)">
+                <div class="row no-margin">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-10 mobile-cover">
+                        <div class="form-in">
+                            <div class="form-sub-in" ng-repeat="error in errors">
+                                <div class="alert alert-danger">{{error.message}}</div>
+                            </div>
+                            <div class="form-sub-in">
+                                <label ia-label required translation="common.scanOrEnterId"></label>
+                                <div class="alert-scan" ng-class="{'has-error': SetupPanicButtonForm.$submitted && SetupPanicButtonForm.ice_id.$invalid}">
+                                    <input class="form-control" type="text" name="ice_id" ng-model="alert.ice_id" data-i18n-attr="{placeholder: 'common.iceAngelId'}" iceid required>
+                                </div>
+                                <div ng-show="SetupPanicButtonForm.$submitted" ng-messages="SetupPanicButtonForm.ice_id.$error">
+                                    <div class="alert alert-danger" ng-message="required"><span i18n="errors.iceidRequired"></span></div>
+                                </div>
+                            </div>
+                            <div class="form-sub-in" ng-show="!alert.account_type">
+                                <p>
+                                    <a ng-click="getAccountType(alert.ice_id)" href="" class="btn btn-theme btn-150 block-mobile" i18n="common.submit"></a>
+                                </p>
+                            </div>
+
+                            <div ng-show="alert.account_type == 'account'">
+                                <div class="form-sub-in" ng-class="{'has-error': SetupPanicButtonForm.$submitted && SetupPanicButtonForm.password.$invalid}">
+                                    <label for="password" ia-label required translation="common.accountPassword" message="tooltips.pleaseEnterAccountLoginPassword"></label>
+                                    <input class="form-control" ng-model="alert.password" type="{{inputType ? 'text': 'password'}}" name="password" id="password" data-i18n-attr="{placeholder: 'common.accountPassword'}" minlength=4 maxlength=12 ng-required="alert.account_type === 'account'"/>
+                                    <div ng-show="SetupPanicButtonForm.$submitted" ng-messages="SetupPanicButtonForm.password.$error">
+                                        <div class="alert alert-danger" ng-message="required"><span i18n="errors.passwordRequired"></span></div>
+                                        <div class="alert alert-danger" ng-message="minlength"><span i18n="errors.minlength"></span></div>
+                                        <div class="alert alert-danger" ng-message="maxlength"><span i18n="errors.maxlength"></span></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-sub-in clearfix" ng-show="alert.account_type == 'account'">
+                                    <label class="display-password left">
+                                        <input type="checkbox" ng-model="inputType" ng-checked="false"> <span i18n="common.displayPassword"></span>
+                                    </label>
+
+                                    <a ui-sref="base.forgot-password" href="" class="underline right" i18n="common.forgotPassword"></a>
+                                </div>
+                            </div>
+
+                            <div ng-show="alert.account_type === 'member'">
+                                <div class="form-sub-in" ng-class="{'has-error' : SetupPanicButtonForm.$submitted && SetupPanicButtonForm.email.$invalid }" >
+                                    <label for="email" ia-label required translation="common.name"></label>
+                                    <input class="form-control" type="email" ng-model="alert.email" name="email" id="email" data-i18n-attr="{placeholder: 'common.emailAddress'}" ng-required="alert.account_type === 'member'"/>
+
+                                    <div ng-show="SetupPanicButtonForm.$submitted" ng-messages="SetupPanicButtonForm.email.$error">
+                                        <div class="alert alert-danger" ng-message="required"><span i18n="errors.emailRequired"></span></div>
+                                        <div class="alert alert-danger" ng-message="email"><span i18n="errors.emailFormat"></span></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-sub-in clearfix" ng-show="alert.account_type == 'account'">
+                                    <label class="display-password left">
+                                        <input type="checkbox" ng-model="inputType" ng-checked="false"> <span i18n="common.displayPassword"></span>
+                                    </label>
+
+                                    <a ui-sref="base.forgot-password" href="" class="underline right" i18n="common.forgotPassword"></a>
+                                </div>
+                            </div>
+
+                            <div class="form-sub-in" ng-show="alert.account_type">
+                                <label ia-label required translation="common.phoneCellNumber"></label>
+
+                                <div class="row">
+                                    <div class="col-xs-5" ng-class="{'has-error' : SetupPanicButtonForm.$submitted && SetupPanicButtonForm.phonecode.$invalid }">
+                                        <select ng-model="alert.phone.code"
+                                                name="phonecode"
+                                                class="form-control"
+                                                ng-options="item.id as (item.name + ' ' + item.phonecode) for item in results = (globals.settings.countries.toArray() | optionsTrans:'name' | optionsSort:'name')"
+                                                required>
+                                            <option class="hide" value="" i18n="common.phoneCode"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-7" ng-class="{'has-error' : SetupPanicButtonForm.$submitted && SetupPanicButtonForm.phonenumber.$invalid }">
+                                        <input name="phonenumber" class="form-control"
+                                               ng-model="alert.phone.number"
+                                               phone-number
+                                               phone-code="alert.phone.code"
+                                               data-i18n-attr="{placeholder: 'common.cellPhoneNumber'}"
+                                               required ng-keydown = "checkLength($event)">
+                                    </div>
+                                </div>
+                                <div ng-show="SetupPanicButtonForm.$submitted" ng-messages="SetupPanicButtonForm.phonecode.$error">
+                                    <div class="alert alert-danger" ng-message="required"><span i18n="errors.phoneCodeRequired"></span></div>
+                                </div>
+                                <div ng-show="SetupPanicButtonForm.$submitted" ng-messages="SetupPanicButtonForm.phonenumber.$error">
+                                    <div class="alert alert-danger" ng-message="required"><span i18n="errors.phoneNumberRequired"></span></div>
+                                </div>
+                            </div>
+
+                            <div class="form-sub-in text-center" ng-show="alert.account_type">
+                                <p>
+                                    <button type="submit" class="btn btn-theme btn-150 block-mobile" i18n="common.next"></button>
+                                </p>
+                            </div>
+
+                            <div class="form-sub-in widget sync_panic_button">
+                                <div>
+                                    <p i18n="common.bySyncingYouCanMessage"></p>
+                                    <p i18n="common.learnMoreAboutPanicButton"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

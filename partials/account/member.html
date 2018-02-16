@@ -1,0 +1,147 @@
+<div id="container-fluid">
+<div id="main-load-content">
+  <div class="main-wrap wrap_height_mobile">
+    <div class="container no-padding">
+      <div class="member_block">  
+        <table class="table fin_list table_en table-fixed "   ng-class="{'table_zh': globals.language == 'zh-CN', 'table_en':globals.language == 'en-US'}" ng-if="account.members.length>1">
+          <thead>
+            <tr class="bg_blue">
+              <th i18n = "common.photo" class="col-sm-1 col-lg-1  profile_pic_img" style="color: transparent;"></th>
+                <th class="col-sm-2 col-lg-2">
+                  <a ng-click="sortBy('first_name+last_name')" i18n ="common.name"></a>
+                  <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse  && propertyName=='first_name+last_name'"></i>
+                  <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='first_name+last_name'"></i>
+                </th>   
+                <th class="col-sm-2 col-lg-2">
+                   <a ng-click="sortBy('ice_id')" i18n = "common.memberId"></a> 
+                      <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse && propertyName=='ice_id'"></i>
+                      <i class="fa fa-caret-down" aria-hidden="true" ng-if="reverse  && propertyName=='ice_id'"></i>
+                </th>
+                                
+                <th class="col-sm-3 col-lg-2">
+                  <a ng-click="sortBy('birth_date.day+birth_date.month.birth_date.year')" i18n = "common.dateOfBirth"></a>
+                    <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse  && propertyName=='birth_date.day+birth_date.month.birth_date.year'"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='birth_date.day+birth_date.month.birth_date.year'"></i>
+                </th>
+                <th class="col-sm-2 col-lg-3">
+                  <a ng-click="sortBy('phone.code+phone.number')" i18n = "common.telephone">
+                    
+                  </a>
+                    <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse  && propertyName=='phone.code+phone.number'"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='phone.code+phone.number'"></i>                 
+                </th>
+                <th class="col-sm-2 col-lg-2"></th>
+              </tr>
+            </thead>
+            <tbody id="member_list" ng-repeat = "member in account.members  |filter:{id:'!'+account.id}  | orderBy:propertyName:reverse track by member.id">
+              <tr>
+                <td>
+                  <div class="col-xs-12 col-lg-12 col-sm-12 pd-0-tablet no-padding table_fin" ui-sref="account.viewMember({member_id: member.id})">
+                    <ia-avatar avatar="{{ member.photo }}" class="clickable" ></ia-avatar>
+                  </div>
+                  <div class="edit_del_icn" style="display: none">
+                    <a  class="showmemecp" ui-sref="account.editMember({member_id: member.id})"> 
+                      <span class=" edit_del glyphicon glyphicon-edit edit_border hidden-lg hidden-md"></span>        
+                    </a> 
+                    <a href="javascript:void(0);" class="delete" account="account" member="member" templateurl="partials/modal/delete-member.html" delete-member size="sm">
+                     <span class="trash_del glyphicon glyphicon-trash trash_border hidden-lg- hidden-md"></span>                       
+                   </a>  
+                  </div>
+                </td>
+                 <td>
+                    <span class="top_margin ellipse_style">
+                      <a class="top_margin email_color" ui-sref="account.viewMember({member_id: member.id})">{{ PersonName.build(member.first_name, member.middle_name, member.last_name) || member.email }}</a>
+                  </span>
+                </td>   
+                <td class = "popover__wrapper">
+                  <member-id model="member" class="profile_info">
+                    <span i18n="common.memberId"></span>
+                  </member-id>
+                  <div class="push popover__content">
+                    <a href="{{openFIN}}{{member.ice_id}}.png" class="popover__message" target="_blank">
+                      <img ng-src="{{openFIN}}{{member.ice_id}}.png" style="cursor:pointer;">
+                    </a>
+                  </div>
+                </td>
+                <td class="top_margin birth_date" full-date year="member.birth_date.year" month="member.birth_date.month" day="member.birth_date.day">
+                </td>
+                <td full-phone-number="" phonecode="member.phone.code" phonenumber="member.phone.number" >
+                </td>
+                <td class="col-sm-1 click_fn" ng-click="addClass()">  
+                      <span ng-click = "showFinEcp = !showFinEcp" class="arrow_btn">
+                   
+                       <span class=" hidden-sm hidden-xs"><i ng-class="{'fa fa-chevron-up': showFinEcp, 'fa fa-chevron-down': !showFinEcp}" aria-hidden="true"></i></span>
+                  </span>  
+              <div class="dropdown dropdown_btn dropdown_btn_top">
+                <button class="btn bmd-btn-icon dropdown-toggle" type="button" id="ex1"     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <img class="" src="images/ellipsis.png" alt="">
+               </button>
+                <div class="dropdown-menu dropdown-menu-left member_ellipse_icon" aria-labelledby="ex1">
+                  <button class="dropdown-item" type="button" ui-sref="account.editMember({member_id: member.id})">
+                    <a class="showmemecp" > 
+                       <span class="edit_txt" i18n="common.edit"></span> 
+                   </a>
+                  </button>                  
+                  <button class="dropdown-item" type="button" ng-class="{'disabled': member.devices.length==0}">
+                    <a href="javascript:void(0);" templateurl="partials/member/device.html" sync-devices size="sm">
+                        <span class="delete_txt" i18n="common.syncedDevices"></span></a>
+                  </button>                  
+                  <button ui-sref="account.share-profile({member_id: member.id})" class="dropdown-item" type="button">
+                      <a href="#">
+                       <span class="delete_txt"  i18n="common.shareProfile"></span>
+                      </a>
+                  </button>
+                  <button class="dropdown-item" type="button" account="account" member="member" templateurl="partials/modal/delete-member.html" delete-member>
+                     <a href="javascript:void(0);" class="delete" size="sm">
+                        <span class="delete_txt" i18n="common.delete"></span>    
+                         </a>
+                  </button>
+                </div>
+                  </div>                                                 
+                </td>
+        </tr> 
+ 
+
+
+        <tr id="more_txt">
+        <td>
+<span ng-click = "showFinEcp = !showFinEcp" class="arrow_btn">
+                      <span class="right_chevron hidden-lg hidden-sm hidden-md">
+                        <span i18n="common.more" data-number="{{member.contacts.length}}" ng-if="member.contacts.length>0"></span>
+                        <span i18n="common.more" data-number=" " ng-if="member.contacts.length===0"></span>
+                          <div ng-class="{'fa fa-chevron-up': showFinEcp, 'fa fa-chevron-down': !showFinEcp}" class=""  ></div>
+                      </span>
+                  
+                  </span>  
+ 
+
+        </td></tr>
+        <tr ng-show="showFinEcp" >
+        <td i18n="common.emergencyContactPerson" class="list_title" colspan="8"></td>
+        </tr>
+        <tr class="border_top" ng-show="showFinEcp" >
+                <td colspan="8">                    
+                  <div ng-include="'partials/account/templates/ecp-contacts.html'"></div>
+                    <table width="100%" class="member_ecp">
+                      <tr>
+                        <td>
+                            <div  ng-show="member.contacts.length <= 1">
+ 
+
+                              <div class="right-add-person member-ecp">
+                                  <a href="javascript:void(0);" add-contact size="sm" class="resend_nomination_btn btn btn-padding unsync"  templateUrl="partials/contact/templates/addContact.html" i18n="common.addButton">
+                                  </a>                            
+                               </div>
+                          </div>        
+                      </td>
+                   </tr>
+                  </table>                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+         </div>
+
+    </div>
+     </div>
+ </div>

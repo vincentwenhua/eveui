@@ -1,0 +1,16 @@
+<div ng-controller="HomeCarouselController" class="carousel-wrap">
+    <carousel interval="myInterval" class="carousel" disable-animation="true">
+        <slide ng-repeat="slide in results = (globals.settings.homepage_slides.toArray() | optionsTrans:['caption', 'title', 'url']) " class="carousel-slide" active="slide.active">
+            <div class="carousel-slide-img" style="background-image: url('{{slide.image_url}}')"></div>
+            <div class="carousel-slide-caption">
+
+                <h4 class="carousel-slide-title">{{slide.title}}</h4>
+                <p class="carousel-slide-text">{{slide.caption}}</p>
+
+                <div class="learn-more-wrap" ng-if="slide.url">
+                    <a open-in-app-browser href="{{ slide.url }}" class="learn-more external-link" target="_blank"><span i18n="common.learnMore"></span> <img src="images/arrow-learn.png" alt=""></a>
+                </div>
+            </div>
+        </slide>
+    </carousel>
+</div>

@@ -1,0 +1,27 @@
+<div id="main-load-content">
+    <section class="content">
+        <div class="container no-padding">
+            <div class="section-wrap holder member-box view-member-history">
+
+                <ul>
+                    <li class="row">
+                        <label class="col-xs-5 col-sm-4" i18n="common.time"></label>
+                        <label class="col-xs-7 col-sm-4" i18n="common.event"></label>
+                        <label class="col-sm-4 hidden-xs" i18n="common.ipAddress"></label>
+                    </li>
+
+                    <li class="row" ng-repeat="history in histories track by $index">
+                        <div class="col-xs-5 col-sm-4" time-ago="{{history.created_at}}"></div>
+                        <div class="col-xs-7 col-sm-4">{{history.message}}</div>
+                        <div class="col-sm-4 hidden-xs">{{history.hostname}}</div>
+                    </li>
+                </ul>
+
+                <div class="text-center">
+                    <a class="btn btn-theme btn-150" href="javascript:void(0);" ng-click="loadMore()" i18n="common.loadMoreHistories" ng-disabled="!more_histories"></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

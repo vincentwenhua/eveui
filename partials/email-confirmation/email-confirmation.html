@@ -1,0 +1,20 @@
+<div class="popup-b02-input-email">
+
+    <div class="modal-content">
+        <div class="modal-body text-left">
+            <h3 class="text-left"><i href="javascript:void(0);" ng-click="cancel();" class="close"></i></h3>
+            <section class="content" ng-switch on="modalContent">
+                <div class="center">
+                
+               <span ng-if = "emailConfirmed">{{message}}</span>
+               
+                 <div  ng-if = "emailConfirmed"><a href="" ng-click="gotoSettings()" class="btn btn-lg btn-theme btn-150mrb-16 btn-qr" i18n="common.ok"></a></div>
+                <div ng-repeat="error in errors" ng-if = "!emailConfirmed">
+                  <div class="alert alert-danger">{{error.message}}</div>
+                </div>
+                    
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

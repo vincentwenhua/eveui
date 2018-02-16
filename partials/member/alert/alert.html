@@ -1,0 +1,23 @@
+<div access-alert-profile size="sm" templateUrl="partials/modal/access-member-emergency.html">
+    <div class="alert_message">
+        <div class="emrgency_alert_pert">
+            <div class="alert-img">
+                <div class="alert-user-photo">
+                    <img ng-src="{{alert.photo}}" ng-show="alert.photo" alt="">
+                    <img ng-class="{'empty': !alert.photo}" ng-show="!alert.photo" ng-src="" alt="" />
+                </div>
+            </div>
+            <div class="alert-detail" ng-if="alert.type == 'normal'">
+                <div class="triggered">
+                    <h3><a href="javascript:void(0);" i18n="common.emergencyAlertTriggeredName" data-full-name="{{ PersonName.build(alert.first_name, alert.middle_name, alert.last_name) || alert.email }}" data-first-name="{{ 'alert.first_name' }}" data-last-name="{{ alert.last_name }}" data-middle-name="{{ alert.middle_name }}"></a></h3></div>
+                <span class="time" time-ago="{{alert.alerted_at}}"></span>
+            </div>
+            <div class="alert-detail" ng-if="alert.type == 'panic'">
+                <div class="triggered">
+                    <h3><a href="javascript:void(0);"  i18n="common.panicButtonTriggeredName" data-full-name="{{ PersonName.build(alert.first_name, alert.middle_name, alert.last_name) || alert.email }}" data-first-name="{{ alert.first_name }}" data-last-name="{{ alert.last_name }}" data-middle-name="{{ alert.middle_name }}"></a></h3>
+                </div>
+                <span class="time" time-ago="{{alert.alerted_at}}"></span>
+            </div>
+        </div>
+    </div>
+</div>

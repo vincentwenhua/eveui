@@ -1,0 +1,52 @@
+<div id="main-load-content">
+    <div class="main-wrap">
+        <div class="container no-padding">
+            <div class="row">
+                <div class="col-xs-1 mobile-hide"></div>
+                <div class="col-xs-10 mobile-cover">
+                    <div class="form-in">
+                        <form name="RendActiveEmailForm" novalidate id="resend-active-email"
+                              ng-submit="RendActiveEmailForm.$valid && handle(account.email)"
+                              role="form">
+                            <div class="form-sub-in">
+                                <div class="form-group"
+                                     ng-class="{'has-error': RendActiveEmailForm.$submitted && RendActiveEmailForm.account_email.$invalid}">
+                                    <label ia-label translation="common.enterEmail" require></label>
+                                    <input type="email"
+                                           name="account_email"
+                                           data-i18n-attr="{placeholder: 'common.emailAddress'}"
+                                           class="form-control"
+                                           ng-maxlength="64"
+                                           ng-model="account.email" required email-validator>
+
+                                </div>
+                                <div ng-show="RendActiveEmailForm.$submitted"
+                                     ng-messages="RendActiveEmailForm.account_email.$error">
+                                    <div class="alert alert-danger" ng-message="required"><span
+                                            i18n="errors.forgetPasswordEmailRequired"></span></div>
+                                    <div class="alert alert-danger" ng-message="email"><span
+                                            i18n="errors.emailFormat"></span></div>
+                                    <div class="alert alert-danger" ng-message="maxlength"><span
+                                            i18n="errors.emailMaxLength"></span></div>
+                                </div>
+                                <div ng-repeat="error in errors">
+                                    <div class="alert alert-danger">{{error.message}}</div>
+                                </div>
+                                <div ng-if="success" class="alert alert-success" i18n="messages.resendSuccess"></div>
+
+                                <div class="text-center btn-lg-wrap">
+                                    <p>
+                                        <button type="submit" class="btn btn-theme btn-150 block-mobile"
+                                                i18n="common.resend"></button>
+                                    </p>
+                                    <a ui-sref="base.contactus" class="underline" i18n="common.needHelp"></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

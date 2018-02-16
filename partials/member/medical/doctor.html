@@ -1,0 +1,50 @@
+<ng-form name="doctorForm" novalidate>
+    <div class="form-person-heading"><span i18n="common.doctorNumber" data-number="{{$index + 1}}"></span>
+        <a href="javascript:void(0);" class="remove-btn" ng-click="remove('doctors', 'medical', $index);">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+    <div class="form-person-body">
+        <div class="form-group">
+            <label ia-label required message="tooltips.doctorName" translation="common.name"></label>
+
+            <div class="row">
+                <div class="col-xs-6" ng-class="{'has-error' : memberForm.$submitted && doctorForm.doctor_last_name.$invalid}">
+                    <input class="form-control" ng-model="::doctor.last_name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" data-i18n-attr="{placeholder: 'common.lastName'}" name="::doctor_last_name" required>
+                </div>
+                <div class="col-xs-6" ng-class="{'has-error' : memberForm.$submitted && doctorForm.doctor_first_name.$invalid}">
+                    <input class="form-control" ng-model="::doctor.first_name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" data-i18n-attr="{placeholder: 'common.firstName'}" name="::doctor_first_name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label ia-label message="tooltips.doctorPhone" translation="common.telephone"></label>
+
+            <div class="row">
+                <div class="col-xs-6 no-right-padding">
+                    <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && doctorForm.doctor_phone_code.$invalid}">
+                        <select class="form-control" name="doctor_phone_code" ng-model="doctor.phone.code" ng-options="item.id as (item.name + ' ' + item.phonecode) for item in results = (globals.settings.countries.toArray() | optionsTrans:'name' | optionsSort:'name')">
+                            <option class="hide" value="" i18n="common.workplacePhoneCode"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6 no-left-padding left_10" ng-class="{'has-error' : memberForm.$submitted && doctorForm.doctor_phone_number.$invalid}">
+                    <input class="form-control"
+                           phone-number
+                           phone-code="doctor.phone.code"
+                           data-i18n-attr="{placeholder: 'common.telephoneNumber'}"
+                           ng-model="doctor.phone.number" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                           name="doctor_phone_number" ng-keydown = "checkLength($event)">
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : memberForm.$submitted && doctorForm.doctor_specialty.$invalid}">
+            <label ia-label message="tooltips.doctorSpecialty" translation="common.specialty"></label>
+            <select class="form-control" name="::doctor_specialty" ng-model="::doctor.specialty" ng-options="specialty.id as specialty.name for specialty in results = (globals.settings.doctor_specialities.toArray() | optionsTrans:'name' | optionsSort: 'name')">
+                <option value="" i18n="common.selectSpecialty"></option>
+            </select>
+        </div>
+        <div notes-layout class="form-group" notes="doctor.notes"></div>
+    </div>
+    <input type="hidden" ng-model="::doctor.id"/>
+</ng-form>

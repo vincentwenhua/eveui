@@ -1,0 +1,32 @@
+<ng-form name="immunizationForm">
+    <div class="form-person-heading">
+        <span i18n="common.immunizationInfoNumber" data-number="{{$index + 1}}"></span>
+        <a href="javascript:void(0);" class="remove-btn" ng-click="remove('immunizations', 'medical', $index);">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+    <div class="form-person-body">
+        <div class="form-group">
+            <label ia-label required translation="common.nameOfThing"></label>
+
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && immunizationForm.immunization_type.$invalid}">
+                <select class="form-control" name="immunization_type" ng-model="::immunization.name"
+                        ng-options="immunization.id as immunization.name for immunization in results = (globals.settings.immunizations.toArray() | optionsTrans:'name' | optionsSort:'name')"
+                        required>
+                    <option class="hide" value="" i18n="common.selectImmunization"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label ia-label translation="common.date" message="tooltips.dateOfVaccination"></label>
+            <ia-date disabled="viewMode" type="now-birth" model="::immunization.date" form="memberForm"></ia-date>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : memberForm.$submitted && immunizationForm.immunization_series.$invalid}">
+            <label ia-label translation="common.numbersInSeries" message="tooltips.numbersInSeries"></label>
+            <input class="form-control" name="immunization_series" data-i18n-attr="{placeholder: 'common.immunizationSeries'}"
+                   ng-model="::immunization.series" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }">
+        </div>
+        <div notes-layout class="form-group" notes="immunization.notes"></div>
+    </div>
+    <input type="hidden" ng-model="immunization.id"/>
+</ng-form>

@@ -1,0 +1,39 @@
+<ng-form name="familyMedicationHistoryForm">
+    <div class="form-person-heading">
+        <span i18n="common.familyMedicationHistoryNumber" data-number="{{$index + 1}}"></span>
+        <a href="javascript:void(0);" class="remove-btn" ng-click="remove('family_medical_history', 'medical', $index);">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+    <div class="form-person-body">
+        <div class="form-group">
+            <label ia-label required translation="common.medicalCondition"></label>
+
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && familyMedicationHistoryForm.family_medical_history_type.$invalid}">
+                <select class="form-control" name="family_medical_history_type" ng-model="::medical_history.type"  ng-options="condition.id as condition.name for condition in results = (globals.settings.family_history.conditions.toArray() | optionsTrans:'name' | optionsSort:'name')" required>
+                    <option class="hide" value="" i18n="common.selectMedicationCondition"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label ia-label required translation="common.familyMember"></label>
+
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && familyMedicationHistoryForm.family_member.$invalid}">
+                <select class="form-control" name="family_member" ng-model="::medical_history.relationship" ng-options="member.id as member.name for member in (globals.settings.family_history.members.toArray() | optionsTrans:'name')" required>
+                    <option class="hide" value="" i18n="common.selectFamilyMember"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label ia-label required translation="common.severity"></label>
+
+            <div class="custom_select" ng-class="{'has-error' : memberForm.$submitted && familyMedicationHistoryForm.family_medical_history_severity.$invalid}">
+                <select class="form-control" name="family_medical_history_severity" ng-model="::medical_history.severity" ng-options="severity.id as severity.name for severity in results = (globals.settings.family_history.severities.toArray() | optionsTrans:'name' | orderBy: '+id' )" required>
+                    <option class="hide" value="" i18n="common.severity"></option>
+                </select>
+            </div>
+        </div>
+        <div notes-layout class="form-group" notes="medical_history.notes"></div>
+    </div>
+    <input type="hidden" ng-model="medical_history.id"/>
+</ng-form>

@@ -1,0 +1,8 @@
+<div class="container no-padding">
+    <ol class="breadcrumb">
+        <li ng-repeat="step in steps" ng-class="{active: $last}" ng-switch="$last">
+            <a ng-switch-when="false" href="{{step.ncyBreadcrumbLink}}" ia-bread-crumb token="breadcrumb.{{step.states}}"></a>
+            <span ng-switch-when="true" ia-bread-crumb token="breadcrumb.{{step.states}}"></span>
+        </li>
+    </ol>
+</div>

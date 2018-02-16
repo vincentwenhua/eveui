@@ -1,0 +1,49 @@
+<a href="javascript:void(0);" ng-show="!viewMode && !previewMode" class="delete right" size="sm" remove-contact templateUrl="partials/contact/templates/removeContact.html">
+    <span class="glyphicon glyphicon-trash trash_border"></span>
+</a>
+<a ng-show="!viewMode && !thirdPartShare && contact.status == 'accepted' && !previewMode && (account.id != contact.id)" 
+ng-class="{ clickable: !thirdPartShare && contact.status == 'accepted' && !previewMode && (account.id != contact.id) }" 
+ng-click="goPermissionPage(account.id, member.id, contact)" 
+class="delete right" size="sm" >
+    <span class="glyphicon glyphicon-wrench"></span>
+</a>
+
+<a ng-show="!viewMode && !thirdPartShare && contact.status == 'accepted' && !previewMode && (account.id != contact.id)"
+ng-class="{ clickable: !thirdPartShare && contact.status == 'accepted' && !previewMode && (account.id != contact.id) }"
+ng-click="goPermissionPage(account.id, member.id, contact)"
+</a>
+<div class="row pb-15" ng-class-odd="'section-bdr'">
+    <div class="col-sm-4 col-xs-4 user_photo_box">
+        <ia-avatar avatar="{{ contact.photo }}" badge="'icon-ecp_icon'"></ia-avatar>
+    </div>
+    <div class="col-sm-8 col-xs-8" ng-if="contact.status != 'accepted'">
+        <h3 class="ng-binding">{{contact.email}}</h3>
+        <div class="error-txt" ng-if="contact.status == 'pending'">
+            <p ng-if="contact.id" i18n="common.waitingForResponse">
+            </p>
+            <p ng-if="contact.id == null" i18n="common.notAccountHolder">
+            </p>
+            <a href="javascript:void(0);" ng-click="resendContactNomination(member.id, contact.email)" class="resend-nomination-btn btn btn-default btn-padding unsync" i18n="common.resendNomination"></a>
+        </div>
+        <div ng-if="contact.status == 'accepted'">
+            <p class="name-account" person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}"></p>
+            <span i18n="common.accountAccepted"></span>
+        </div>
+    </div>
+    <div ng-if="contact.status == 'accepted'">
+        <div class="col-sm-8 col-xs-8">
+            <h3 class="name-account" person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}"></h3>
+            <div class="info-section">
+                <p>
+                    <em class="phone">
+                        <img src="images/sm-1.png" alt="">
+                    </em>
+                    <span ng-if="contact.id == account.id" full-phone-number phonecode="account.phone.code" phonenumber="account.phone.number"></span>
+                    <span ng-if="contact.id != account.id" full-phone-number phonecode="contact.phone.code" phonenumber="contact.phone.number"></span>
+                </p>
+                <p><em class="envelop"><img src="images/sm-2.png" alt=""></em> <span>{{contact.email}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

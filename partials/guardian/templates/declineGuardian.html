@@ -1,0 +1,14 @@
+<div class="popup-decline">
+    <div class="modal-body text-left">
+        <div class="pb-15">
+            <i href="javascript:void(0);" ng-click="cancel();" class="close"></i>
+            <h3 class="mobile" i18n="common.declineANomination"></h3>
+            <p i18n="common.declineGuardianNominationSure"></p>
+            <p i18n="common.reasonOptional"></p>
+            <div class="input-email">
+                <textarea class="form-control"></textarea>
+            </div>
+        </div>
+        <p><a href="javascript:void(0);" ng-click="declineGuardian(message.payload.id, message.id);" class="btn btn-theme btn-150 btn-block" i18n="common.decline"></a></p>
+    </div>
+</div>

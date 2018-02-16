@@ -1,0 +1,30 @@
+<div id="main-load-content">
+    <div class="main-wrap">
+        <div class="container no-padding">
+            <div class="row no-margin">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-10 mobile-cover">
+                    <div class="form-in">
+                        <form novalidate class="panic-sync-confirmation-form" name="PanicSyncConfirmationForm" ng-submit="cancelSyncRequest()">
+                            <div class="form-sub-in">
+
+                                <div class="alert alert-danger" ng-repeat="error in errors">{{error.message}}</div>
+
+                                <p i18n="common.panicButtonSyncSentMessage" 
+                                data-full-name="{{ PersonName.build(sync_account.first_name, sync_account.middle_name, sync_account.last_name) || sync_account.email }}"
+                                data-first-name="{{sync_account.first_name}}" data-last-name="{{sync_account.last_name}}"></p>
+
+                                <div class="full-width">
+                                    <a ui-sref="base.home" class="btn btn-primary btn-lg btn-block btn-web" i18n="common.ok"></a>
+                                </div>
+                                <div class="full-width">
+                                    <button type="submit" class="btn btn-default btn-lg btn-block btn-padding" i18n="common.cancelRequest"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

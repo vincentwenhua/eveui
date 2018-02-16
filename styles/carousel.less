@@ -1,0 +1,107 @@
+@carousel-height-bigscreen: 557px;
+@carousel-height-iphone6plus: 300px;
+@carousel-height-smartphone: 230px;
+@carousel-height-bigsmartphone: 261px;
+
+.carousel-wrap {
+  min-height: 557px;
+
+  @media @iphone6plus {
+    min-height: @carousel-height-iphone6plus;
+  }
+
+  @media @bigsmartphone {
+    min-height: @carousel-height-bigsmartphone;
+  }
+
+  @media @smartphone {
+    min-height: @carousel-height-smartphone;
+  }
+}
+
+
+.carousel {
+  .carousel-control {
+    display: none;
+  }
+}
+
+.carousel-indicators {
+  bottom: 40px;
+}
+
+.carousel-slide {
+  font-size: 18px;
+  min-height: @carousel-height-bigscreen;
+  text-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+  .clearfix();
+
+  @media @iphone6plus {
+    min-height: @carousel-height-iphone6plus;
+  }
+
+  @media @bigsmartphone {
+    min-height: @carousel-height-bigsmartphone;
+  }
+
+  @media @smartphone {
+    min-height: @carousel-height-smartphone;
+  }
+}
+
+.carousel-slide-img {
+  background: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
+.carousel-slide-caption {
+  color: #fff;
+  float: right;
+  padding-left: 50%;
+  padding-right: 10%;
+  padding-top: 60px;
+  text-align: left;
+  width: 100%;
+  padding-bottom: 150px;
+
+  @media @iphone6plus {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 0;
+  }
+
+  .learn-more {
+
+    &-wrap {
+      bottom: 40px;
+      text-align: left;
+
+      @media @bigsmartphone {
+        bottom: 80px;
+        right: 0;
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+.carousel-indicators {
+  @media @iphone6plus {
+    display: none;
+  }
+}
+
+.carousel-slide-title {
+  color: inherit;
+  font-size: 38px;
+}
+
+.carousel-slide-text {
+
+}

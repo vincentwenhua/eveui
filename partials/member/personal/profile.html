@@ -1,0 +1,50 @@
+<ul class="view-member-list list-group row">
+    <li class="list-group-item" ng-repeat="passport in member.additional_information.personal.passports track by $index">
+        <div class="list-info">
+            <label><b i18n="common.passportCount" data-number="{{$index + 1}}"></b></label>
+            <span class="right">{{passport.number}}</span>
+        </div>
+    </li>
+    <li class="list-group-item" ng-repeat="social_security in member.additional_information.personal.social_securities track by $index">
+        <div class="list-info">
+            <label><b i18n="common.idOrSocialSecurity"></b></label>
+            <span class="right">{{social_security.number}}</span>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="list-info">
+            <label><b i18n="common.maritalStatus"></b></label>
+            <span class="right">{{member.additional_information.personal.marital_status}}</span>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="list-info">
+            <label><b i18n="common.secondaryEmail"></b></label>
+            <span class="right">{{member.additional_information.personal.secondary_email}}</span>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="list-info">
+            <label><b i18n="common.homeAddress"></b></label>
+            <span class="right">{{member.additional_information.personal.address.building}}</span>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="list-info">
+            <label><b i18n="common.homeTelephone"></b></label>
+            <span class="right" full-phone-number phonecode="member.additional_information.personal.home.phone.code" phonenumber="member.additional_information.personal.home.phone.number"></span>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="list-info">
+            <label><b i18n="common.employerOrWorkplace"></b></label>
+            <span class="right">{{member.additional_information.personal.workplace.address}}</span>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="list-info">
+            <label><b i18n="common.employerOrWorkplace"></b></label>
+            <span class="right">{{member.additional_information.personal.workplace.phone.code | countryFilter:'phonecode'}} {{member.additional_information.personal.workplace.phone.number}}</span>
+        </div>
+    </li>
+</ul>

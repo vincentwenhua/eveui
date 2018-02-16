@@ -1,0 +1,131 @@
+<div id="container-fluid">
+  <div id="main-load-content">
+    <div class="main-wrap">
+      <div class="container no-padding">
+
+        <div class="section-wrap-container article-wrap content_block_data1 grid_height">
+          <div class="request_fin">          
+           <input id="ice_id" class="form-control" type="tel" name="ice_id" ng-model="validIceIdNumber" value="{{validIceIdNumber | formatId}}" data-i18n-attr="{placeholder: 'common.iceAngelId'}" iceid required>
+           <div class="submit_btn">
+             <button i18n="common.request" partner-members-modal ice-id="validIceIdNumber" target="_blank" class="submit_request btn btn-save" templateUrl="partials/partner/templates/partnerMembers.html" ng-disabled="validIceIdNumber==undefined || validIceIdNumber=='' || reqLoading"> </button>
+             <span ng-show="reqLoading" class="fa-spinner-icons"><i class="fa fa-spinner fa-spin fa-3x fa-fw" aria-hidden="true"></i></span>
+           </div>  
+           <div class="alert alert-danger" ng-show="showError">
+            <span i18n = "common.noData"></span>  
+          </div>
+        </div>
+
+        <div class="success-message member-remove-info fade-in fade-message" hidden>
+         <div class="alert alert-success" i18n="common.removeSuccessfully"></div>
+       </div>
+       <span ng-if="!finLoading" class="fa-spinner-icon">
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw" aria-hidden="true"></i>
+      </span>
+
+      <div class="table-responsive responsive_table_mobile fin-man">
+       <table class="table fin_list table-fixed " ng-if="finLoading"  ng-class="{'table_zh': globals.language == 'zh-CN', 'table_en':globals.language == 'en-US'}">
+        <thead>
+          <tr>
+              <th class="col-sm-1"></th>
+              <th class="col-sm-2">
+                    <a ng-click="sortBy('first_name+last_name')" i18n = "common.name"></a>
+                    <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse  && propertyName=='first_name+last_name'"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='first_name+last_name'"></i>
+              </th> 
+            <th class="col-sm-2">
+              <a ng-click="sortBy('ice_id')" i18n = "common.memberId"></a> 
+              <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse && propertyName=='ice_id'"></i>
+              <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='ice_id'"></i>
+            </th>
+              <th class="col-sm-2">
+                    <a ng-click="sortBy('email')" i18n = "common.email"></a> 
+                    <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse && propertyName=='email'"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='email'"></i>
+                    </th>		
+       
+           <th>
+             <a ng-click="sortBy('fullDate')" i18n = "common.dateOfBirth"></a>
+             <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse  && propertyName=='fullDate'"></i>
+             <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='fullDate'"></i>
+           </th>
+           <th>
+           <a ng-click="sortBy('phone.code+phone.number')" i18n = "common.telephone"></a>
+                     <i class="fa fa-caret-up" aria-hidden="true" ng-if="!reverse  && propertyName=='phone.code+phone.number'"></i>
+                 <i class="fa fa-caret-down" aria-hidden="true"  ng-if="reverse  && propertyName=='phone.code+phone.number'"></i>                  
+           </th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody ng-repeat = "contact in friends.contacts | orderBy:propertyName:reverse">
+        <tr>
+          <td>
+            <div class="col-xs-12 col-lg-4 col-sm-4 pd-0-tablet no-padding table_fin">
+              <ia-avatar avatar="{{ contact.photo }}" class="clickable" ui-sref="contact.viewMember({member_id: contact.id})"></ia-avatar>
+            </div>
+          </td>
+           <td>
+                      <span class="top_margin ellipse_style">
+                        {{ PersonName.build(contact.first_name, contact.middle_name, contact.last_name) || contact.email }}
+                    </span>
+                  </td> 
+          <td class = "popover__wrapper"><member-id model="contact" class="profile_info"><span i18n="common.memberId"></span></member-id><div class="push popover__content" ng-if="contact.photo">
+           <span ng-show="!openFINload"><i class="fa fa-spinner" aria-hidden="true"></i></span>
+
+           <a href="{{openFIN}}{{contact.ice_id}}.png" class="popover__message" target="_blank"><img ng-src="{{openFIN}}{{contact.ice_id}}.png" style="cursor:pointer;"></a>
+         </div></td>
+         <td><a class="top_margin email_color" href="mailto:{{contact.email}}">{{contact.email}}</a></td>
+        
+         <td class="top_margin" full-date year="contact.birth_date.year" month="contact.birth_date.month" day="contact.birth_date.day"></td>
+         <td full-phone-number="" phonecode="contact.phone.code" phonenumber="contact.phone.number" ></td>
+         <td>
+          <span class="showfinecp" ng-click = "showFinEcp = !showFinEcp">
+            <i ng-class="{'fa fa-chevron-up': showFinEcp, 'fa fa-chevron-down': !showFinEcp}" aria-hidden="true"></i>
+          </span>&nbsp;&nbsp;
+
+           <a  class="remove-btn" href="javascript:void(0);" action-modal templateUrl="partials/partner/templates/actionModel.html">
+            <span class="fa fa-chain-broken error-txt trash_border" ia-tooltip="tooltips.removePartnerAsECP"></span>
+          </a>
+
+        </td>
+        
+      </tr>
+<tr class="border_top" ng-show="showFinEcp">
+
+
+
+  <td class="colspn_fin" colspan="8">
+
+  <table class="ecp_list_details ecp_partner" ng-repeat = "ecp in contact.contacts">
+       <tbody>
+        <tr>
+
+        <td>
+        <p><span class="ecp_badge"> 
+        <div class="user-photo">
+        <img ng-class="{ 'empty': !avatar }" ng-src="" alt="" class="empty"></div><span class="heading">ECP</span></p>
+        </td>
+
+        <td  style=""> 
+        <div><p class="heading" i18n="common.name"></p>:<span>{{ PersonName.build(ecp.first_name, ecp.middle_name, ecp.last_name) || ecp.email }} </span></div>
+          </td>
+
+          <td style="" class="ecp_email"><p class="heading" i18n="common.email"></p>: <span><a href="mailto:{{ecp.email}}">{{ecp.email}}</a></span></p>
+          </td>
+
+    <td style="">
+    <p class="heading" i18n="common.phone"></p>:<span full-phone-number="" phonecode="ecp.phone.code" phonenumber="ecp.phone.number">    
+    </span>
+    <p>
+    </td>
+        </tr>
+        </tbody>
+  </table>
+  </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+</div>
+</div>

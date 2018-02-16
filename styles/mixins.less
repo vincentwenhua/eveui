@@ -1,0 +1,82 @@
+//
+// Mixins
+// --------------------------------------------------
+@desktop:        ~"all and (min-width: 1024px)";
+@largescreen:        ~"all and (min-width: 1170px)";
+@smartphone:     ~"only screen and (max-width: 321px)";
+@bigsmartphone:  ~"only screen and (max-width: 361px)";
+@largescreens1:  ~"all and (min-width: 901px)";
+@largescreens:   ~"all and (max-width: 900px)";
+@tablet:         ~"(min-width: 992px)";
+@iphone5:        ~"only screen and (max-width: 370px)";
+@Galaxy:        ~"only screen and (max-width: 360px)";
+@iphone6:        ~"only screen and (max-width: 375px)";
+@phonenexus:    ~"only screen and (max-width: 412px)";
+@iphone6plus:    ~"only screen and (max-width: 415px)";
+@nexus:          ~"only screen and (max-width: 435px)";
+@ipad:           ~"only screen and (max-width: 867px)";
+@ipadlandscape:    ~"only screen and (max-width: 1024px)";
+@ipadportrait:   ~"(min-width: 868px)";
+@mobile:         ~"all and (max-width: 767px)";
+
+
+.rotate(@degrees: @degree) {
+  -webkit-transform: rotate(@degrees);
+  -moz-transform: rotate(@degrees);
+  -ms-transform: rotate(@degrees);
+  -o-transform: rotate(@degrees);
+  transform: rotate(@degrees);
+}
+
+.gradient(@start-color, @end-color){
+  background-image: -moz-linear-gradient(top, @start-color, @end-color);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@start-color), to(@end-color));
+  background-image: -webkit-linear-gradient(top, @start-color, @end-color);
+  background-image: -o-linear-gradient(top, @start-color, @end-color);
+  background-image: linear-gradient(to bottom, @start-color, @end-color);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start-color', endColorstr='@end-color', GradientType=0);
+}
+
+.font-base(@font-family,@font-weight,@font-size){
+  font-family: @font-family-base;
+  font-weight: @font-weight;
+  font-size: @font-size;
+}
+
+.box-shadow(@member-wrap-shadow){
+  -moz-box-shadow:0 1px 2px @member-wrap-shadow;
+  -webkit-box-shadow:0 1px 2px @member-wrap-shadow;
+  box-shadow:0 1px 2px @member-wrap-shadow;
+}
+
+.box-sizing(@box-sizing-type){
+  -moz-box-sizing:@box-sizing-type;
+  -webkit-box-sizing:@box-sizing-type;
+  box-sizing:@box-sizing-type;
+}
+
+.border-radius(@border-radius-size){
+  -moz-border-radius:@border-radius-size;
+  -webkit-border-radius:@border-radius-size;
+  border-radius:@border-radius-size;
+}
+
+.border-mix(@border-color){
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: @border-color -moz-use-text-color -moz-use-text-color;
+  border-image: none;
+  border-right: medium none;
+  border-style: solid none none;
+  border-width: 1px medium medium;
+}
+
+.clearfix() {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}

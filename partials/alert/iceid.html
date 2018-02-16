@@ -1,0 +1,24 @@
+<div class="widget trigger_an_alert">
+    <div>
+        <p i18n="common.beforeAlertingMessage"></p>
+    </div>
+</div>
+<div class="form-sub-in">
+    <label class="ia-label-text" i18n="common.scanOrEnterThe"></label> <label class="no-caps-label label_txt_heading" i18n="common.iceAngelId"></label> <label class="ia-label-text" i18n="common.number" required> </label>
+
+
+    <div class="alert-scan" ng-class="{'has-error': TriggerAlertForm.$submitted && TriggerAlertForm.ice_id.$invalid}">
+        <input id="ice_id" class="form-control" type="tel" name="ice_id" ng-model="alert.ice_id" value="{{alert.ice_id | formatId}}" data-i18n-attr="{placeholder: 'common.iceAngelId'}" iceid required>
+    </div>
+
+    <div ng-if="invalidId" ng-messages="TriggerAlertForm.ice_id.$error">
+        <div class="alert alert-danger" ng-message="required"><span i18n="errors.iceidRequired"></span></div>
+        <div class="alert alert-danger" ng-message="iceid"><span i18n="errors.invalidIceid"></span></div>
+    </div>
+    <div ng-repeat = "error in memberError">
+        <div class="alert alert-danger">{{error.message}}</div>
+    </div>
+</div>
+<div class="text-center btn-lg-wrap">
+    <p><a ng-click="enterIceId(alert.ice_id)" href="" class="btn btn-theme btn-150 block-mobile" i18n="common.next"></a></p>
+</div>

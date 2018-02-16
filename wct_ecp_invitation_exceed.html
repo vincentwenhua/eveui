@@ -1,0 +1,110 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name='verify-v1' content='3a60173192ac4addaca95d7f5cee9d06'/>
+    <meta name="google-site-verification" content="qIdTtmYgLZyfhNcRDVE6NLCVQ9kNB64BIFChaYOksJ4"/>
+    <title></title>
+    <meta name="description"
+          content="Global Medical Alert and Emergency Identification system that immediately notifies your family and gives them instant access to critical information in an emergency.">
+    <meta name="keyword" content="emergengency alert, medical identification, notification service">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/apple-touch-icon-60x60.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/apple-touch-icon-152x152.png"/>
+    <link rel="icon" type="image/png" href="images/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="images/favicon-128.png" sizes="128x128"/>
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-TileImage" content="images/mstile-144x144.png"/>
+    <meta name="msapplication-square70x70logo" content="images/mstile-70x70.png"/>
+    <meta name="msapplication-square150x150logo" content="images/mstile-150x150.png"/>
+    <meta name="msapplication-wide310x150logo" content="images/mstile-310x150.png"/>
+    <meta name="msapplication-square310x310logo" content="images/mstile-310x310.png"/>
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/spinner.css">
+</head>
+<body>
+
+<div class="tab-mobile navbar navbar-fixed-top" style="left:0;right:0;z-index: 1030;height: auto;">
+    
+    <span class="page-title" page-title>Invitation Faile</span>
+</div>
+<div class="header-compensation"></div>
+<div id="container-fluid" class="clearfix">
+    <div class="main-wrap">
+        <div class="container">
+            <div class="form-outer" back-button="base.home">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-xs-11 loginHome login_form article-wrap">
+
+                                <form role="form" novalidate name="FormLogin"
+                                      ng-submit="FormLogin.$valid && login(username, password,remember);">
+                                    <p i18n="common.ECPInvitationTips" ng-if="iswechat">
+									You failed to generate an invitation as you have had pending invitation, you can remove it from  your invitation list, so that you can send more.</p>
+									<p i18n="common.ECPInvitationTips" ng-if="iswechat">You can login or sign up here:</p>
+
+                                    
+
+                                       
+
+                                      
+
+                                        <div class="text-center">
+                                            <p class="login-btn">
+                                                <button type="button"
+                                                        class="btn btn-lg btn-theme btn-150 block-mob mrb-16"
+                                                        i18n="common.logIn" onclick="pageLogin('vincenttest_ui/#/login')">Login
+                                                </button>
+
+                                            <p>If you do not have account, please sign up here:</p>
+                                            <a href="http://vincentcto.com/eveapi/public/weixin/getUserInfo"
+                                               class="btn btn-lg btn-white btn-150 block-mob ng-scope">Sign Up</a>
+                                            </p>
+
+                                            
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+
+<script>
+    function pageLogin(name) {
+        _invitationId = getParam("invitation_id");
+        window.location.href = '/' + name + '?'+ '&callopenid=1';
+    }
+
+    function getParam(paramName) {
+        paramValue = "", isFound = !1;
+        if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+            arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+            while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+        }
+        return paramValue == "" && (paramValue = null), paramValue
+    }
+</script>
+</body>
+</html>
