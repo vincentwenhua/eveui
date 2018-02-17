@@ -33,10 +33,12 @@
 
                     if (cachedToken) {
                          return isExpired(moment().format('X'), cachedToken['expires_at']) ? null: cachedToken['token'];
+						 //Vincent Start
 							var url = $window.location.href;
 							var startToken = url.indexOf("auth/");
 							var endToken =url.lastIndexOf("?redirect-to");
 							var newToken = url.substring(startToken+5,endToken);
+						 //Vincent End
                     }
 
                     if (Store.get(tokenKey) && angular.isDefined(Store.get(tokenKey)['token'])) {
@@ -47,6 +49,8 @@
                 },
 
                 getAccount: function(){
+                    // console.log(cachedAccount)
+                    // console.log(Store.get(accountKey))
                     if (cachedAccount) {
                         return isExpired(moment().format('X'), cachedAccount['expires_at']) ? null: cachedAccount['is_partner'];
                     }
@@ -71,7 +75,6 @@
         .provider('Auth', function () {
 
             this.init = function (config) {
-
                 if (!config.LOGIN_URL) {
                     throw Error('Login URI is required.');
                 }
@@ -85,9 +88,9 @@
 
             };
 
-            this.$get = function ($rootScope, $http, AuthToken, iaSettings, Store) {
+            this.$get = function ($rootScope, $http, AuthToken, iaSettings, Store,$location) {
                 var auth = this;
-
+               
                 auth.isAuthenticated = false;
 
                 auth.login = function (credentials, successCallback, errorCallback) {
@@ -127,6 +130,7 @@
                         headers: {'Accept-Language': iaSettings.getLanguage()}
                     })
                         .success(function (res) {
+                            console.log(res)
                             AuthToken.set(res);
 
                             auth.isAuthenticated = true;
@@ -139,7 +143,7 @@
                             }
                         })
                         .error(function (err) {
-
+                            console.log(err);
                             AuthToken.clear();
                             if (angular.isFunction(errorCallback)) {
                                 errorCallback.call(err);
@@ -153,7 +157,7 @@
                         url: Config.API_BASE + '/logout',
                         dataType: 'json',
                         success: function(result){
-
+                            console.log(result);
                         }
                     });
                     auth.isAuthenticated = false;
@@ -210,11 +214,23 @@
             var credentials;
             var pattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             $scope.remember = false;
+            $scope.invitation_id = null;
             $scope.$parent.account = null;
             $scope.errors = [];
             $rootScope.logged = false;
             $scope.iswechat = false;
-
+            $scope.accbindTips = true;
+            $scope.ECPInvitationTips = false;
+            $scope.ECPinvitation = false;			
+			
+			
+			 if($location.$$path.indexOf('invitation_id')){
+				 
+                $scope.invitation_id = $location.search().invitation_id; 
+				
+            }
+			
+			
             function is_weChat() {
                 var ua = navigator.userAgent.toLowerCase();
                 if (ua.match(/MicroMessenger/i) == "micromessenger") {
@@ -224,15 +240,35 @@
                         url: Config.API_BASE,
                         dataType: 'json',
                         success: function(result){
-
+                            console.log(result);
                         }
                     })
                 }
             }
             is_weChat();
+           
+			
             angular.element(document).find('body').eq(0).removeClass('wechat-popupcon');
             if($location.$$path.indexOf('ACC_bind') != -1){
 
+                // $.ajax({
+                //     type: 'GET',
+                //     url: Config.API_BASE,
+                //     dataType: 'json',
+                //     success: function(result){
+                //         $scope.token = result.token;
+                //         //$scope.openid = result.openid;
+                //         console.log(result);
+                //     }
+                // })
+                // $.ajax({
+                //     type: 'GET',
+                //     url: Config.API_BASE+'/account/',
+                //     dataType: 'json',
+                //     success: function(result){
+                //         console.log(result);
+                //     }
+                // })
             }
 
             var redirectTo = $state.params['redirect-to'];
@@ -246,14 +282,65 @@
                 $scope.emailUpdated = true;
             }
 
+            if($location.$$path.indexOf('wct_ecp_invitation') != -1 && !$rootScope.logged){
+                console.log("wct_ecp_invitation /weixin/getToken?weixin=1");
+                $.ajax({
+                    type: 'GET',
+                    url: Config.API_BASE + '/weixin/getToken?weixin=1',
+                    dataType: 'json',
+                    success: function(result){
+                        console.log(result);
+                        var token = result.token;
+                        Auth.authenticate({'access_token': token}).then(
+                            function (res) {
+                                $rootScope.redirecting = true;
+                                // Socket.getConnection();
+
+                                // Fire logged events
+                                $rootScope.$broadcast('account.login', res.data);
+                            },
+                            function (err) {
+                                errors = [];
+                                if (err.data && err.data.error) {
+                                    errors.push(err.data.error);
+                                }
+                                //$location.url('/login');
+                            });
+                    },
+                    error:function(err){
+                        console.log(err);
+                        if($location.$$search.callopenid==1){
+                            return;
+                        }
+                        else{
+                            var _url = Config.API_BASE + '/weixin/login';
+                            var _path = $location.$$path.substring(1);
+                            var _invitation_id = _path.split('/')[0];
+                            //window.location=_url+'?webtgt=' + _path + '&=invitation_id='+_invitation_id;
+
+                        }
+                    }
+                })
+            }
+			
+			
             $scope.login = function (username, password) {
                 $scope.errors = [];
                 username = username.toLowerCase();
-                credentials = $scope.remember ?
-                    (pattern.test(username) ? {email: username, password: password, remember: true} : {ice_id: username, password: password, remember: true}) :
-                    (pattern.test(username) ? {email: username, password: password} : {ice_id: username, password: password});
-
-
+                if($location.$$path.indexOf('invitation_id')){
+					
+                    credentials = $scope.remember ?
+                       (pattern.test(username) ? {email: username, password: password, invitation_id: $scope.invitation_id, remember: true} : {ice_id: username, password: password, invitation_id: $scope.invitation_id, remember: true}) :
+                        (pattern.test(username) ? {email: username, password: password, invitation_id: $scope.invitation_id} : {ice_id: username, password: password, invitation_id: $scope.invitation_id});
+					
+                }
+                else{
+					
+                    credentials = $scope.remember ?
+                        (pattern.test(username) ? {email: username, password: password, remember: true} : {ice_id: username, password: password, remember: true}) :
+                        (pattern.test(username) ? {email: username, password: password} : {ice_id: username, password: password});
+                }
+                console.log(credentials);
                 $rootScope.loginTransition = true;
                 return Auth.login(credentials).then(
                         function (res) {
@@ -263,12 +350,14 @@
 
                         // Fire logged events
                         $rootScope.$broadcast('account.login', res.data);
+
                         Account.get()
                             .then(function(res) {
-                                
-                                if (redirectTo) {
-                                  $location.path(redirectTo).search(searchParams).replace();
-                                  $window.location.reload();  // we chat click on account page after login not showing username need to refresh fixed
+								var _ua = navigator.userAgent.toLowerCase();
+                                if (redirectTo && _ua.match(/MicroMessenger/i) == "micromessenger") {
+									
+                                  //$location.path(redirectTo).search(searchParams).replace();
+                                  $window.location.reload();  // wechat click on account page after login not showing username need to refresh fixed
                                 } else if (res.is_partner) {
                                     Account.getApiKeyForPartner()
                                     .then(function(){
@@ -313,9 +402,12 @@
                     }
                     else wechat = 0;
                 }
+                // console.log(credentials);
+                // console.log($scope);
 
                 return Auth.login(credentials).then(
                         function (res) {
+                            console.log(res);
                         $scope.errors = [];
                         // Socket.getConnection();
                         // Fire logged events
@@ -324,10 +416,11 @@
                         Account.get()
                             .then(function(res) {
                                 if (redirectTo) {
-                                    $location.path(redirectTo).search(searchParams);
+                                    //$location.path(redirectTo).search(searchParams);
                                 // } else if (res.is_partner) {
 									//Vincent Start
-										$location.path(redirectTo).search(searchParams).replace();
+									
+										//$location.path(redirectTo).search(searchParams).replace();
 										$window.location.reload();  // wechat click on account page after login not showing username need to refresh fixed
 									//Vincent End
                                 } else if (parseInt(res.is_partner)) {
@@ -345,7 +438,6 @@
 
                                 $rootScope.loginTransition = false;
                             });
-                            $rootScope.redirecting = false;
                     },
                     function (err) {
                         errors = [];
@@ -353,12 +445,13 @@
                             errors.push(err.data.error);
                         }
                         $scope.errors = errors;
-                        $rootScope.redirecting = false;
-                    });                   
+                    });
+                    $rootScope.redirecting = false;
 
-                };
-            }])
+            };
+        }])
 
+//<<<<<<< HEAD
         .controller('AuthTokenController', ['$rootScope', '$window', '$scope', '$state', '$location', 'Auth', 'Socket', 'Account','Store', function ($rootScope, $window, $scope, $state, $location, Auth, Socket, Account,Store) {
             var redirectTo = $state.params['redirect-to'];
             var token = $state.params['token'];
@@ -370,8 +463,9 @@
                 Store.put(tokenKey, token);
             }
 
-
-            if ($rootScope.logged){
+			var _ua = navigator.userAgent.toLowerCase();
+            if ($rootScope.logged && _ua.match(/MicroMessenger/i) != "micromessenger"){
+				
                 $location.url(redirectTo);
                 return;
             }
@@ -387,7 +481,6 @@
 
 
                 $scope.errors = [];
-
                 return Auth.authenticate({'access_token': token}).then(
                         function (res) {
 
@@ -402,11 +495,13 @@
 
                         Account.get()
                             .then(function() {
-                                if (redirectTo) {
-                                    $location.url(redirectTo).replace();
-                                    $window.location.reload();
+								var _ua = navigator.userAgent.toLowerCase();
+                                if (_ua.match(/MicroMessenger/i) == "micromessenger") {
+									
+								     $state.reload();
                                 } else {
-                                    $state.transitionTo('account.show', {});
+                                     //$state.reload();
+									$state.transitionTo('account.show', {});//Vincent Change
                                 }
                             });
                     },
