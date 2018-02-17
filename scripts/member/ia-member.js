@@ -1,15 +1,17 @@
 (function () {
     'use strict';
-
+	
     angular.module('iaMember', [])
 
-        .controller('MemberHelperController', function($rootScope, $scope, $state, $stateParams, Account, Alert, locale, MEDIA_BASE, CountriesUtils) {
+        .controller('MemberHelperController', function($rootScope, $scope, $state, $stateParams, Account, Alert, locale, MEDIA_BASE,CountriesUtils) {
             $rootScope.isMobile = false;
+
             angular.element(document).ready(function () {
                  if(jQuery.browser && jQuery.browser.mobile){
                     $rootScope.isMobile = true;
                 }
             });
+
             $scope.isVisible = function isElementInViewport (el) {
 
                     if (typeof jQuery === "function" && el instanceof jQuery) {
@@ -22,7 +24,7 @@
                         rect.top >= 0 &&
                         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 100 /*or $(window).height() */
                     );
-            }
+                }
 
             $scope.locationTracking = false;
 
@@ -43,10 +45,16 @@
             $scope.collapseTab = function(){
                 angular.element('.panel-collapse').collapse('hide');
             }
+
+
             $scope.storeScroll = function(){
+
                 if ($state.current.name == 'account.viewMember'){
+
                     var tab = $rootScope['tabGroup'];
+
                     if (tab){
+
                         $rootScope.editPosition =
                             _.isNull(angular.element('#collapse'+tab['tab'])) ?
                                         angular.element('#collapse'+tab['tab']).position().top :
@@ -55,24 +63,34 @@
                         $rootScope.editPosition += (window.innerHeight || document.documentElement.clientHeight);
 
                     }else {
+
                         $rootScope.editPosition = window.scrollY + (window.scrollY > 500 ? 480 : 0 );
                     }
                 }
+
                 $scope.dockEditFooter();
+
             }
 
             $scope.storeTab = function(groupName, tabName){
+
                 if ($state.current.name == 'account.viewMember'){
                     $rootScope['tabGroup'] = {'group': groupName, 'tab': tabName};
                 }
+
             }
 
             $scope.dockEditFooter = function(){
+
                 if (jQuery.browser && !jQuery.browser.mobile && angular.element('#footer-include').css('display') !== 'none'){
+
                     setTimeout(function() {
+
                         $scope.isVisible(angular.element('#footer-include')) ? angular.element('#edit-footer').addClass('docked')
                                                                         : angular.element('#edit-footer').removeClass('docked');
+
                     }, 80); /* accordion transition completed */
+
                 }
             }
 
@@ -777,9 +795,8 @@
             $controller('MemberHelperController', { $scope: $scope });
 
             $scope.handle = function (member) {
-
-                if(!_.isUndefined(member.phone.number)|| !_.isNull(member.phone.number)) {
-                    member.phone.number = $scope.formatPhoneNumber(member.phone.number);
+                if(!_.isUndefined(member.phone.number)|| !_.isNull(member.phone.number)){
+                member.phone.number = $scope.formatPhoneNumber(member.phone.number);
                 }
                 if(!_.isUndefined(member.additional_information.personal.home_phone)){
                     if(!_.isUndefined(member.additional_information.personal.home_phone.number)){
@@ -841,18 +858,10 @@
                                 errorMsg.fadeOut(500,0).slideUp(500);
                             }, 2000);
                         $scope.errors = errors;
+
+
+
                     });
-<<<<<<< HEAD
-=======
-            };
-
-             $scope.formatPhoneNumber = function(phoneNumber){
-                var code = phoneNumber.substr(0, phoneNumber.indexOf(' '))+' ';
-                var number = phoneNumber.substr(phoneNumber.indexOf(' ')+1);
-                number = number.replace(/\D/g,'');
-                return code+number;
-
->>>>>>> master
             };
 
             $scope.formatPhoneNumber = function(phoneNumber){
@@ -954,15 +963,15 @@
                 });
 
             $scope.handle = function (data, options) {
+				//Vincent Start
+               if(!_.isUndefined(data.phone.number)|| !_.isNull(data.phone.number)){
+                 data.phone.number = $scope.getNumber(data.phone.number);
 
-                if(!_.isUndefined(data.phone.number)|| !_.isNull(data.phone.number)){
-                    data.phone.number = $scope.getNumber(data.phone.number);
-                }
-                if(!_.isUndefined(data.additional_information.personal.home_phone.number)){
-                    data.additional_information.personal.home_phone.number = $scope.getNumber(data.additional_information.personal.home_phone.number);
-                }
-                if(!_.isUndefined(data.additional_information.personal.workplace_phone.number)  ){
-                    data.additional_information.personal.workplace_phone.number = $scope.getNumber(data.additional_information.personal.workplace_phone.number);
+                 data.additional_information.personal.home_phone.number = $scope.getNumber(data.additional_information.personal.home_phone.number);
+                 }
+                 if( !_.isUndefined(data.additional_information.personal.workplace_phone) && (!_.isUndefined(data.additional_information.personal.workplace_phone.number))){
+                //Vincent End
+				data.additional_information.personal.workplace_phone.number = $scope.getNumber(data.additional_information.personal.workplace_phone.number);
                 }
 
                 if(data.additional_information.insurances.length>0){
@@ -981,16 +990,12 @@
                     })
                 }
 
-<<<<<<< HEAD
                 if(data.additional_information.personal.home_phone!==false && !_.isUndefined(data.additional_information.personal.home_phone) && (data.additional_information.personal.home_phone.code===null) && (data.additional_information.personal.home_phone.number===""))//Vincent
-=======
-                if(data.additional_information.personal.home_phone!==false && !_.isUndefined(data.additional_information.personal.home_phone) && (data.additional_information.personal.home_phone.code===null) && (data.additional_information.personal.home_phone.number===""))
->>>>>>> master
                 {
                     data.additional_information.personal.home_phone=false;
                 }
 
-                if(data.additional_information.personal.workplace_phone!==false && !_.isUndefined(data.additional_information.personal.workplace_phone) && data.additional_information.personal.workplace_phone.code===null && data.additional_information.personal.workplace_phone.number==="")
+                if(data.additional_information.personal.workplace_phone!==false && data.additional_information.personal.workplace_phone.code===null && data.additional_information.personal.workplace_phone.number==="")
                 {
                     data.additional_information.personal.workplace_phone=false;
                 }
@@ -1001,22 +1006,18 @@
                     postData.email = null;
                 }
 
-
                 $scope.errorSaving = false;
 
                 Account.updateMember(postData)
                     .then(function (res) {
                         angular.extend(_.find($scope.account.members, {id: res.id}), res);
                         angular.extend($rootScope.member.additional_information, res.additional_information);
+
                         $rootScope.$broadcast('member.updated', res);
+
 
                         if (!options) {
                             if($scope.member.additional_information.personal.home_phone.number==" ")
-<<<<<<< HEAD
-                            {
-                                scope.member.additional_information.personal.home_phone.number=null;
-                            }
-=======
                         {
                             $scope.member.additional_information.personal.home_phone.number=null;
                         }
@@ -1024,12 +1025,6 @@
                         {
                             $scope.member.additional_information.personal.workplace_phone.number=null;
                         }
->>>>>>> master
-                            
-                            if($scope.member.additional_information.personal.workplace_phone.number==" ")
-                            {
-                                $scope.member.additional_information.personal.workplace_phone.number=null;
-                            }                            
 
                              $state.transitionTo('account.editMember', {member_id: res.id});
                              var saveSuccessfully = angular.element(document).find('div.member-save-info');
@@ -1055,7 +1050,7 @@
                             }
                         }
 
-                        $scope.memberForm.$submitted = false;                        
+                        $scope.memberForm.$submitted = false;
                     })
                     .catch(function (err) {
 
@@ -1066,13 +1061,18 @@
                             $scope.memberError = $filter('i18n')('errors.systemError');
 
                          }else{
+
                             errors.push(err.data.error);
+
                             _.each(errors, function(error) {
                                 if (!_.isNull(error.message) || !_.isEmpty(error.message)) {
                                     $scope.memberError = error.message;
                                 }
                             });
                          }
+
+
+
                         $scope.errorSaving = true;
                         var errorMsg = angular.element(document).find('div.danger-class');
                         errorMsg.fadeIn(500,0).slideDown(500);
@@ -1080,12 +1080,14 @@
                             errorMsg.fadeOut(500,0).slideUp(500);
                         }, 3000);
                     });
+
                 return false;
             };
 
             $scope.editMemberPermission = function (member_id) {
                 $state.go('account.editMemberPermission', {member_id: member_id});
             };
+
             $scope.getNumber = function(phoneNumber){
                 if(phoneNumber!=null)
                 {
@@ -1100,12 +1102,15 @@
 
         .controller('ViewMemberHistoryController', function($stateParams, $scope, Account) {
             var page = 1;
+
             $scope.more_histories = true;
+
             Account.getMemberHistory($stateParams.member_id, 0)
                 .then(function (histories) {
                     $scope.histories = histories.data;
                     $scope.loadMore = loadMore;
                 });
+
             // The member is needed for the breadcrumb.
             Account.getMember($stateParams.member_id)
                 .then(function (member) {
@@ -1345,10 +1350,12 @@
             /* show preview */
 
             $scope.preview = function (permission) {
-
+				
                 PermissionService.setPreviewPermission($stateParams.member_id, permission);
                 $state.transitionTo('account.preview-profile', {member_id: $stateParams.member_id});
             };
+			
+			
         })
 
         .controller('PreviewProfileController', function ($rootScope, $scope, $controller, $state, $stateParams, Account, permission) {
@@ -1416,9 +1423,12 @@
             $controller('MemberHelperController', {$scope: $scope});
 
             $scope.preview = function (permission) {
+				
                 PermissionService.setTempPermission(permission);
                 $state.transitionTo('account.preview-friend-in-need-profile', {profile_token: $stateParams.profile_token});
             };
+			
+		
         }])
 
         .controller('PreviewFinProfileController', ['$rootScope', '$scope', '$controller', 'member', 'permission', function($rootScope, $scope, $controller, member, permission) {
@@ -1529,12 +1539,8 @@
                                     $scope.error = err.data.error;
                                 });
 
-<<<<<<< HEAD
                             amplitude.logEvent('share-email');
 							amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('share-email');//Vincent
-=======
-                            amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('share-email');
->>>>>>> master
 
                         };
                     }]
@@ -2035,12 +2041,8 @@
                             }
                         }
 
-<<<<<<< HEAD
                         amplitude.logEvent('share-print');
 						amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('share-print');//Vincent
-=======
-                        amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('share-print');
->>>>>>> master
 
                     });
                 }

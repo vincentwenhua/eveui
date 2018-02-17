@@ -1,5 +1,5 @@
 (function () {
-    'use strict';
+    // 'use strict';
 
     angular.module('iaSupport', [])
     /***************************
@@ -34,13 +34,13 @@
     }])
 
      .factory('SupportLanguages', ['iaCollection', function(iaCollection) {
-       var supportLanguages = [
-       {id: 1, name_en: '中文', name_zh: '中文', name_pinyin: 'zhongwen', value: 'zh'},
-       {id:2, name_en: 'English', name_zh: 'English', name_pinyin: 'yingwen', value: 'en'}
-       ];
+         var supportLanguages = [
+             {id: 1, name_en: '中文', name_zh: '中文', name_pinyin: 'zhongwen', value: 'zh'},
+             {id:2, name_en: 'English', name_zh: 'English', name_pinyin: 'yingwen', value: 'en'}
+         ];
 
-       return new iaCollection(supportLanguages);
-   }])
+        return new iaCollection(supportLanguages);
+    }])
 
      .factory('LocationTrack', ['iaCollection', function (iaCollection) {
 
@@ -422,7 +422,7 @@
             };
         }])
 
-         .directive('iceid', ['$filter', function ($filter) {
+        .directive('iceid', ['$filter', function ($filter) {
             return {
                 require: 'ngModel',
                 link: function (scope, elm, attrs, ctrl) {
@@ -447,7 +447,7 @@
             };
         }])
 
-         .directive('syncDevices', ['$modal', '$state','Restangular','$rootScope', function ($modal, $state,Restangular,$rootScope) {
+ .directive('syncDevices', ['$modal', '$state','Restangular','$rootScope', function ($modal, $state,Restangular,$rootScope) {
             return {
                 restrict: 'EA',
                 link: function (scope, elem, attrs) {
@@ -463,9 +463,9 @@
                         controller: ['$scope', function ($scope) {
 
                             function cancel(){
-                             modalInstance.dismiss('cancel');
-                             var body = angular.element(document).find('body').eq(0);
-                             if (body[0].className === 'modal-open') {
+                               modalInstance.dismiss('cancel');
+                               var body = angular.element(document).find('body').eq(0);
+                               if (body[0].className === 'modal-open') {
 
                                 var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
                                 var modalLayer  = angular.element(document).find('div.modal').eq(0);
@@ -477,20 +477,20 @@
                         }
 
                         $scope.cancel = function () {
-                           cancel();
-                       };
+                         cancel();
+                     };
 
 
-                   }]
-               };
+              }]
+          };
 
-               elem.on('click', function ($scope) {
-                if(opts.scope.member.devices.length>0)
-                    modalInstance = $modal.open(opts);
-            });
-           }
-       };
-   }])
+          elem.on('click', function ($scope) {
+            if(opts.scope.member.devices.length>0)
+                modalInstance = $modal.open(opts);
+        });
+      }
+  };
+}])
 
 
          .filter('iceFormat', function() {
@@ -691,9 +691,9 @@
                         controller: ['$scope', function ($scope) {
 
                             function cancel(){
-                             modalInstance.dismiss('cancel');
-                             var body = angular.element(document).find('body').eq(0);
-                             if (body[0].className === 'modal-open') {
+                               modalInstance.dismiss('cancel');
+                               var body = angular.element(document).find('body').eq(0);
+                               if (body[0].className === 'modal-open') {
 
                                 var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
                                 var modalLayer  = angular.element(document).find('div.modal').eq(0);
@@ -705,31 +705,31 @@
                         }
 
                         $scope.cancel = function () {
-                           cancel();
-                       };
+                         cancel();
+                     };
 
-                       $scope.renewApiKeyForPartner = function (){
-                          Restangular.one('partners/key').put().then(
-                            function(res){
-                               $rootScope.apiKey = res.key;
-                               cancel();
-                           },
-                           function(err){
-                            errors = [];
-                            errors.push(err.data.error);
-                            $scope.errors = errors;
-                            cancel();
-                        });
-                      };
-                  }]
-              };
+                     $scope.renewApiKeyForPartner = function (){
+                      Restangular.one('partners/key').put().then(
+                        function(res){
+                         $rootScope.apiKey = res.key;
+                         cancel();
+                     },
+                     function(err){
+                        errors = [];
+                        errors.push(err.data.error);
+                        $scope.errors = errors;
+                        cancel();
+                    });
+                  };
+              }]
+          };
 
-              elem.on('click', function () {
-                modalInstance = $modal.open(opts);
-            });
-          }
-      };
-  }])
+          elem.on('click', function () {
+            modalInstance = $modal.open(opts);
+        });
+      }
+  };
+}])
 
          // get PartnerMembers
          .directive('partnerMembersModal', ['$modal', '$state','Restangular','$rootScope','locale', function ($modal, $state,Restangular,$rootScope,locale) {
@@ -751,9 +751,9 @@
                     templateUrl: attrs.templateurl,
                     controller: ['$scope', function ($scope) {
                         function cancel(){
-                         modalInstance.dismiss('cancel');
-                         var body = angular.element(document).find('body').eq(0);
-                         if (body[0].className === 'modal-open') {
+                           modalInstance.dismiss('cancel');
+                           var body = angular.element(document).find('body').eq(0);
+                           if (body[0].className === 'modal-open') {
 
                             var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
                             var modalLayer  = angular.element(document).find('div.modal').eq(0);
@@ -765,12 +765,12 @@
                     };
 
                     $scope.cancel = function () {
-                       cancel();
-                   };
-               }]
-           };
+                     cancel();
+                 };
+             }]
+         };
 
-           elem.on('click', function () {
+         elem.on('click', function () {
                         $rootScope.redirecting=true; // to stop global spinner
                         $rootScope.reqLoading = true;
                         scope.showError = false;
@@ -795,140 +795,95 @@
                                 $rootScope.reqLoading = false;
                             },
                             function(err){
-                             $rootScope.reqLoading = false;
-                             scope.showError = true;
-                             errors = [];
-                             errors.push(err.data.error);
-                             scope.errors = errors;
-                         })
+                               $rootScope.reqLoading = false;
+                               scope.showError = true;
+                               errors = [];
+                               errors.push(err.data.error);
+                               scope.errors = errors;
+                           })
                     });
-       }
-   };
+     }
+ };
 }])
                   // get PartnerMembers
-                  .directive('getWallpaper', ['$window','$modal', '$state','Restangular','$rootScope','locale','AuthToken','$http','iaSettings', function ($window,$modal, $state,Restangular,$rootScope,locale,AuthToken,$http,iaSettings) {
-                    return {
-                        restrict: 'EA',
+ .directive('getWallpaper', ['$window','$modal', '$state','Restangular','$rootScope','locale','AuthToken','$http','iaSettings', function ($window,$modal, $state,Restangular,$rootScope,locale,AuthToken,$http,iaSettings) {
+            return {
+                restrict: 'EA',
 
-                        link: function (scope, elem, attrs,iaSettings) {
-                            var modalInstance = null;
-                            var opts = {
-                                backdrop: true,
-                                backdropClick: true,
-                                dialogFade: false,
-                                keyboard: true,
-                                size: attrs.size,
-                                scope: scope,
-                                templateUrl: attrs.templateurl,
-                                controller: ['$scope', function ($scope) {
-                                    function cancel(){
-                                     modalInstance.dismiss('cancel');
-                                     var body = angular.element(document).find('body').eq(0);
-                                     if (body[0].className === 'modal-open') {
+                link: function (scope, elem, attrs,iaSettings) {
+                    var modalInstance = null;
+                  var opts = {
+                    backdrop: true,
+                    backdropClick: true,
+                    dialogFade: false,
+                    keyboard: true,
+                    size: attrs.size,
+                    scope: scope,
+                    templateUrl: attrs.templateurl,
+                    controller: ['$scope', function ($scope) {
+                        function cancel(){
+                           modalInstance.dismiss('cancel');
+                           var body = angular.element(document).find('body').eq(0);
+                           if (body[0].className === 'modal-open') {
 
-                                        var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
-                                        var modalLayer  = angular.element(document).find('div.modal').eq(0);
+                            var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
+                            var modalLayer  = angular.element(document).find('div.modal').eq(0);
 
-                                        body.removeClass('modal-open');
-                                        layer.remove();
-                                        modalLayer.remove();
-                                    }
-                                };
+                            body.removeClass('modal-open');
+                            layer.remove();
+                            modalLayer.remove();
+                        }
+                    };
 
-                                $scope.cancel = function () {
-                                   cancel();
-                               };
-                           }]
-                       };
+                    $scope.cancel = function () {
+                     cancel();
+                 };
+             }]
+         };
 
-                       elem.on('click', function () {
+         elem.on('click', function () {
                         $rootScope.redirecting=true; // to stop global spinner
                         $rootScope.reqLoading = true;
                         scope.showError = false;
                         var token = AuthToken.get();
+
                         var req = {
-                           method: 'GET',
-                           url: Config.API_BASE+'/lockscreen',
-                           headers: {
-                             'X-Authorization':'Bearer ' + token,
-                             'Accept-Language': locale
-                         }
-                     }
+                             method: 'GET',
+                             url: Config.API_BASE+'/lockscreen',
+                             headers: {
+                               'X-Authorization':'Bearer ' + token,
+                               'Accept-Language': locale
+                             } 
+                        }
 
-                     $http(req)
-                     .then(function(res)
-                     {
-                        var anchor = angular.element('<a/>');
-                        anchor.css({display: 'none'});
-                        angular.element(document.body).append(anchor);
-                        anchor.attr({
-                            href: res.data.url,
-                            target: '_self',
-                            download: 'iCE_wallpaper.jpg'
-                        })[0].click();
-                        anchor.remove();
-                        $rootScope.redirecting=false;
-                        $rootScope.reqLoading = false;
-                    },
-                    function(error)
-                    {
-                        $rootScope.reqLoading = false;
-                        scope.showError = true;
-                        errors = [];
-                        errors.push(err.data.error);
-                        scope.errors = errors;
+        $http(req)
+        .then(function(res)
+            {
+                var anchor = angular.element('<a/>');
+                    anchor.css({display: 'none'});
+                    angular.element(document.body).append(anchor);
+                    anchor.attr({
+                        href: res.data.url,
+                        target: '_self',
+                        download: 'iCE_wallpaper.jpg'
+                    })[0].click();                                
+                    anchor.remove();
+                $rootScope.redirecting=false;
+                $rootScope.reqLoading = false;
+            }, 
+            function(error)
+            {
+                $rootScope.reqLoading = false;
+                scope.showError = true;
+                errors = [];
+                errors.push(err.data.error);
+                scope.errors = errors;
+            });                       
+
                     });
-                     Restangular.one("wallpaper").customGET
-                     (undefined, {
-                        'X-Authorization':'Bearer ' + token,
-                        'Accept-Language':lang,
-                        'content-type': 'image/jpeg',
-                        'accept':'image/jpeg',
-                        'content-disposition':'attachment; filename=iCE_wallpaper.jpeg'
-                    })
-                     .then(function(res,headers){
-                        var anchor = angular.element('<a/>');
-                        anchor.css({display: 'none'});
-                        angular.element(document.body).append(anchor);
-                        anchor.attr({
-                            href: 'data:attachment/jpg;charset=utf-8,' + encodeURIComponent(res),
-                            target: '_self',
-                            download: 'iCE_wallpaper.jpg'
-                        })[0].click();
-                        anchor.remove();
-
-
-                        //  var a = document.createElement('a');
-                      // a.href = 'data:attachment/jpeg;charset=utf-8,' + encodeURI(res);
-                      // a.target = '_blank';
-                     // a.download = 'iCE_wallpaper.jpg';
-                     // document.body.appendChild(a);
-                      // a.click();
-
-                                        // document.getElementById('imageDownload').appendChild(res);
-                                              //  var img = document.createElement('img');
-                    //img.src = 'data:image/jpeg;base64,' + btoa(res);
-                    //document.body.appendChild(img);
-
-                            // var file = new Blob([res], {type: 'application/Image'});
-                          //   scope.image = URL.createObjectURL(file);
-
-                           //  scope.image=res;
-                             // modalInstance = $modal.open(opts);
-                             $rootScope.redirecting=false;
-                             $rootScope.reqLoading = false;
-                         },
-                         function(err){
-                            $rootScope.reqLoading = false;
-                            scope.showError = true;
-                            errors = [];
-                            errors.push(err.data.error);
-                            scope.errors = errors;
-                        })
-});
-                   }
-               };
-           }])
+     }
+ };
+}])
 
         //login help modal
         .directive('loginHelp', ['$modal', 'Account', function ($modal, Account) {
@@ -1150,7 +1105,7 @@
             };
         }])
 
-        .directive('cancelSubscription', ['$rootScope', '$modal','Restangular','AuthToken', function ($rootScope, $modal,Restangular,AuthToken) {
+         .directive('cancelSubscription', ['$rootScope', '$modal','Restangular','AuthToken', function ($rootScope, $modal,Restangular,AuthToken) {
             return {
                 restrict: 'EA',
                 link: function (scope, elem, attrs) {
@@ -1167,16 +1122,16 @@
                             $scope.cancelSubscription=function(){
                                 var token = AuthToken.get();
                                 var data =  {
-                                    'X-Authorization': token
-                                };
+                                            'X-Authorization': token
+                                        };
                                 Restangular.all('stripe').all('cancel').post(data).then(
                                     function (res) {
                                       $scope.account.subscription_ends_at = res.ends_at;
                                       $scope.cancel();
-                                  },
-                                  function (err) {
+                                    },
+                                    function (err) {
 
-                                  });
+                                    });
                             };
 
                             $scope.cancel = function () {
@@ -1200,7 +1155,7 @@
             };
         }])
 
-        .directive('resumeSubscription', ['$rootScope', '$modal','AuthToken','Restangular', function ($rootScope, $modal,AuthToken,Restangular) {
+          .directive('resumeSubscription', ['$rootScope', '$modal','AuthToken','Restangular', function ($rootScope, $modal,AuthToken,Restangular) {
             return {
                 link: function (scope, elem, attrs) {
                     var modalInstance = null;
@@ -1216,16 +1171,16 @@
                             $scope.resumeSubscription=function(){
                                 var token = AuthToken.get();
                                 var data =  {
-                                    'X-Authorization': token
-                                };
+                                            'X-Authorization': token
+                                        };
                                 Restangular.all('stripe').all('resume').post(data).then(
                                     function (res) {
-                                     $scope.account.subscription_ends_at = res.ends_at;
-                                     $scope.cancel();
-                                 },
-                                 function (err) {
+                                       $scope.account.subscription_ends_at = res.ends_at;
+                                       $scope.cancel();
+                                    },
+                                    function (err) {
 
-                                 });
+                                    });
                             };
 
                             $scope.cancel = function () {
@@ -1298,53 +1253,53 @@
                         controller: ['$scope', function ($scope) {
                             $scope.ok=function(iceIdNumber){
                               Account.removeECPFromPartner(iceIdNumber)
-                              .then(function (res) {
-                                modalInstance.close();
-                                $scope.errors = [];
+                                .then(function (res) {
+                            	   modalInstance.close();
+                                 $scope.errors = [];
 
-                                Account.getFriends().then(function(friends) {
-                                   friends.contacts.forEach(function(friend){
-                                    friend.fullDate =  _.compact([friend.birth_date.year, friend.birth_date.month, friend.birth_date.day]).join('-');
+                              Account.getFriends().then(function(friends) {
+                    					friends.contacts.forEach(function(friend){
+                        				friend.fullDate =  _.compact([friend.birth_date.year, friend.birth_date.month, friend.birth_date.day]).join('-');
+                    					});
+                  					$rootScope.friends = friends;
+                				  });
+
+                         	  var removedSuccessfully = angular.element(document).find('div.member-remove-info');
+
+                                 removedSuccessfully.fadeIn(500,0).slideDown(500);
+
+                                    setTimeout(function() {
+                                     removedSuccessfully.fadeOut(500,0).slideUp(500);
+                                    }, 3000);
+                                })
+                                .catch(function (err) {
+                                    alert(err.data.error.message);
+                                    modalInstance.close();
+                                    $state.reload();
                                 });
-                                   $rootScope.friends = friends;
-                               });
+                            };
+                            $scope.cancel = function () {
+                                modalInstance.dismiss('cancel');
+                                var body = angular.element(document).find('body').eq(0);
+                                if (body[0].className === 'modal-open') {
 
-                                var removedSuccessfully = angular.element(document).find('div.member-remove-info');
+                                    var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
+                                    var modalLayer  = angular.element(document).find('div.modal').eq(0);
 
-                                removedSuccessfully.fadeIn(500,0).slideDown(500);
+                                    body.removeClass('modal-open');
+                                    layer.remove();
+                                    modalLayer.remove();
+                                }
+                            };
+                        }]
+                    };
 
-                                setTimeout(function() {
-                                   removedSuccessfully.fadeOut(500,0).slideUp(500);
-                               }, 3000);
-                            })
-                              .catch(function (err) {
-                                alert(err.data.error.message);
-                                modalInstance.close();
-                                $state.reload();
-                            });
-                          };
-                          $scope.cancel = function () {
-                            modalInstance.dismiss('cancel');
-                            var body = angular.element(document).find('body').eq(0);
-                            if (body[0].className === 'modal-open') {
-
-                                var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
-                                var modalLayer  = angular.element(document).find('div.modal').eq(0);
-
-                                body.removeClass('modal-open');
-                                layer.remove();
-                                modalLayer.remove();
-                            }
-                        };
-                    }]
-                };
-
-                elem.on('click', function () {
-                    modalInstance = $modal.open(opts);
-                });
-            }
-        };
-    }])
+                    elem.on('click', function () {
+                        modalInstance = $modal.open(opts);
+                    });
+                }
+            };
+        }])
 
         /*****************************
          * Remove delete member modal.
@@ -1465,11 +1420,12 @@
             };
         }])
 
-         .directive('printIceId', ['$modal', '$state', 'Account','$filter','$rootScope', function ($modal, $state, Account,$filter,$rootScope) {
+         .directive('printIceId', ['$modal', '$state', 'Account', function ($modal, $state, Account) {
             return {
                 restrict: 'EA',
                 link: function (scope, elem, attrs) {
                     var modalInstance = null;
+
                     var opts = {
                         backdrop: true,
                         backdropClick: true,
@@ -1505,25 +1461,19 @@
                     };
 
                     elem.on('click', function () {
-                        if($rootScope.browserName==true){
-                            alert($filter('i18n')('common.cardIdNotDownload'));
-                        }
-                        else
-                        {
                         modalInstance = $modal.open(opts);
 
                         modalInstance.result.then(function (res) {
                         }, function () {
                             elem.find('button').attr('disabled');
                         });
-                    }
                     });
                 }
             };
         }])
 
 
-       .directive('accessRecords', ['$modal', '$state', '$timeout', 'Account', '$rootScope', function ($modal, $state, $timeout, Account, $rootScope) {
+         .directive('accessRecords', ['$modal', '$state', '$timeout', 'Account', '$rootScope', function ($modal, $state, $timeout, Account, $rootScope) {
             return {
                 restrict: 'A',
                 replace: true,
@@ -1542,10 +1492,10 @@
                                           //   });
                                     //     var a = $('#promoCouponId').length;
                                     //    $('#promoCouponId').val($rootScope.promo);
-                                    // var a = $('#promoCouponId').val();                              
+                                    // var a = $('#promoCouponId').val();
                                      }, 5000);
-                                    
-                                }                                
+
+                                }
                             }
                           });
                     scope.cardNameLanguage = $rootScope.globals.language;
@@ -1565,9 +1515,16 @@
                         $timeout(function () {
                             // scope.submitCard = submitCard;
                             var self = this;
+//<<<<<<< HEAD
                             var stripe = Stripe(Config.STRIPE_PUBLIC_KEY);
-                            var elements = stripe.elements({locale: $rootScope.globals.language});
-                            var style = {   
+							var elements = stripe.elements({locale: $rootScope.globals.language});
+                            //var style = {
+//=======
+                            var stripe = Stripe('pk_test_1u3dCYbIx8CvoVuMZ1BBn4Kx');
+                            var elements = stripe.elements();
+
+                            var style =     {
+//>>>>>>> wechat
                                                     base: {
                                                       iconColor: '#666EE8',
                                                       color: '#31325F',
@@ -1584,27 +1541,26 @@
                                                         color: '#fa755a',
                                                         iconColor: '#fa755a'
                                                       }
-                                                  
+
                                             };
 
                                 // self.card = elements.create('card', {style: style});
                                 // self.card.mount('#card-element');
 
-                                scope.cardNumberElement = elements.create('cardNumber', {
-                                  iconStyle: 'solid', style: style, classes: {focus: 'is-focused', empty: 'is-empty'}
-
-                                });
-                                scope.cardNumberElement.mount('#card-number-element');
-
-                                scope.cardExpiryElement = elements.create('cardExpiry', {
+                                self.cardNumberElement = elements.create('cardNumber', {
                                   iconStyle: 'solid', style: style, classes: {focus: 'is-focused', empty: 'is-empty'}
                                 });
-                                scope.cardExpiryElement.mount('#card-expiry-element');
+                                self.cardNumberElement.mount('#card-number-element');
 
-                                scope.cardCvcElement = elements.create('cardCvc', {
+                                self.cardExpiryElement = elements.create('cardExpiry', {
                                   iconStyle: 'solid', style: style, classes: {focus: 'is-focused', empty: 'is-empty'}
                                 });
-                                scope.cardCvcElement.mount('#card-cvc-element');
+                                self.cardExpiryElement.mount('#card-expiry-element');
+
+                                self.cardCvcElement = elements.create('cardCvc', {
+                                  iconStyle: 'solid', style: style, classes: {focus: 'is-focused', empty: 'is-empty'}
+                                });
+                                self.cardCvcElement.mount('#card-cvc-element');
 
                                 // self.postalCodeElement = elements.create('postalCode', {
                                 //   iconStyle: 'solid', style: style, classes: {focus: 'is-focused', empty: 'is-empty'}
@@ -1639,6 +1595,7 @@
                                 // https://stripe.com/docs/charges
 
                                 var coupon = document.querySelector('input[name=coupon-element]').value;
+
                                 Account.subscribePayment($rootScope.account.id, result.token, coupon).then(function (returnValue){
                                     //TODO: disable button
                                     var status = '';
@@ -1648,7 +1605,7 @@
                                     if (returnValue.success){
                                         status = $filter('i18n')('common.cardPaymentSuccessful');
                                         if (returnValue.promo=='bin' || returnValue.promo=='coupon'){
-                                            status =$filter('i18n')('common.couponCodeSuccessful');                                         
+                                            status =$filter('i18n')('common.couponCodeSuccessful');
                                         }
                                     }else{
                                         $rootScope.account.is_premium=false;
@@ -1661,12 +1618,12 @@
                                     }, 5000);
 
                                 }, function(e){
-                                    //TODO: re-enable button, allow retry                               
+                                    //TODO: re-enable button, allow retry
                                     if(e.status==404){
-                                     successElement.querySelector('.result').textContent = $filter('i18n')('errors.invalidCouponCode');   
+                                     successElement.querySelector('.result').textContent = $filter('i18n')('errors.invalidCouponCode');
                                     }
                                     else{
-                                        successElement.querySelector('.result').textContent = $filter('i18n')('errors.transactionFailed');   
+                                        successElement.querySelector('.result').textContent = $filter('i18n')('errors.transactionFailed');
                                     }
                                     successElement.classList.add('visible');
                                 });
@@ -1676,8 +1633,7 @@
                                 errorElement.classList.add('visible');
                               }
                             }
-
-                            scope.cardNumberElement.on('change', function(event) {
+                            self.cardNumberElement.on('change', function(event) {
                               setOutcome(event);
                             });
 
@@ -1687,11 +1643,11 @@
                               var extraDetails = {
                                 name: form.querySelector('input[name=cardholder-name]').value,
                               };
-                            
+
                               // TODO: capture and pass coupon to API call
                               // document.querySelector('input[name=coupon-element]').value
 
-                              stripe.createToken(scope.cardNumberElement, extraDetails).then(setOutcome)                            
+                              stripe.createToken(cardNumberElement, extraDetails).then(setOutcome)
                             });
                         });
 
@@ -1718,376 +1674,426 @@
                             };
                         }]
                     };
-                    
-        elem.on('click', function (element) {
-            if($modal.is_premium===false)
-            {
-                modalInstance = $modal.open(opts);
-                modalInstance.result.then(function (res) {
-                }, function () {
-                    elem.find('button').attr('disabled');
-                });
-            }
-            else
-            {
-                if(element.target.className==='add_member_record'){
-                    $state.transitionTo('account.member', {});
+
+                    elem.on('click', function (element) {
+                        if($modal.is_premium===false)
+                        {
+                            modalInstance = $modal.open(opts);
+                            modalInstance.result.then(function (res) {
+                                }, function () {
+                                    elem.find('button').attr('disabled');
+                            });
+                        }
+                        else
+                        {
+                            if(element.target.className==='add_member_record'){
+                                $state.transitionTo('account.member', {});
+                            }
+                            else
+                            {
+                                $state.transitionTo('account.viewMember', {member_id: $rootScope.account.members[0].id});
+                            }
+                        }
+                    });
                 }
-                else
-                {
-                    $state.transitionTo('account.viewMember', {member_id: $rootScope.account.members[0].id});
-                }
-            }
-        });
-        }
-        };
+            };
         }])
 
 
-.directive('sendMessenger', ['$modal', '$state', 'Account', function ($modal, $state, Account) {
-    return {
-        restrict: 'EA',
-        link: function (scope, elem, attrs) {
-            var modalInstance = null;
+         .directive('sendMessenger', ['$modal', '$state', 'Account', function ($modal, $state, Account) {
+            return {
+                restrict: 'EA',
+                link: function (scope, elem, attrs) {
+                    var modalInstance = null;
 
-            var opts = {
-                backdrop: true,
-                backdropClick: true,
-                dialogFade: false,
-                keyboard: true,
-                size: attrs.size,
-                templateUrl: attrs.templateurl,
-                scope: scope,
-                controller: ['$scope', function ($scope) {
+                    var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: ['$scope', function ($scope) {
 
-                    $scope.cancel = function () {
-                        modalInstance.dismiss('cancel');
-                        var body = angular.element(document).find('body').eq(0);
-                        if (body[0].className === 'modal-open') {
+                            $scope.cancel = function () {
+                                modalInstance.dismiss('cancel');
+                                var body = angular.element(document).find('body').eq(0);
+                                if (body[0].className === 'modal-open') {
 
-                            var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
-                            var modalLayer  = angular.element(document).find('div.modal').eq(0);
+                                    var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
+                                    var modalLayer  = angular.element(document).find('div.modal').eq(0);
 
-                            body.removeClass('modal-open');
-                            layer.remove();
-                            modalLayer.remove();
-                        }
+                                    body.removeClass('modal-open');
+                                    layer.remove();
+                                    modalLayer.remove();
+                                }
+                            };
+
+                            $scope.printIceId = function (member) {
+                                Account.memberShareEvent(member, 'download').then(
+                                    function (res) {
+                                        var w = window.open(res[0]);
+                                    }
+                                    );
+                            };
+                        }]
                     };
 
-                    $scope.printIceId = function (member) {
-                        Account.memberShareEvent(member, 'download').then(
-                            function (res) {
-                                var w = window.open(res[0]);
-                            }
-                            );
-                    };
-                }]
-            };
+                    elem.on('click', function () {
+                        modalInstance = $modal.open(opts);
 
-            elem.on('click', function () {
-                modalInstance = $modal.open(opts);
-
-                modalInstance.result.then(function (res) {
-                }, function () {
-                    elem.find('button').attr('disabled');
-                });
-            });
-        }
-    };
-}])
-.directive('deleteAccount', ['$modal', '$state', 'Account', 'Auth', function ($modal, $state, Account, Auth) {
-    return {
-        restrict: 'EA',
-        link: function (scope, elem, attrs) {
-            var modalInstance = null;
-
-            var opts = {
-                backdrop: true,
-                backdropClick: true,
-                dialogFade: false,
-                keyboard: true,
-                size: attrs.size,
-                templateUrl: attrs.templateurl,
-                scope: scope,
-                controller: 'DeleteAccountController'
-            };
-
-            elem.on('click', function () {
-                modalInstance = $modal.open(opts);
-            });
-        }
-    };
-}])
-
-.directive('wechatModal', ['$modal', '$state', function ($modal, $state) {
-    return {
-        restrict: 'EA',
-        link: function (scope, elem, attrs) {
-            var modalInstance = null;
-            var opts = {
-                backdrop: true,
-                backdropClick: true,
-                dialogFade: false,
-                keyboard: true,
-                size: attrs.size,
-                templateUrl: attrs.templateurl,
-                scope: scope,
-                controller: ['$scope', function ($scope) {
-
-                 $scope.cancel = function () {
-                    modalInstance.dismiss('cancel');
-                    var body = angular.element(document).find('body').eq(0);
-                    if (body[0].className === 'modal-open') {
-
-                        var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
-                        var modalLayer  = angular.element(document).find('div.modal').eq(0);
-
-                        body.removeClass('modal-open');
-                        layer.remove();
-                        modalLayer.remove();
-                    }
-                };
-            }]
-        };
-
-        elem.on('click', function () {
-            modalInstance = $modal.open(opts);
-        });
-    }
-};
-}])
-
-.directive('appStoreModal', ['$modal', '$state', function ($modal, $state) {
-    return {
-        restrict: 'EA',
-        link: function (scope, elem, attrs) {
-            var modalInstance = null;
-            var opts = {
-                backdrop: true,
-                backdropClick: true,
-                dialogFade: false,
-                keyboard: true,
-                size: attrs.size,
-                templateUrl: attrs.templateurl,
-                scope: scope,
-                controller: ['$scope', function ($scope) {
-
-                 $scope.cancel = function () {
-                    modalInstance.dismiss('cancel');
-                    var body = angular.element(document).find('body').eq(0);
-                    if (body[0].className === 'modal-open') {
-
-                        var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
-                        var modalLayer  = angular.element(document).find('div.modal').eq(0);
-
-                        body.removeClass('modal-open');
-                        layer.remove();
-                        modalLayer.remove();
-                    }
-                };
-            }]
-        };
-
-        elem.on('click', function () {
-            modalInstance = $modal.open(opts);
-        });
-    }
-};
-}])
-
-.directive('emailconfirmationModal', ['$modal', '$state', function ($modal, $state) {
-    return {
-        restrict: 'EA',
-        link: function (scope, elem, attrs) {
-            var modalInstance = null;
-            var opts = {
-                backdrop: true,
-                backdropClick: true,
-                dialogFade: false,
-                keyboard: true,
-                size: attrs.size,
-                templateUrl: attrs.templateurl,
-                scope: scope,
-                controller: ['$scope', function ($scope) {
-
-                 $scope.cancel = function () {
-                    modalInstance.dismiss('cancel');
-                    var body = angular.element(document).find('body').eq(0);
-                    if (body[0].className === 'modal-open') {
-
-                        var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
-                        var modalLayer  = angular.element(document).find('div.modal').eq(0);
-
-                        body.removeClass('modal-open');
-                        layer.remove();
-                        modalLayer.remove();
-                    }
-                };
-
-                $scope.gotoSettings = function(){
-                    $scope.cancel();
-                    $state.transitionTo('account.settings', {});
-                };
-            }]
-        };
-
-        elem.on('click', function () {
-            modalInstance = $modal.open(opts);
-        });
-    }
-};
-}])
-
-.directive('desktopHeader', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            account: '=',
-            newMessagesCount: '=',
-            language: '=',
-            isHome: '=',
-            logout: '&',
-            showPartner: '='
-        },
-        templateUrl: 'partials/header/desktop.html'
-    };
-})
-
-.directive('mobileHeader', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            account: '=',
-            newMessagesCount: '=',
-            logged: '=',
-            isHome: '=',
-            logout: '&',
-            language: '=',
-            showPartner: '='
-        },
-        templateUrl: 'partials/header/mobile.html',
-        link: function (scope, element, attrs) {
-            var menuMobile = element.find('.menu-mobile');
-
-            menuMobile.bind('click', function() {
-                menuMobile.collapse('hide');
-            });
-            scope.hrefbase = Config.API_BASE;
-            if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
-                scope.iswechat = true;
-            }
-            else{
-                scope.iswechat = false;
-            }
-
-            scope.$on('$stateChangeStart', function () {
-                menuMobile.collapse('hide');
-            });
-        }
-    };
-})
-
-.filter('emailAddress', ['$log', '$filter', 'EmailAddresses', function ($log, $filter, EmailAddresses) {
-    return function (input, key) {
-
-        var emailPattern = new RegExp('@(.*)'),
-        emailDomain = emailPattern.exec(input);
-
-
-        return emailDomain ? _.find(EmailAddresses, {pattern: emailDomain[1]}) : null;
-    };
-}])
-
-.filter('timeAgo', ['iaSettings', function (iaSettings) {
-    return function (input, key) {
-        if (input) {
-            moment().local();
-
-            var alertTime = moment(input.date).format('YYYY-MM-DDTHH:mm:ss'),
-            currentTime = moment().tz(input.timezone).format('YYYY-MM-DDTHH:mm:ss');
-
-            return moment(alertTime).locale(iaSettings.getFormatLanguage()).from(currentTime);
-        }
-    };
-}])
-
-.filter('phoneNumber', ['iaSettings', function (iaSettings) {
-    return function (input, key) {
-        if(!_.isUndefined(input)){
-            return input.replace(' ', '-');
-        }else{
-            return null;
-        }
-    };
-}])
-
-.directive('timeAgo', function(iaSettings) {
-    return {
-        restrict: 'A',
-        controller: function($window, $scope, $element, $attrs, $interval) {
-            var interval = null;
-
-            function renderTime(date) {
-                moment().local();
-
-                var alertTime = moment(date.date).format('YYYY-MM-DDTHH:mm:ss'),
-                currentTime = moment().tz(date.timezone).format('YYYY-MM-DDTHH:mm:ss');
-
-                $element.html(moment(alertTime).locale(iaSettings.getFormatLanguage()).from(currentTime));
-            }
-
-            $attrs.$observe('timeAgo', function() {
-                var time = angular.fromJson($attrs.timeAgo);
-
-                renderTime(time);
-
-                if (interval) {
-                    $interval.cancel(interval);
-                } else {
-                    interval = $interval(function() {
-                        renderTime(time);
-                    }, 60000);
+                        modalInstance.result.then(function (res) {
+                        }, function () {
+                            elem.find('button').attr('disabled');
+                        });
+                    });
                 }
-            });
-
-            $scope.$on('$destroy', function() {
-                $interval.cancel(interval);
-            });
-        }
-    };
-})
-
-.filter('integerFilter', [function () {
-    return function (items, key, reverse) {
-        return _.filter(items, function (item, index) {
-            return !reverse ? item.id === key.id : item.id !== key.id;
-        });
-    };
-}])
-
-.directive('phoneCode', function($filter, $timeout) {
-    return {
-        require: 'ngModel',
-        restrict: 'A',
-        priority: 1,
-        link: function(scope, element, attrs, ngModel) {
-            var phoneCode;
-
-            ngModel.$render = function() {
-                element.prop('value', ngModel.$viewValue);
             };
+        }])
+         .directive('deleteAccount', ['$modal', '$state', 'Account', 'Auth', function ($modal, $state, Account, Auth) {
+            return {
+                restrict: 'EA',
+                link: function (scope, elem, attrs) {
+                    var modalInstance = null;
 
-            scope.$watch(attrs.phoneCode, function (newVal, oldVal) {
-                if(newVal==47 && oldVal==47)
-                {
+                    var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: 'DeleteAccountController'
+                    };
+
+                    elem.on('click', function () {
+                        modalInstance = $modal.open(opts);
+                    });
+                }
+            };
+        }])
+
+        .directive('accbindModal', ['$modal', '$state', 'Account','$rootScope', function ($modal, $state, Account,$rootScope) {
+            return {
+                restrict: 'EA',
+                link: function (scope, elem, attrs) {
+                    var modalInstance = null;
+
+                    var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: ('$controller', function ($controller) {
+
+                            scope.$on('account.login', function(event, data) {
+                                modalInstance.close();
+                            });
+
+                            scope.cancel = function () {
+                                $rootScope.loginTransition=false;
+                                modalInstance.dismiss('cancel');
+                                $state.go('base.home');
+                            };
+
+                            scope.register = scope.cancel;
+                            scope.forgotPassword = scope.register;
+                            scope.resendActiveEmail = scope.cancel;
+
+                            $controller('AuthController', {$scope: scope});
+                        })
+                    };
+
+                    elem.on('click', function () {
+                        modalInstance = $modal.open(opts);
+                    });
+
+                    // var ua = navigator.userAgent.toLowerCase();
+                    // if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                    //     return true;
+                    // } else {
+                    //     return false;
+                    // }
+
+                    elem.click();
+                }
+            };
+        }])
+
+        .directive('ecpinvitationModalPop', ['$modal', '$state', function ($modal, $state) {
+            return {
+                restrict: 'EA',
+                link: function (scope, elem, attrs) {
+                    var modalInstance = null;
+                    var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: ['$scope', function ($scope) {
+                            $scope.cancel = function () {
+                                modalInstance.dismiss('cancel');
+                                var body = angular.element(document).find('body').eq(0);
+                                if (body[0].className === 'modal-open') {
+
+                                    var modalLayer  = angular.element(document).find('div.modal').eq(0);
+                                    body.removeClass('modal-open');
+                                    layer.remove();
+                                    modalLayer.remove();
+                                }
+                            };
+                        }]
+                    };
+
+                    elem.on('click', function () {
+                        modalInstance = $modal.open(opts);
+                        setTimeout(function () {
+                           $('.modal-content').css({'background':'none','color':'#fff'});
+                        },100)
+                    });
+                    elem.click();
+                }
+            };
+        }])
+        .directive('appStoreModal', ['$modal', '$state', function ($modal, $state) {
+            return {
+                restrict: 'EA',
+                link: function (scope, elem, attrs) {
+                    var modalInstance = null;
+                    var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: ['$scope', function ($scope) {
+
+                           $scope.cancel = function () {
+                            modalInstance.dismiss('cancel');
+                            var body = angular.element(document).find('body').eq(0);
+                            if (body[0].className === 'modal-open') {
+
+                                var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
+                                var modalLayer  = angular.element(document).find('div.modal').eq(0);
+
+                                body.removeClass('modal-open');
+                                layer.remove();
+                                modalLayer.remove();
+                            }
+                        };
+                    }]
+                };
+
+                elem.on('click', function () {
+                    modalInstance = $modal.open(opts);
+                });
+            }
+        };
+    }])
+
+         .directive('emailconfirmationModal', ['$modal', '$state', function ($modal, $state) {
+            return {
+                restrict: 'EA',
+                link: function (scope, elem, attrs) {
+                    var modalInstance = null;
+                    var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: ['$scope', function ($scope) {
+
+                           $scope.cancel = function () {
+                            modalInstance.dismiss('cancel');
+                            var body = angular.element(document).find('body').eq(0);
+                            if (body[0].className === 'modal-open') {
+
+                                var layer       = angular.element(document).find('div.modal-backdrop').eq(0);
+                                var modalLayer  = angular.element(document).find('div.modal').eq(0);
+
+                                body.removeClass('modal-open');
+                                layer.remove();
+                                modalLayer.remove();
+                            }
+                        };
+
+                        $scope.gotoSettings = function(){
+                            $scope.cancel();
+                            $state.transitionTo('account.settings', {});
+                        };
+                    }]
+                };
+
+                elem.on('click', function () {
+                    modalInstance = $modal.open(opts);
+                });
+            }
+        };
+    }])
+
+         .directive('desktopHeader', function () {
+            return {
+                restrict: 'E',
+                scope: {
+                    account: '=',
+                    newMessagesCount: '=',
+                    language: '=',
+                    isHome: '=',
+                    logout: '&',
+                    showPartner: '='
+                },
+                templateUrl: 'partials/header/desktop.html'
+            };
+        })
+
+         .directive('mobileHeader', function () {
+            return {
+                restrict: 'E',
+                scope: {
+                    account: '=',
+                    newMessagesCount: '=',
+                    logged: '=',
+                    isHome: '=',
+                    logout: '&',
+                    language: '=',
+                    showPartner: '='
+                },
+                templateUrl: 'partials/header/mobile.html',
+                link: function (scope, element, attrs) {
+                    var menuMobile = element.find('.menu-mobile');
+
+                    menuMobile.bind('click', function() {
+                        menuMobile.collapse('hide');
+                    });
+                    scope.hrefbase = Config.API_BASE;
+                    if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
+                        scope.iswechat = true;
+                    }
+                    else{
+                        scope.iswechat = false;
+                    }
+
+                    scope.$on('$stateChangeStart', function () {
+                        menuMobile.collapse('hide');
+                    });
+                }
+            };
+        })
+
+         .filter('emailAddress', ['$log', '$filter', 'EmailAddresses', function ($log, $filter, EmailAddresses) {
+            return function (input, key) {
+
+                var emailPattern = new RegExp('@(.*)'),
+                emailDomain = emailPattern.exec(input);
+
+
+                return emailDomain ? _.find(EmailAddresses, {pattern: emailDomain[1]}) : null;
+            };
+        }])
+
+         .filter('timeAgo', ['iaSettings', function (iaSettings) {
+            return function (input, key) {
+                if (input) {
+                    moment().local();
+
+                    var alertTime = moment(input.date).format('YYYY-MM-DDTHH:mm:ss'),
+                    currentTime = moment().tz(input.timezone).format('YYYY-MM-DDTHH:mm:ss');
+
+                    return moment(alertTime).locale(iaSettings.getFormatLanguage()).from(currentTime);
+                }
+            };
+        }])
+
+         .filter('phoneNumber', ['iaSettings', function (iaSettings) {
+            return function (input, key) {
+                if(!_.isUndefined(input)){
+                    return input.replace(' ', '-');
+                }else{
+                    return null;
+                }
+            };
+        }])
+
+         .directive('timeAgo', function(iaSettings) {
+            return {
+                restrict: 'A',
+                controller: function($window, $scope, $element, $attrs, $interval) {
+                    var interval = null;
+
+                    function renderTime(date) {
+                        moment().local();
+
+                        var alertTime = moment(date.date).format('YYYY-MM-DDTHH:mm:ss'),
+                        currentTime = moment().tz(date.timezone).format('YYYY-MM-DDTHH:mm:ss');
+
+                        $element.html(moment(alertTime).locale(iaSettings.getFormatLanguage()).from(currentTime));
+                    }
+
+                    $attrs.$observe('timeAgo', function() {
+                        var time = angular.fromJson($attrs.timeAgo);
+
+                        renderTime(time);
+
+                        if (interval) {
+                            $interval.cancel(interval);
+                        } else {
+                            interval = $interval(function() {
+                                renderTime(time);
+                            }, 60000);
+                        }
+                    });
+
+                    $scope.$on('$destroy', function() {
+                        $interval.cancel(interval);
+                    });
+                }
+            };
+        })
+
+         .filter('integerFilter', [function () {
+            return function (items, key, reverse) {
+                return _.filter(items, function (item, index) {
+                    return !reverse ? item.id === key.id : item.id !== key.id;
+                });
+            };
+        }])
+
+         .directive('phoneCode', function($filter, $timeout) {
+            return {
+                require: 'ngModel',
+                restrict: 'A',
+                priority: 1,
+                link: function(scope, element, attrs, ngModel) {
+                    var phoneCode;
+
+                    ngModel.$render = function() {
+                        element.prop('value', ngModel.$viewValue);
+                    };
+
+                    scope.$watch(attrs.phoneCode, function (newVal, oldVal) {
+                        if(newVal==47 && oldVal==47)
+                        {
                             oldVal=0;   // for default phone code in phone number textbox
                         }
                         if (angular.isUndefined(newVal) || (newVal === oldVal)) {
-                           return;
-                       }
+                         return;
+                     }
 
-                       var newPhoneCode = $filter('settingsFilter')(newVal, 'countries', 'phonecode');
-                       if (newPhoneCode === phoneCode) {
+                     var newPhoneCode = $filter('settingsFilter')(newVal, 'countries', 'phonecode');
+                     if (newPhoneCode === phoneCode) {
                         return;
                     }
 
@@ -2114,62 +2120,62 @@
                     phoneCode = newPhoneCode;
                 });
 
-            function updateValue(value) {
-                ngModel.$setViewValue(value);
+                    function updateValue(value) {
+                        ngModel.$setViewValue(value);
                         ngModel.$render(); // This actually shouldn't be necessary. What's going on?
                     }
                 }
             };
         })
 
-.directive('phoneNumber', [function() {
-    return {
-        require: '^ngModel',
-        restrict: 'A',
-        link: function(scope, element, attrs, ctrl) {
+         .directive('phoneNumber', [function() {
+            return {
+                require: '^ngModel',
+                restrict: 'A',
+                link: function(scope, element, attrs, ctrl) {
 
-            var INTEGER_REGEXP = /\d+$/;
+                    var INTEGER_REGEXP = /\d+$/;
 
-            ctrl.$validators.phonenumber = function (modelValue, viewValue) {
+                    ctrl.$validators.phonenumber = function (modelValue, viewValue) {
 
-                if (ctrl.$isEmpty(modelValue)) {
+                        if (ctrl.$isEmpty(modelValue)) {
 
-                    return true;
-                }
+                            return true;
+                        }
 
-                var phNumber = angular.element(element);
-                var target = phNumber.attr('ng-model');
-
-
-                scope.$watch(target, function(newVal, oldVal, el) {
-                    scope.beforeSpaceChar= modelValue.split(" ")[0];
-                    scope.beforeSpaceChar = scope.beforeSpaceChar+ ' ';
-                });
-
-                scope.cursorPosVal = -1;
-                scope.checkLength = function(event) {
-
-                    var myEl = event.target;
-                    scope.doGetCaretPosition(myEl);
-
-                    var selectionStart = scope.cursorPosVal;
+                        var phNumber = angular.element(element);
+                        var target = phNumber.attr('ng-model');
 
 
-                    if(event.which === 37 || event.which === 39){
-                        return event.preventDefault();
+                        scope.$watch(target, function(newVal, oldVal, el) {
+                            scope.beforeSpaceChar= modelValue.split(" ")[0];
+                            scope.beforeSpaceChar = scope.beforeSpaceChar+ ' ';
+                        });
+
+                        scope.cursorPosVal = -1;
+                        scope.checkLength = function(event) {
+
+                            var myEl = event.target;
+                            scope.doGetCaretPosition(myEl);
+
+                            var selectionStart = scope.cursorPosVal;
+
+
+                            if(event.which === 37 || event.which === 39){
+                                return event.preventDefault();
+                            }
+
+                            if ((event.which != 37 && (event.which != 39))
+                                && ((selectionStart < scope.beforeSpaceChar.length)
+                                    || ((selectionStart == scope.beforeSpaceChar.length) && (event.which == 8)))) {
+                                return event.preventDefault();
+                        }
+
                     }
 
-                    if ((event.which != 37 && (event.which != 39))
-                        && ((selectionStart < scope.beforeSpaceChar.length)
-                            || ((selectionStart == scope.beforeSpaceChar.length) && (event.which == 8)))) {
-                        return event.preventDefault();
-                }
+                    scope.doGetCaretPosition = function(oField) {
 
-            }
-
-            scope.doGetCaretPosition = function(oField) {
-
-                var iCaretPos = 0;
+                        var iCaretPos = 0;
 
                                 // IE Support
                                 if (document.selection) {
@@ -2192,101 +2198,101 @@
               };
           }])
 
-.directive('fullPhoneNumber', function($filter) {
-    return {
-        restrict: 'EA',
-        scope: {
-            phonecode: '=',
-            phonenumber: '='
-        },
-        template: '<a class="phone_code_mobile" ng-if="phonenumber" href="tel:{{phonenumber | phoneNumber}}"><span class="full-phone-number">{{ phonenumber }}</span></a>'
-    };
-})
+         .directive('fullPhoneNumber', function($filter) {
+            return {
+                restrict: 'EA',
+                scope: {
+                    phonecode: '=',
+                    phonenumber: '='
+                },
+                template: '<a class="phone_code_mobile" ng-if="phonenumber" href="tel:{{phonenumber | phoneNumber}}"><span class="full-phone-number">{{ phonenumber }}</span></a>'
+            };
+        })
 
-.directive('fullAddress', function($filter, iaAddress) {
-    return {
-        restrict: 'EA',
-        scope: {
-            building: '=',
-            street:'=',
-            district: '=',
-            city: '=',
-            state: '=',
-            postal: '=',
-            country: '='
-        },
-        link: function (scope){
-            scope.building = angular.isUndefined(scope.building) ? '' : scope.building;
-            scope.street = angular.isUndefined(scope.street) ? '' : scope.street;
-            scope.district = angular.isUndefined(scope.district) ? '' : scope.district;
-            scope.city = angular.isUndefined(scope.city) ? '' : scope.city;
-            scope.state = angular.isUndefined(scope.state) ? '' : scope.state;
-            scope.postal = angular.isUndefined(scope.postal) ? '' : scope.postal;
-            scope.country = angular.isUndefined(scope.country) ? '' : _.isNumber(scope.country) ? $filter('countryFilter')(scope.country, 'name') : scope.country;
-            scope.personalAddress = iaAddress.personalAddress(scope.building, scope.street, scope.district, scope.city, scope.state,scope.postal, scope.country);
-        },
-        template: '<span>{{ personalAddress }}</span>'
-    };
-})
+         .directive('fullAddress', function($filter, iaAddress) {
+            return {
+                restrict: 'EA',
+                scope: {
+                    building: '=',
+                    street:'=',
+                    district: '=',
+                    city: '=',
+                    state: '=',
+                    postal: '=',
+                    country: '='
+                },
+                link: function (scope){
+                    scope.building = angular.isUndefined(scope.building) ? '' : scope.building;
+                    scope.street = angular.isUndefined(scope.street) ? '' : scope.street;
+                    scope.district = angular.isUndefined(scope.district) ? '' : scope.district;
+                    scope.city = angular.isUndefined(scope.city) ? '' : scope.city;
+                    scope.state = angular.isUndefined(scope.state) ? '' : scope.state;
+                    scope.postal = angular.isUndefined(scope.postal) ? '' : scope.postal;
+                    scope.country = angular.isUndefined(scope.country) ? '' : _.isNumber(scope.country) ? $filter('countryFilter')(scope.country, 'name') : scope.country;
+                    scope.personalAddress = iaAddress.personalAddress(scope.building, scope.street, scope.district, scope.city, scope.state,scope.postal, scope.country);
+                },
+                template: '<span>{{ personalAddress }}</span>'
+            };
+        })
 
-.directive('fullDate', function($filter) {
-    return {
-        restrict: 'EA',
-        scope: {
-            year: '=',
-            month: '=',
-            day: '='
-        }, link: function (scope){
-            scope.fullDate = _.compact([scope.year, scope.month, scope.day]).join('-');
-        },
-        template: '<span id="full-date">{{ fullDate }}</span>'
-    };
-})
+         .directive('fullDate', function($filter) {
+            return {
+                restrict: 'EA',
+                scope: {
+                    year: '=',
+                    month: '=',
+                    day: '='
+                }, link: function (scope){
+                    scope.fullDate = _.compact([scope.year, scope.month, scope.day]).join('-');
+                },
+                template: '<span id="full-date">{{ fullDate }}</span>'
+            };
+        })
 
 
-.directive('iaGoEmail', ['$log', '$filter', 'locale', function ($log, $filter, locale) {
-    return {
-        restrict: 'E',
-        replace: true,
-        template: '<a open-in-app-browser ng-href="{{address.url}}?external=1" target="_blank">{{emailText}}</a>',
-        scope: {
-            ngModel: '=ngModel'
-        },
-        link: function (scope) {
-            var blankAddress = 'http://about:blank';
-            scope.address = $filter('emailAddress')(scope.ngModel);
+         .directive('iaGoEmail', ['$log', '$filter', 'locale', function ($log, $filter, locale) {
+            return {
+                restrict: 'E',
+                replace: true,
+                template: '<a open-in-app-browser ng-href="{{address.url}}?external=1" target="_blank">{{emailText}}</a>',
+                scope: {
+                    ngModel: '=ngModel'
+                },
+                link: function (scope) {
+                    var blankAddress = 'http://about:blank';
+                    scope.address = $filter('emailAddress')(scope.ngModel);
 
-            var emailTextToken = _.isObject(scope.address) ? 'common.goTo' : 'common.goToMyEmail';
+                    var emailTextToken = _.isObject(scope.address) ? 'common.goTo' : 'common.goToMyEmail';
 
-            if (locale.isToken(emailTextToken)) {
-                locale.ready(locale.getPath(emailTextToken)).then(function () {
-                    var text = locale.getString(emailTextToken, {});
+                    if (locale.isToken(emailTextToken)) {
+                        locale.ready(locale.getPath(emailTextToken)).then(function () {
+                            var text = locale.getString(emailTextToken, {});
 
-                    scope.emailText = _.isObject(scope.address) ? text + scope.address.domain : text;
+                            scope.emailText = _.isObject(scope.address) ? text + scope.address.domain : text;
 
-                    if (scope.address === null) {
-                        scope.address = {
-                            url : blankAddress
-                        };
+                            if (scope.address === null) {
+                                scope.address = {
+                                    url : blankAddress
+                                };
+                            }
+                        });
                     }
-                });
-            }
-        }
-    };
-}])
+                }
+            };
+        }])
 
-.directive('ngFile', ['fileUpload', function (fileUpload) {
-    return {
-        require: '?ngModel',
-        restrict: 'EA',
-        replace: true,
-        link: function (scope, elem, attrs, ctrl) {
-            var model, result, file;
+         .directive('ngFile', ['fileUpload', function (fileUpload) {
+            return {
+                require: '?ngModel',
+                restrict: 'EA',
+                replace: true,
+                link: function (scope, elem, attrs, ctrl) {
+                    var model, result, file;
 
 
-            elem.on('change', function (event) {
-                scope.spinner=true;
-                file = (event.srcElement || event.target).files[0];
+                    elem.on('change', function (event) {
+                        scope.spinner=true;
+                        file = (event.srcElement || event.target).files[0];
 
                         // Change file status back
                         scope.$apply(function () {
@@ -2336,45 +2342,45 @@
                                 });
                         }
                     });
-        },
-        template: '<input type="file" class="no-uniform">'
-    };
-}])
+                },
+                template: '<input type="file" class="no-uniform">'
+            };
+        }])
 
-.service('fileUpload', ['$http', '$q', 'API_BASE', function ($http, $q, API_BASE) {
-    var upload = function (file, type) {
+         .service('fileUpload', ['$http', '$q', 'API_BASE', function ($http, $q, API_BASE) {
+            var upload = function (file, type) {
 
-        var deferred = $q.defer();
+                var deferred = $q.defer();
 
-        var fd = new FormData();
-        fd.append('file', file);
+                var fd = new FormData();
+                fd.append('file', file);
 
-        $http.post(API_BASE + '/upload?type='+type, fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).then(
-        function (res) {
-            deferred.resolve(res);
-        }, function (error) {
-            deferred.reject(error);
-        });
+                $http.post(API_BASE + '/upload?type='+type, fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).then(
+                function (res) {
+                    deferred.resolve(res);
+                }, function (error) {
+                    deferred.reject(error);
+                });
 
-        return deferred.promise;
-    };
+                return deferred.promise;
+            };
 
-    return {
-        upload: upload
-    };
-}])
+            return {
+                upload: upload
+            };
+        }])
 
-.directive('ngCsvFile', ['partnerCsvFileUpload','Account','$rootScope', function (partnerCsvFileUpload,Account,$rootScope) {
-    return {
-        require: '?ngModel',
-        restrict: 'EA',
-        replace: true,
-        link: function (scope, elem, attrs, ctrl) {
-            var model, result, file;
-            elem.on('change', function (event) {
+          .directive('ngCsvFile', ['partnerCsvFileUpload','Account','$rootScope', function (partnerCsvFileUpload,Account,$rootScope) {
+            return {
+                require: '?ngModel',
+                restrict: 'EA',
+                replace: true,
+                link: function (scope, elem, attrs, ctrl) {
+                    var model, result, file;
+                    elem.on('change', function (event) {
                     	// set false all errors
                     	scope.csvErrors = [];
                     	scope.showCsvFileError = false;
@@ -2383,16 +2389,16 @@
                      $rootScope.redirecting = true; // Hide full screen loader
                      file = (event.srcElement || event.target).files[0];
 
-                     var sFileName = file.name;
-                     var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+								var sFileName = file.name;
+       						var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
 
-                     if(sFileExtension!=="csv")
-                     {
-                      scope.showCsvFileError = true;
-                      return ;
-                  }
+      						if(sFileExtension!=="csv")
+      						{
+       							scope.showCsvFileError = true;
+         						return ;
+       						}
 
-                  $(this).prop("value", "")
+                        $(this).prop("value", "")
                         // Change file status back
                         scope.$apply(function () {
                             ctrl.$setPristine();
@@ -2405,108 +2411,108 @@
 
                         if (file) {
 
-                            var maxSize = attrs.maxSize ? attrs.maxSize : Config.MaxFileSize;
+                        var maxSize = attrs.maxSize ? attrs.maxSize : Config.MaxFileSize;
 
                         // Stop file upload when exceed the maximal file size.
                         if (file.size > (maxSize * 1024)) {
                         	event.preventDefault();
-                         scope.$apply(function () {
-                            ctrl.$setValidity('filesize', false);
-                        });
-                         scope.showExceedError =true;
-                         return;
-                     }
+                           scope.$apply(function () {
+                           	ctrl.$setValidity('filesize', false);
+                           });
+                        scope.showExceedError =true;
+                        	return;
+                        }
 
                         // Stop file upload when file is empty.
                         if (file.size < 1) {
                         	event.preventDefault();
-                         scope.$apply(function () {
-                            ctrl.$setValidity('filesize', false);
-                        });
-                         scope.showEmptyFileError =true;
-                         return;
-                     }
+                           scope.$apply(function () {
+                           	ctrl.$setValidity('filesize', false);
+                           });
+                        scope.showEmptyFileError =true;
+                        return;
+                        }
 
-                     scope.csvUploadLoading = true;
-                     scope.showWaitingText = true;
+                        scope.csvUploadLoading = true;
+                    		scope.showWaitingText = true;
 
                         // Upload file.
                         partnerCsvFileUpload.upload(file, attrs.name).then(
                         	function (res) {
-                                model = attrs.model.split('.') || [];
-                                result = scope;
-                                scope.visiblemodel = true;
-                                for (var i = 0; i < model.length; i++) {
-                                   if (typeof result[model[i]] === 'undefined') {
-                                       result[model[i]] = {};
-                                   }
-                                   result = result[model[i]];
+                           	model = attrs.model.split('.') || [];
+                              result = scope;
+                              scope.visiblemodel = true;
+                              for (var i = 0; i < model.length; i++) {
+                                 if (typeof result[model[i]] === 'undefined') {
+                                     result[model[i]] = {};
+                                  }
+	                                result = result[model[i]];
                                }
 
                                $('#CsvResult').modal('show');
-                               Account.getFriends().then(function(friends) {
-                                   friends.contacts.forEach(function(friend){
-                                     friend.fullDate =  _.compact([friend.birth_date.year, friend.birth_date.month, friend.birth_date.day]).join('-');
-                                 });
-                                   $rootScope.friends = friends;
-                                   $rootScope.redirecting = false;
-                               });
+        						       Account.getFriends().then(function(friends) {
+           								  friends.contacts.forEach(function(friend){
+               						  friend.fullDate =  _.compact([friend.birth_date.year, friend.birth_date.month, friend.birth_date.day]).join('-');
+                   				 });
+                  					$rootScope.friends = friends;
+                  					$rootScope.redirecting = false;
+             					 	});
 
-                               if(res.failed.length>0)
-                               {
-                                 errors = [];
+                              if(res.failed.length>0)
+                              {
+                              	errors = [];
                                  res.failed.forEach(function(item){
-                                   errors.push(item);
-                               })
+                                 errors.push(item);
+                                 })
                                  scope.csvErrors = errors;
-                             }
-                             scope.createdRecords=res.created;
-                             scope.csvUploadLoading = false;
-                             scope.showWaitingText = false;
-                         }, function(err){
-                             errors = [];
-                             errors.push(err.data.error);
-                             scope.errors = errors;
-                         });
-                    }
+                              }
+                              scope.createdRecords=res.created;
+                              scope.csvUploadLoading = false;
+                              scope.showWaitingText = false;
+                              }, function(err){
+                                   errors = [];
+                                   errors.push(err.data.error);
+                                   scope.errors = errors;
+                               });
+                        }
+                    });
+                },
+                template: '<input type="file" class="no-uniform">'
+            };
+        }])
+
+          .service('partnerCsvFileUpload', ['Restangular', '$q', '$rootScope', function (Restangular, $q, $rootScope) {
+            var upload = function (file, type) {
+
+                var deferred = $q.defer();
+
+                var fd = new FormData();
+                fd.append('file', file);
+
+                 Restangular.all('partners/account/upload')
+                .customPOST(fd,undefined,{
+                    'X-Authorization':$rootScope.apiKey,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+              .then(
+                function (res) {
+                    deferred.resolve(res);
+                }, function (error) {
+                    deferred.reject(error);
                 });
-},
-template: '<input type="file" class="no-uniform">'
-};
-}])
 
-.service('partnerCsvFileUpload', ['Restangular', '$q', '$rootScope', function (Restangular, $q, $rootScope) {
-    var upload = function (file, type) {
+                return deferred.promise;
+            };
 
-        var deferred = $q.defer();
+            return {
+                upload: upload
+            };
+        }])
 
-        var fd = new FormData();
-        fd.append('file', file);
-
-        Restangular.all('partners/account/upload')
-        .customPOST(fd,undefined,{
-            'X-Authorization':$rootScope.apiKey,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        .then(
-            function (res) {
-                deferred.resolve(res);
-            }, function (error) {
-                deferred.reject(error);
-            });
-
-        return deferred.promise;
-    };
-
-    return {
-        upload: upload
-    };
-}])
-
-.directive('img', ['CDN_BASE', function (CDN_BASE) {
-    return {
-        restrict: 'E',
-        link: function (scope, element, attrs) {
+         .directive('img', ['CDN_BASE', function (CDN_BASE) {
+            return {
+                restrict: 'E',
+                link: function (scope, element, attrs) {
                     // show an image-missing image
                     element.error(function () {
                         var w = element.width();
@@ -2523,325 +2529,291 @@ template: '<input type="file" class="no-uniform">'
             };
         }])
 
-.directive('iceangelIdDownload', ['API_BASE', 'Auth', function (API_BASE, Auth) {
-    return {
-        restrict: 'EA',
-        replace: true,
-        scope: {
-            member: '=model'
-        },
-        link: function (scope, elem, attrs) {
-            scope.token = Auth.getToken();
-            scope.API_BASE = API_BASE;
-        },
-        template: '<a download="iceangel_id.pdf" class="btn btn-primary btn-lg btn-block btn-web" ng-href="{{API_BASE}}/pdf/print/iceangel_id/{{member.id}}?token={{token}}">Download PDF</a>'
-    };
-}])
+         .directive('iceangelIdDownload', ['API_BASE', 'Auth', function (API_BASE, Auth) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                scope: {
+                    member: '=model'
+                },
+                link: function (scope, elem, attrs) {
+                    scope.token = Auth.getToken();
+                    scope.API_BASE = API_BASE;
+                },
+                template: '<a download="iceangel_id.pdf" class="btn btn-primary btn-lg btn-block btn-web" ng-href="{{API_BASE}}/pdf/print/iceangel_id/{{member.id}}?token={{token}}">Download PDF</a>'
+            };
+        }])
 
-.directive('ecpExist', ['$filter', function ($filter) {
-    return {
-        restrict: 'A',
-        scope: {
-            member: '=',
-            account: '='
-        },
+         .directive('ecpExist', ['$filter', function ($filter) {
+            return {
+                restrict: 'A',
+                scope: {
+                    member: '=',
+                    account: '='
+                },
 
-        link: function (scope, elem, attrs) {
+                link: function (scope, elem, attrs) {
 
-            scope.exist = !_.isEmpty($filter('filter')(scope.account.members[0].contacts, {id: scope.account.id}));
+                    scope.exist = !_.isEmpty($filter('filter')(scope.account.members[0].contacts, {id: scope.account.id}));
 
-            if (scope.exist) {
-                elem.addClass('hide');
-            }
-        }
-    };
-}])
-
-.directive('twitterFollowButton', ['$timeout', function ($timeout) {
-
-    return {
-        restrict: 'AE',
-        scope: {
-            screenName: '@'
-        },
-        link: link,
-        templateUrl: 'partials/directives/twitter-follow-button.html'
-    };
-
-    function link(scope, elem, attrs) {
-        elem.on('click', function (event) {
-            window.open('https://twitter.com/intent/follow?screen_name=' + attrs.screenName + '&tw_p=followbutton', '_blank');
-        });
-    }
-
-}])
-
-.directive('fixHeaderPosition', ['$document', '$window', function ($document, $window) {
-    return function (scope, elem, attrs) {
-
-        var header;
-
-        function getHeader() {
-            return header || (header = angular.element('.tab-mobile'));
-        }
-
-        elem.on('focus', 'input, select, textarea', function (e) {
-            if ($window.scrollY > 0) {
-                getHeader().addClass('fix-header');
-            }
-        });
-
-        elem.on('blur', 'input, select, textarea', function (e) {
-            getHeader().removeClass('fix-header');
-        });
-    };
-}])
-
-.directive('iaLabelMain', ['$compile', function ($compile) {
-    return {
-        restrict: 'A',
-        scope: {
-            message: '@',
-            translation: '@'
-        },
-        link: function (scope, element, attrs) {
-            element.addClass('ia-label');
-
-            var translation = $compile('<span class="ia-label-text" i18n="{{ translation }}"></span>')(scope);
-            element.append(translation);
-
-            if (attrs.required !== undefined) {
-                element.append('<span class="ia-label-require"><i class="icon-star_icon"></i></span>');
-            }
-
-            if (attrs.message) {
-
-                var tooltip = $compile('<a class="ia-label-tooltip-icon-container" tooltip="" data-i18n-attr="{ tooltip: \'{{ message }}\' }" ng-show="message"><i class="ia-label-tooltip-icon icon-question_icon"></i></a>')(scope);
-                element.append(tooltip);
-            }
-        }
-    };
-}])
-
-.directive('iaLabel', ['$compile', function ($compile) {
-    return {
-        restrict: 'A',
-        scope: {
-            message: '@',
-            translation: '@'
-        },
-        link: function (scope, element, attrs) {
-            element.addClass('ia-label');
-
-            var translation = $compile('<span class="ia-label-text" i18n="{{ translation }}"></span>')(scope);
-            element.append(translation);
-
-            if (attrs.required !== undefined) {
-                element.append('<span class="ia-label-require"><i class="icon-star_icon"></i></span>');
-            }
-
-            if (attrs.message) {
-
-                var tooltip = $compile('<a class="ia-label-tooltip-icon-container" ng-click = "tooltipToggle();" tooltip="" data-i18n-attr="{ tooltip: \'{{ message }}\' }" ng-show="message"><i class="fa fa-question-circle" aria-hidden="true"></i></a>')(scope);
-                element.append(tooltip);
-            }
-
-            scope.tooltipToggle = function(){
-             if (jQuery.browser && jQuery.browser.mobile){
-                var elem = $('.tooltip');
-                if(elem.hasClass('in')){
-                    elem.removeClass('in');
+                    if (scope.exist) {
+                        elem.addClass('hide');
+                    }
                 }
-                else{
-                    elem.addClass('in');
-                }
+            };
+        }])
+
+         .directive('twitterFollowButton', ['$timeout', function ($timeout) {
+
+            return {
+                restrict: 'AE',
+                scope: {
+                    screenName: '@'
+                },
+                link: link,
+                templateUrl: 'partials/directives/twitter-follow-button.html'
+            };
+
+            function link(scope, elem, attrs) {
+                elem.on('click', function (event) {
+                    window.open('https://twitter.com/intent/follow?screen_name=' + attrs.screenName + '&tw_p=followbutton', '_blank');
+                });
             }
-        }
 
-    }
-};
-}])
+        }])
 
-.directive('localeLink', ['$compile', function ($compile) {
-    return {
-        restrict: 'A',
-        scope: {
-            content: '@'
-        },
-        link: function (scope, element, attrs) {
-            element.addClass('terms-link');
+         .directive('fixHeaderPosition', ['$document', '$window', function ($document, $window) {
+            return function (scope, elem, attrs) {
 
-            scope.$watch('content', function () {
-                if (!scope.content) {
-                    return;
+                var header;
+
+                function getHeader() {
+                    return header || (header = angular.element('.tab-mobile'));
                 }
 
-                var result = '<div>' + scope.content + '</div>';
-                result = $compile(result)(scope);
-                element.html(result);
-            });
-        }
-    };
-}])
+                elem.on('focus', 'input, select, textarea', function (e) {
+                    if ($window.scrollY > 0) {
+                        getHeader().addClass('fix-header');
+                    }
+                });
 
-.directive('disableAnimation', function($animate){
-    return {
-        restrict: 'A',
-        link: function($scope, $element, $attrs){
-            $attrs.$observe('disableAnimation', function(value){
-                $animate.enabled(!value, $element);
-            });
-        }
-    };
-})
+                elem.on('blur', 'input, select, textarea', function (e) {
+                    getHeader().removeClass('fix-header');
+                });
+            };
+        }])
 
-.directive('attachment', ['MEDIA_BASE', 'CDN_BASE', function (MEDIA_BASE, CDN_BASE) {
-    return {
-        restrict: 'EA',
-        replace: true,
-        scope: {
-            file: '=file'
-        },
-        link: function(scope, elem, attrs) {
-            scope.$watch('file', function() {
-                if (scope.file == '' || scope.file == null){
-                    scope.url = '';
-                }else{
-                    scope.url = scope.file.replace(CDN_BASE+'media/', MEDIA_BASE);
-                }
-            });
-        },
-        templateUrl: 'partials/member/attachment.html'
-    };
-}])
+         .directive('iaLabelMain', ['$compile', function ($compile) {
+            return {
+                restrict: 'A',
+                scope: {
+                    message: '@',
+                    translation: '@'
+                },
+                link: function (scope, element, attrs) {
+                    element.addClass('ia-label');
 
-.filter('formatRowResult', function() {
-    return function(input, key) {
+                    var translation = $compile('<span class="ia-label-text" i18n="{{ translation }}"></span>')(scope);
+                    element.append(translation);
 
-        if (!input) { return; }
-        var formattedResults = [];
-
-        angular.forEach(input, function (element, key) {
-            key = (key%2 === 0) ? key/2 : (key-1)/2;
-
-            if (angular.isUndefined(formattedResults[key])) {
-                formattedResults[key] = [];
-            }
-
-            formattedResults[key].push(element);
-        });
-
-        return formattedResults;
-
-    };
-})
-
-.directive('clearfix', function() {
-    return {
-        restrict: 'EA',
-        link: function(scope, element, attr) {
-
-            var clearfix = '<div class="clearfix"></div>';
-
-            scope.$watch('$index', function(newVal, oldVal) {
-                if(newVal && newVal%2 === 1) {
-                    element.after(clearfix);
-                }
-            });
-        }
-    };
-})
-
-.filter('fileName', function() {
-    return function(input, key) {
-        if (input) {
-            return input.split('/').pop();
-        }
-    };
-})
-
-.directive('iaFormErrorScroller', function() {
-    return {
-        require: '^form',
-        restrict: 'EA',
-        link: function (scope, elem, attrs, ctrl) {
-            angular.element(elem).submit(function (event) {
-                event.preventDefault();
-
-                if (ctrl.$submitted) {
-
-                    if (ctrl.$invalid) {
-
-                        var errorPosition = $(angular.element('input.ng-invalid, select.ng-invalid, textarea.ng-invalid')[0]).offset().top - 50;
-
-                        $('html, body').animate({
-                            scrollTop: errorPosition
-                        }, 1000);
+                    if (attrs.required !== undefined) {
+                        element.append('<span class="ia-label-require"><i class="icon-star_icon"></i></span>');
                     }
 
-                    return;
+                    if (attrs.message) {
+
+                        var tooltip = $compile('<a class="ia-label-tooltip-icon-container" tooltip="" data-i18n-attr="{ tooltip: \'{{ message }}\' }" ng-show="message"><i class="ia-label-tooltip-icon icon-question_icon"></i></a>')(scope);
+                        element.append(tooltip);
+                    }
                 }
-            });
-        }
-    };
-})
+            };
+        }])
 
-.directive('validateEmailAvailable', ['Account', function(Account) {
-    return {
-        require: '?ngModel',
-        restrict: 'EA',
-        link: function(scope, element, attrs, ctrl) {
+         .directive('iaLabel', ['$compile', function ($compile) {
+            return {
+                restrict: 'A',
+                scope: {
+                    message: '@',
+                    translation: '@'
+                },
+                link: function (scope, element, attrs) {
+                    element.addClass('ia-label');
 
-            function validate() {
-                Account.validateEmailAvailable(ctrl.$viewValue, attrs.accountId).then(
-                    function(res) {
-                        if (res === undefined) {
-                            ctrl.$setValidity('available', true);
-                        } else if(res === "taken"){
-                            ctrl.$setValidity('available', false);
-                            ctrl.$setValidity('member', true);
-                            ctrl.$setValidity('active', true);
+                    var translation = $compile('<span class="ia-label-text" i18n="{{ translation }}"></span>')(scope);
+                    element.append(translation);
+
+                    if (attrs.required !== undefined) {
+                        element.append('<span class="ia-label-require"><i class="icon-star_icon"></i></span>');
+                    }
+
+                    if (attrs.message) {
+
+                        var tooltip = $compile('<a class="ia-label-tooltip-icon-container" ng-click = "tooltipToggle();" tooltip="" data-i18n-attr="{ tooltip: \'{{ message }}\' }" ng-show="message"><i class="fa fa-question-circle" aria-hidden="true"></i></a>')(scope);
+                        element.append(tooltip);
+                    }
+
+                    scope.tooltipToggle = function(){
+                       if (jQuery.browser && jQuery.browser.mobile){
+                        var elem = $('.tooltip');
+                        if(elem.hasClass('in')){
+                            elem.removeClass('in');
                         }
-                        else if(res === "inactive"){
-                            ctrl.$setValidity('available', true);
-                            ctrl.$setValidity('member', true);
-                            ctrl.$setValidity('active', false);
+                        else{
+                            elem.addClass('in');
                         }
-                        else if(res === "member"){
-                            ctrl.$setValidity('available', true);
-                            ctrl.$setValidity('active', true);
-                            ctrl.$setValidity('member', false);
+                    }
+                }
+
+            }
+        };
+    }])
+
+         .directive('localeLink', ['$compile', function ($compile) {
+            return {
+                restrict: 'A',
+                scope: {
+                    content: '@'
+                },
+                link: function (scope, element, attrs) {
+                    element.addClass('terms-link');
+
+                    scope.$watch('content', function () {
+                        if (!scope.content) {
+                            return;
+                        }
+
+                        var result = '<div>' + scope.content + '</div>';
+                        result = $compile(result)(scope);
+                        element.html(result);
+                    });
+                }
+            };
+        }])
+
+         .directive('disableAnimation', function($animate){
+            return {
+                restrict: 'A',
+                link: function($scope, $element, $attrs){
+                    $attrs.$observe('disableAnimation', function(value){
+                        $animate.enabled(!value, $element);
+                    });
+                }
+            };
+        })
+
+         .directive('attachment', ['MEDIA_BASE', 'CDN_BASE', function (MEDIA_BASE, CDN_BASE) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                scope: {
+                    file: '=file'
+                },
+                link: function(scope, elem, attrs) {
+                    scope.$watch('file', function() {
+                        if (scope.file == '' || scope.file == null){
+                            scope.url = '';
+                        }else{
+                            scope.url = scope.file.replace(CDN_BASE+'media/', MEDIA_BASE);
                         }
                     });
-            }
-        }
-    }
-}])
+                },
+                templateUrl: 'partials/member/attachment.html'
+            };
+        }])
 
+         .filter('formatRowResult', function() {
+            return function(input, key) {
 
+                if (!input) { return; }
+                var formattedResults = [];
 
-.directive('validateEmailAvailable', ['Account', function(Account) {
-    return {
-        require: '?ngModel',
-        restrict: 'EA',
-        link: function(scope, element, attrs, ctrl) {
+                angular.forEach(input, function (element, key) {
+                    key = (key%2 === 0) ? key/2 : (key-1)/2;
 
-            function validate() {
-                    Account.validateEmailAvailable(ctrl.$viewValue, attrs.accountId).then(
-                        function(res) {
-                        if (res === undefined) {
-                            ctrl.$setValidity('available', true);
-                                ctrl.$setValidity('member', true);          // if another member have same email then bug is produced so fixed by setting member.
-                            } else if(res === "taken"){
-                                ctrl.$setValidity('available', false);
-                                ctrl.$setValidity('member', true);
-                                ctrl.$setValidity('active', true);
-                            }else if(res === "inactive"){
+                    if (angular.isUndefined(formattedResults[key])) {
+                        formattedResults[key] = [];
+                    }
+
+                    formattedResults[key].push(element);
+                });
+
+                return formattedResults;
+
+            };
+        })
+
+         .directive('clearfix', function() {
+            return {
+                restrict: 'EA',
+                link: function(scope, element, attr) {
+
+                    var clearfix = '<div class="clearfix"></div>';
+
+                    scope.$watch('$index', function(newVal, oldVal) {
+                        if(newVal && newVal%2 === 1) {
+                            element.after(clearfix);
+                        }
+                    });
+                }
+            };
+        })
+
+         .filter('fileName', function() {
+            return function(input, key) {
+                if (input) {
+                    return input.split('/').pop();
+                }
+            };
+        })
+
+         .directive('iaFormErrorScroller', function() {
+            return {
+                require: '^form',
+                restrict: 'EA',
+                link: function (scope, elem, attrs, ctrl) {
+                    angular.element(elem).submit(function (event) {
+                        event.preventDefault();
+
+                        if (ctrl.$submitted) {
+
+                            if (ctrl.$invalid) {
+
+                                var errorPosition = $(angular.element('input.ng-invalid, select.ng-invalid, textarea.ng-invalid')[0]).offset().top - 50;
+
+                                $('html, body').animate({
+                                    scrollTop: errorPosition
+                                }, 1000);
+                            }
+
+                            return;
+                        }
+                    });
+                }
+            };
+        })
+
+         .directive('validateEmailAvailable', ['Account', function(Account) {
+            return {
+                require: '?ngModel',
+                restrict: 'EA',
+                link: function(scope, element, attrs, ctrl) {
+
+                    function validate() {
+                        Account.validateEmailAvailable(ctrl.$viewValue, attrs.accountId).then(
+                            function(res) {
+                                if (res === undefined) {
+                                    ctrl.$setValidity('available', true);
+                                } else if(res === "taken"){
+                                    ctrl.$setValidity('available', false);
+                                    ctrl.$setValidity('member', true);
+                                    ctrl.$setValidity('active', true);
+                                }
+                                else if(res === "inactive"){
                                     ctrl.$setValidity('available', true);
                                     ctrl.$setValidity('member', true);
                                     ctrl.$setValidity('active', false);
-                            }
-                            else if(res === "member"){
+                                }
+                                else if(res === "member"){
                                     ctrl.$setValidity('available', true);
                                     ctrl.$setValidity('active', true);
                                     ctrl.$setValidity('member', false);
@@ -2849,228 +2821,229 @@ template: '<input type="file" class="no-uniform">'
                             });
                     }
 
-            element.on('blur', validate);
-            scope.$on('validate.email', validate);
-        }
-    };
-}])
+                    element.on('blur', validate);
 
-.directive('useAccountEmail', function($rootScope, $timeout) {
-    return {
-        restrict: 'EA',
-        link: function(scope, element, attrs) {
-            var email;
-
-            scope.$watch('member', function (newValue, oldValue) {
-                if (newValue !== oldValue) {
-                    email = angular.copy(scope.member.email);
+                    scope.$on('validate.email', validate);
                 }
+            };
+        }])
+
+         .directive('useAccountEmail', function($rootScope, $timeout) {
+            return {
+                restrict: 'EA',
+                link: function(scope, element, attrs) {
+                    var email;
+
+                    scope.$watch('member', function (newValue, oldValue) {
+                        if (newValue !== oldValue) {
+                            email = angular.copy(scope.member.email);
+                        }
+                    });
+
+                    scope.$on('member.updated', function(event, member) {
+                        email = member.email;
+                    });
+
+                    element.on('click', function(event) {
+                        var checked = element.prop('checked');
+
+                        if (element.prop('checked')) {
+                            scope.member.use_account_email = checked;
+                            scope.member.email = scope.$parent.account.email;
+
+                            $timeout(function() {
+                                $rootScope.$broadcast('validate.email');
+                            }, 0);
+                        }
+                        else {
+                            if (email === scope.$parent.account.email) {
+                                scope.member.email = null;
+                            } else {
+                                scope.member.email = email || null;
+                            }
+                        }
+                    });
+                }
+            };
+        })
+
+         .directive('useAccountPhone', function() {
+            return {
+                restrict: 'EA',
+                link: function(scope, element, attrs) {
+                    var phone = {};
+
+                    scope.$watch('member', function (newValue, oldValue) {
+                        if (newValue !== oldValue) {
+                            phone = angular.copy(scope.member.phone);
+                        }
+                    });
+
+                    scope.$on('member.updated', function(event, member) {
+                        phone = member.phone;
+                    });
+
+                    element.on('click', function(event) {
+                        var checked = element.prop('checked');
+                        scope.member.use_account_phone = checked;
+
+                        if (checked) {
+                            scope.member.phone = scope.$parent.account.phone;
+                            phone              = scope.$parent.account.phone;
+                        }
+                        else {
+
+                            if (phone.number === scope.$parent.account.phone.number && phone.code === scope.$parent.account.phone.code) {
+
+                                scope.member.phone = {};
+                                document.getElementsByName('phonenumber')[0].value='';
+
+                            } else {
+
+                                scope.member.phone = phone || {};
+                                document.getElementsByName('phonenumber')[0].value='';
+
+                            }
+                        }
+                    });
+
+                }
+            };
+        })
+
+         .directive('iaViewLocation', function($window, $modal) {
+            return {
+                restrict: 'EA',
+                scope: {
+                    location: '=location'
+                },
+                link: function(scope, elem, attrs) {
+                    elem.on('click', function () {
+                        if (!scope.location) {
+                            return;
+                        }
+
+                        var modalInstance = $modal.open({
+                            backdrop: true,
+                            backdropClick: true,
+                            dialogFade: false,
+                            keyboard: true,
+                            size: attrs.size,
+                            templateUrl: 'partials/modal/open-map.html',
+                            scope: scope,
+                            controller: function () {
+                                scope.cancel = function () {
+                                    modalInstance.close();
+                                };
+
+                                scope.bingMapLink = 'http://www.bing.com/ditu/default.aspx?where1='+
+                                scope.location.latitude + ','+ scope.location.longitude + '&cp='+
+                                scope.location.latitude + '~'+ scope.location.longitude + '&lvl=17&style=r&sp=point.' +
+                                scope.location.latitude + '_'+ scope.location.longitude + '&external=1';
+                            }
+                        });
+                    });
+                }
+            };
+        })
+
+         .directive('notesLayout', function() {
+
+            return ({
+                link: link,
+                restrict: 'A',
+                scope: {
+                    notes: '='
+                },
+                templateUrl: "partials/member/notes.html"
             });
 
-            scope.$on('member.updated', function(event, member) {
-                email = member.email;
-            });
+            function link(scope, elem, attrs) {
+                var textarea = angular.element(elem).find('textarea');
+                var target = textarea.attr('ng-model');
+                var maxLength = textarea.attr('ng-maxlength') || textarea.attr('maxlength') || 500;
 
-            element.on('click', function(event) {
-                var checked = element.prop('checked');
-
-                if (element.prop('checked')) {
-                    scope.member.use_account_email = checked;
-                    scope.member.email = scope.$parent.account.email;
-
-                    $timeout(function() {
-                        $rootScope.$broadcast('validate.email');
-                    }, 0);
-                }
-                else {
-                    if (email === scope.$parent.account.email) {
-                        scope.member.email = null;
-                    } else {
-                        scope.member.email = email || null;
-                    }
-                }
-            });
-        }
-    };
-})
-
-.directive('useAccountPhone', function() {
-    return {
-        restrict: 'EA',
-        link: function(scope, element, attrs) {
-            var phone = {};
-
-            scope.$watch('member', function (newValue, oldValue) {
-                if (newValue !== oldValue) {
-                    phone = angular.copy(scope.member.phone);
-                }
-            });
-
-            scope.$on('member.updated', function(event, member) {
-                phone = member.phone;
-            });
-
-            element.on('click', function(event) {
-                var checked = element.prop('checked');
-                scope.member.use_account_phone = checked;
-
-                if (checked) {
-                    scope.member.phone = scope.$parent.account.phone;
-                    phone              = scope.$parent.account.phone;
-                }
-                else {
-
-                    if (phone.number === scope.$parent.account.phone.number && phone.code === scope.$parent.account.phone.code) {
-
-                        scope.member.phone = {};
-                        document.getElementsByName('phonenumber')[0].value='';
-
-                    } else {
-
-                        scope.member.phone = phone || {};
-                        document.getElementsByName('phonenumber')[0].value='';
-
-                    }
-                }
-            });
-
-        }
-    };
-})
-
-.directive('iaViewLocation', function($window, $modal) {
-    return {
-        restrict: 'EA',
-        scope: {
-            location: '=location'
-        },
-        link: function(scope, elem, attrs) {
-            elem.on('click', function () {
-                if (!scope.location) {
-                    return;
+                if (textarea.attr('maxlength') === undefined) {
+                    textarea.attr('maxlength', maxLength);
                 }
 
-                var modalInstance = $modal.open({
-                    backdrop: true,
-                    backdropClick: true,
-                    dialogFade: false,
-                    keyboard: true,
-                    size: attrs.size,
-                    templateUrl: 'partials/modal/open-map.html',
-                    scope: scope,
-                    controller: function () {
-                        scope.cancel = function () {
-                            modalInstance.close();
-                        };
+                scope.notesLength = scope.notesLength ? scope.notesLength : 0;
+                scope.maxLength = maxLength;
 
-                        scope.bingMapLink = 'http://www.bing.com/ditu/default.aspx?where1='+
-                        scope.location.latitude + ','+ scope.location.longitude + '&cp='+
-                        scope.location.latitude + '~'+ scope.location.longitude + '&lvl=17&style=r&sp=point.' +
-                        scope.location.latitude + '_'+ scope.location.longitude + '&external=1';
-                    }
+                scope.$watch(target, function(newVal, oldVal) {
+
+                    scope.notesLength = (newVal === undefined || newVal === null) ? 0 : newVal.length;
+
                 });
-            });
-        }
-    };
-})
+            }
+        })
 
-.directive('notesLayout', function() {
+         .directive('openInAppBrowser', ['$rootScope', '$window', function ($rootScope, $window) {
+             return {
+                 restrict: 'EA',
+                 link: function (scope, elem, attrs) {
 
-    return ({
-        link: link,
-        restrict: 'A',
-        scope: {
-            notes: '='
-        },
-        templateUrl: "partials/member/notes.html"
-    });
+                     scope.language = $rootScope.globals.language;
 
-    function link(scope, elem, attrs) {
-        var textarea = angular.element(elem).find('textarea');
-        var target = textarea.attr('ng-model');
-        var maxLength = textarea.attr('ng-maxlength') || textarea.attr('maxlength') || 500;
-
-        if (textarea.attr('maxlength') === undefined) {
-            textarea.attr('maxlength', maxLength);
-        }
-
-        scope.notesLength = scope.notesLength ? scope.notesLength : 0;
-        scope.maxLength = maxLength;
-
-        scope.$watch(target, function(newVal, oldVal) {
-
-            scope.notesLength = (newVal === undefined || newVal === null) ? 0 : newVal.length;
-
-        });
-    }
-})
-
-.directive('openInAppBrowser', ['$rootScope', '$window', function ($rootScope, $window) {
-   return {
-       restrict: 'EA',
-       link: function (scope, elem, attrs) {
-
-           scope.language = $rootScope.globals.language;
-
-           elem.on('click', function (e) {
-               e.preventDefault();
+                     elem.on('click', function (e) {
+                         e.preventDefault();
 
                        // $cordovaInAppBrowser.open(attrs.href, '_blank');
                        $window.open(attrs.href, '_blank');
                    });
-       }
-   };
-}])
+                 }
+             };
+         }])
 
-.directive('backButton', function () {
-    return {
-        restrict: 'A',
-        controller: ['$rootScope', '$scope', '$window', '$attrs', '$state', '$element', function ($rootScope, $scope, $window, $attrs, $state, $element) {
-            $rootScope.backButton = $attrs.backButton;
+         .directive('backButton', function () {
+            return {
+                restrict: 'A',
+                controller: ['$rootScope', '$scope', '$window', '$attrs', '$state', '$element', function ($rootScope, $scope, $window, $attrs, $state, $element) {
+                    $rootScope.backButton = $attrs.backButton;
 
-            function backState() {
-                $rootScope.isPanic = false;
-                $attrs.backButton ? $state.go($attrs.backButton) : $window.history.go(-1);
-            }
+                    function backState() {
+                        $rootScope.isPanic = false;
+                        $attrs.backButton ? $state.go($attrs.backButton) : $window.history.go(-1);
+                    }
 
-            document.addEventListener('backbutton', backState, false);
+                    document.addEventListener('backbutton', backState, false);
 
-            $scope.$on('$destroy', function () {
-                $rootScope.backButton = null;
-                document.removeEventListener('backbutton', backState);
-            });
+                    $scope.$on('$destroy', function () {
+                        $rootScope.backButton = null;
+                        document.removeEventListener('backbutton', backState);
+                    });
 
-            $(document).on('back.button.clicked', backState);
-        }]
-    };
-})
+                    $(document).on('back.button.clicked', backState);
+                }]
+            };
+        })
 
 
-.directive('showTwitterBox',['$rootScope','$modal',function($rootScope,$modal){
-    return {
-       link: function (scope, elem, attrs) {
-        var modalInstance = null;
-        var opts = {
-            backdrop: true,
-            backdropClick: true,
-            dialogFade: false,
-            keyboard: true,
-            size: attrs.size,
-            templateUrl: attrs.templateurl,
-            scope: scope,
-            controller: attrs.controller
-        }
-        scope.cancel = function(){
-            modalInstance.close();
-        }
-        elem.on('click',function(){
-         modalInstance = $modal.open(opts);
-     });
-    }
-}
-}])
+         .directive('showTwitterBox',['$rootScope','$modal',function($rootScope,$modal){
+            return {
+                 link: function (scope, elem, attrs) {
+                    var modalInstance = null;
+                      var opts = {
+                        backdrop: true,
+                        backdropClick: true,
+                        dialogFade: false,
+                        keyboard: true,
+                        size: attrs.size,
+                        templateUrl: attrs.templateurl,
+                        scope: scope,
+                        controller: attrs.controller
+                    }
+                    scope.cancel = function(){
+                        modalInstance.close();
+                    }
+                     elem.on('click',function(){
+						 modalInstance = $modal.open(opts);
+                     });
+                    }
+                }
+         }])
 
-  .directive('headerBackButton', function () {
+         .directive('headerBackButton', function () {
             return {
                 restrict: 'A',
                 controller: ['$rootScope', '$element', '$window', '$location', '$state', function ($rootScope, $element, $window, $location, $state) {
@@ -3107,7 +3080,9 @@ template: '<input type="file" class="no-uniform">'
                             $state.go(next, {back: 1});
 
                         }else{
+
                             $window.history.go(-1);
+
                         }
                     }
                 });
