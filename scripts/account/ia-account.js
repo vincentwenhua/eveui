@@ -2330,8 +2330,6 @@ $scope.removeECP=function(iceIdNumber){
                 });
             };
 
-
-
             $scope.$on('events.received', function(event) {
                 Account.getAllGuardians().then(function(guardians) {
                     $scope.guardians = guardians;

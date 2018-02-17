@@ -1,7 +1,7 @@
 'use strict';
 
 $(document).ready(
-    function() {
+            function() {
       angular.bootstrap(document, ['iaApp']);
     }
 );
@@ -28,7 +28,7 @@ angular.module('iaApp', [
         'iaAccount',
         'iaAuth',
         'iaMember',
-        'iaGuardian',
+        'iaGuardian',                                                                                   
         'iaContact',
         'iaSupport',
         'iaBrowserLanguage',
@@ -62,7 +62,7 @@ angular.module('iaApp', [
 
     .value('localeConf', {
         basePath: 'languages',
-        defaultLocale: 'zh-CN',
+        defaultLocale: 'en-US',
         sharedDictionary: 'common',
         fileExtension: '.lang.json',
         persistSelection: true,
@@ -72,13 +72,13 @@ angular.module('iaApp', [
     })
 
     .value('localeSupported', [
-        'zh-CN',
-        'en-US'
+        'en-US',
+        'zh-CN'
     ])
 
     .value('localeFallbacks', {
-        'zh': 'zh-CN',
-        'en': 'en-US'
+        'en': 'en-US',
+        'zh': 'zh-CN'
     })
 
     .config(['iaCacheProvider', 'SocketProvider', 'WS_BASE', function(iaCacheProvider, SocketProvider, WS_BASE) {
@@ -364,9 +364,6 @@ angular.module('iaApp', [
 
     .run(function ($rootScope, $location, $stateParams, $timeout, $controller, $state, $templateCache, $modal, $breadcrumb, Auth, AuthToken, Restangular, Account, iaCache, iaSettings, locale, localeConf, localeEvents, Store, BrowserLanguage, CountriesUtils, Socket, Alert,$window) {
         var preferredLanguage = Store.get('preferredLanguage');
-        var callopenid = 0;
-        var openidcompare = 0;
-
         Restangular.setDefaultHttpFields({cache: iaCache('iceangel')});
         Restangular.setDefaultHeaders({'Accept-Language': iaSettings.getLanguage()});
 
@@ -423,17 +420,14 @@ angular.module('iaApp', [
                 });
             }
 
-          amplitude.getInstance().init(Config.AMPLITUDE_APP_KEY, null, {batchEvents: true});
-          amplitude.logEvent('login-init');
+          amplitude.getInstance(Config.AMPLITUDE_APP).init(Config.AMPLITUDE_APP_KEY, null, {batchEvents: false});
+          amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('login-init');
 
-            // $rootScope.globals.newMessagesCount = Account.getNonViewedMessages().length || null;
-            Account.fetchNonViewedMessages();
+          // $rootScope.globals.newMessagesCount = Account.getNonViewedMessages().length || null;
+          Account.fetchNonViewedMessages();
         });
 
-
-
-
-	   $rootScope.$on('authToken', function(event, value) {
+        $rootScope.$on('authToken', function(event, value) {
             AuthToken.set(value);
 
             $rootScope.logged = Auth.isLogged();
@@ -468,16 +462,15 @@ angular.module('iaApp', [
         });
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-         // if(toState.states === "my-account"){    // for language issue in android and ios fromState is not correct
+         // if(toState.states === "my-account"){    // for language issue in android and ios fromState is not correct 
          //    toState.name = "account.show";       // Need to check  why from state is correct (temporary solution)
          //  }
+ var ua = navigator.userAgent.toLowerCase();
+var s= (/micromessenger/.test(ua)) ? true : false ;
 
-        var ua = navigator.userAgent.toLowerCase();
-        var s= (/micromessenger/.test(ua)) ? true : false ;
+$rootScope.browserName =s;
 
-        $rootScope.browserName =s;
-
-        if(toState.name === 'base.partner' && $rootScope.showPartner){
+          if(toState.name === 'base.partner' && $rootScope.showPartner){
                  $rootScope.finLoading = false;
                  $rootScope.openFINload = false;
                  Account.getFriends().then(function(friends) {
@@ -524,7 +517,7 @@ angular.module('iaApp', [
                             $rootScope.$broadcast('logout', 'base.login');
                             return;
                         }
-
+                        
                      });
                 }
             }
@@ -540,7 +533,7 @@ angular.module('iaApp', [
                 showAlert: false
             };
 
-            amplitude.logEvent('navigation-'+toState.name);
+            amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('navigation-'+toState.name);
 
             if(toState.name === 'account-active' || toState.name === 'base.reset-password'){
                 Auth.logout();
@@ -548,7 +541,7 @@ angular.module('iaApp', [
                 $rootScope.$broadcast('logout', 'base.login');
                 return;
             }
-
+            
             if (toState.name === 'base.login' && fromState.name === 'account.show') {
                 if (Auth.isLogged()) {
                     event.preventDefault();
@@ -567,14 +560,6 @@ angular.module('iaApp', [
                 Auth.logout();
                 Account.resetAccount();
                 $rootScope.$broadcast('logout', 'base.login');
-            }
-
-             if(toState.name === 'account.edit'){
-                if($rootScope.account!==null && $rootScope.account.phone===false){
-                    $rootScope.account.phone={};
-                    $rootScope.account.phone.code=47;
-                    $rootScope.account.nationality = 47;
-                }
             }
 
             // mark messages as read when leaving message centre
@@ -610,11 +595,11 @@ angular.module('iaApp', [
                 }
 
                 if (toState.isLoggedIn && toState.visibleUnsync) {
-                    $rootScope.visibleUnsync = true;
+                    $rootScope.visibleUnsync = true;                   
                 }
                 else
                 {
-                     $rootScope.visibleUnsync = false;
+                     $rootScope.visibleUnsync = false; 
                 }
 
 
@@ -622,157 +607,24 @@ angular.module('iaApp', [
                     event.preventDefault();
                     $state.go('base.partner');
                 }
-
+                
                 if (!Auth.isPartner() && toState.name === 'base.partner'  && Auth.isLogged()) {
                     event.preventDefault();
                     $state.go('account.show');
-                }
+                } 
             }
 
         });
 
         $rootScope.$on('$stateChangeSuccess', function() {
-
-            $rootScope.hrefbase = Config.API_BASE;
-            if($location.$$path=='/account'){
-                if(sessionStorage.getItem('wechatModePop')==null || sessionStorage.getItem('wechatModePop') == 'NaN'){
-                    sessionStorage.setItem('wechatModePop', 1);
-                }
-                else sessionStorage.setItem('wechatModePop', parseInt(sessionStorage.getItem('wechatModePop'))+1);
-            }
-
-            if(sessionStorage.getItem('wechatModePop')==1){
-                $rootScope.wechatModePop=true;
-            }
-            else{
-                $rootScope.wechatModePop=false;
-            }
-
-
-            if($location.search().callopenid){
-                callopenid = $location.search().callopenid;
-            }
-            else callopenid = 0;
-            if($location.search().openidcompare){
-                openidcompare = $location.search().openidcompare;
-            }
-            else openidcompare = 0;
-            var _url = Config.API_BASE + '/weixin/login';
-            var _path = $location.$$path.substring(1);
-            var _ua = navigator.userAgent.toLowerCase();
-
-            var redirectTo = $state.params['redirect-to'];
-
-
-            if(openidcompare ==1 && !$rootScope.logged){
-
-                if (_ua.match(/MicroMessenger/i) == "micromessenger") {
-                    $.ajax({
-                        type: 'GET',
-                        url: Config.API_BASE + '/weixin/getToken?weixin=1',
-                        dataType: 'json',
-                        success: function(result){
-                            console.log(result);
-                            var token = result.token;
-                            Auth.authenticate({'access_token': token}).then(
-                                function (res) {
-                                    $rootScope.redirecting = true;
-                                    // Socket.getConnection();
-
-                                    // Fire logged events
-                                    $rootScope.$broadcast('account.login', res.data);
-                                    Account.get()
-                                        .then(function() {
-                                            if (redirectTo) {
-                                                $location.url(redirectTo);
-                                            } else {
-                                                $state.transitionTo('account.show', {});
-                                            }
-                                        });
-                                },
-                                function (err) {
-                                    errors = [];
-                                    if (err.data && err.data.error) {
-                                        errors.push(err.data.error);
-                                    }
-                                    $location.url('/login');
-                                });
-                        },
-                        error:function(err){
-                            console.log(err);
-                        }
-                    })
-                }
-                else{
-
-                    $.ajax({
-                        type: 'GET',
-                        url: Config.API_BASE + '/weixin/getToken?weixin=2',
-						dataType: 'json',
-                        success: function(result){
-                            console.log(result);
-                            var token = result.token;
-                            Auth.authenticate({'access_token': token}).then(
-                                function (res) {
-                                    $rootScope.redirecting = true;
-                                    // Socket.getConnection();
-
-                                    // Fire logged events
-                                    $rootScope.$broadcast('account.login', res.data);
-                                    Account.get()
-                                        .then(function() {
-                                            if (redirectTo) {
-                                                $location.url(redirectTo);
-                                            } else {
-                                                $state.transitionTo('account.show', {});
-                                            }
-                                        });
-                                },
-                                function (err) {
-                                    errors = [];
-                                    if (err.data && err.data.error) {
-                                        errors.push(err.data.error);
-                                    }
-                                    $location.url('/login');
-                                });
-                        },
-                        error:function(err){
-                            console.log(err);
-                        }
-                    })
-                }
-            }
-
-
-            if (_ua.match(/MicroMessenger/i) == "micromessenger") {
-                $rootScope.iswechat = true;
-            }
-            else{
-                $rootScope.iswechat = false;
-            }
-            if (_ua.match(/MicroMessenger/i) == "micromessenger" && callopenid !=1) {
-                if(sessionStorage.getItem('webtgt')==null || sessionStorage.getItem('webtgt') == 'NaN'){
-                    sessionStorage.setItem('webtgt', 1);
-                }
-                else sessionStorage.setItem('webtgt', parseInt(sessionStorage.getItem('webtgt'))+1);
-
-                if(sessionStorage.getItem('webtgt')==1){
-                    window.location=_url+'?webtgt=' + _path;
-                }
-                console.log(sessionStorage.getItem('webtgt'))
-
-            }
-
             resetErrorMessagesAndOtherFlags();
             $timeout(function() {
                 window.scrollTo(0, 0);
-
                 $rootScope.settings = {
                     showAlert: true
                 };
             }, 0);
         });
-
 
         $rootScope.$on('alerts.received', function(event, alerts) {
             if (alerts) {
@@ -834,7 +686,7 @@ angular.module('iaApp', [
         };
 
         $rootScope.toggleAlerts = function(){
-            $rootScope.alerts_limit =  $rootScope.alerts.length !== $rootScope.alerts_limit ?
+            $rootScope.alerts_limit =  $rootScope.alerts.length !== $rootScope.alerts_limit ? 
                                         $rootScope.alerts.length : Alert.getLimit();
             setTimeout(function() {
                 $('html, body').animate({scrollTop : 0}, 400);
@@ -862,9 +714,9 @@ angular.module('iaApp', [
                     $rootScope.loadMoreAlerts();
                 }
 
-
+                
             });
-            // $rootScope.globals.newMessagesCount = Account.getNonViewedMessages().length || null;
+            // $rootScope.globals.newMessagesCount = Account.getNonViewedMessages().length || null; 
             Account.fetchNonViewedMessages();
         }
 
@@ -953,12 +805,11 @@ angular.module('iaApp', [
 
             Account.clearAllMessages();
             $rootScope.globals.newMessagesCount = null;
-
+ 
             amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('logout');
             amplitude.getInstance(Config.AMPLITUDE_APP).setUserId(null);
 
             next ? $state.go(next) : $state.transitionTo('base.home', {});
-
         });
 
         // Logout
@@ -1009,13 +860,6 @@ angular.module('iaApp', [
         }
     })
 
-
-    .controller('WoaQrcode', function ($rootScope, $scope) {
-        console.log($rootScope);
-        var body = angular.element(document).find('body').eq(0);
-        angular.element(document).find('body').eq(0).addClass('wechat-popupcon');
-    })
-
     /**
      * Main Controller
      */
@@ -1030,6 +874,7 @@ angular.module('iaApp', [
             }
       //  }
         amplitude.getInstance(Config.AMPLITUDE_APP).init(Config.AMPLITUDE_APP_KEY, null, {batchEvents: false});
+
         $rootScope.isSafariPrivate = false;
         $scope.isVisible = function isElementInViewport (el) {
 
@@ -1085,7 +930,7 @@ angular.module('iaApp', [
 
         });
 
-
+      
 
   if (typeof localStorage === 'object') {
     try {
@@ -1105,9 +950,9 @@ angular.module('iaApp', [
      * Account Controller
      */
     .controller('AccountController', function ($state, $rootScope, $scope, $controller, Auth, Socket,Account,locale,MEDIA_BASE,$window,AuthToken,$http,iaSettings,Restangular ) {
-
+        
         /// disable coupon change validation
-// $(document).ready(function(){
+// $(document).ready(function(){ 
 //     $('#couponSpinner').css('display','none');
 //    $('#couponElement').focusout(function () {
 //      $rootScope.redirecting=true; // to stop global spinner
@@ -1130,10 +975,10 @@ angular.module('iaApp', [
 //                  $rootScope.redirecting=false; // to stop global spinner
 //            $('#couponSpinner').css('display','none');
 //             });
-
-
+    
+    
 //  });
-
+             
 //  });
         $scope.addClass = function(){
             if ($(".ecp_list_details").hasClass("slideup"))
@@ -1147,7 +992,7 @@ angular.module('iaApp', [
         $scope.downloadScreen = function(){
             $rootScope.redirecting=true; // to stop global spinner
             $rootScope.reqLoading = true;
-            $scope.showError = false;
+            $scope.showError = false; 
             var token = AuthToken.get();
             var req = {
                         method: 'GET',
@@ -1155,7 +1000,7 @@ angular.module('iaApp', [
                         headers: {
                           'X-Authorization':'Bearer ' + token,
                           'Accept-Language': iaSettings.getLanguage()
-                        }
+                        } 
                       }
             $http(req)
                 .then(function(res)
@@ -1175,16 +1020,16 @@ angular.module('iaApp', [
                                 href: res.data.url,
                                 target: '_self',
                                 download: 'iCE_wallpaper.jpg'
-                            })[0].click();
+                            })[0].click();                                
                             anchor.remove();
 }                 
                         $rootScope.redirecting=false;
                         $rootScope.reqLoading = false;
-                    },
+                    }, 
                     function(error)
                     {
                         $rootScope.reqLoading = false;
-                        $scope.showError = true;
+                        $scope.showError = true;              
                     });
         }
 
@@ -1206,11 +1051,11 @@ angular.module('iaApp', [
                 if ($rootScope.previewMode) {
                     return false;
                 }
-
+                
                 if (account_id == contact.id) {
                     return false;
                 } else {
-
+                    
                     if (contact.status == 'accepted') {
                         $state.transitionTo('account.setEcpPermission', {member_id: member_id, contact_id: contact.id});
                     } else {
