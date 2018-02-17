@@ -1515,16 +1515,11 @@
                         $timeout(function () {
                             // scope.submitCard = submitCard;
                             var self = this;
-//<<<<<<< HEAD
+
                             var stripe = Stripe(Config.STRIPE_PUBLIC_KEY);
 							var elements = stripe.elements({locale: $rootScope.globals.language});
-                            //var style = {
-//=======
-                            var stripe = Stripe('pk_test_1u3dCYbIx8CvoVuMZ1BBn4Kx');
-                            var elements = stripe.elements();
+                            /var style = {
 
-                            var style =     {
-//>>>>>>> wechat
                                                     base: {
                                                       iconColor: '#666EE8',
                                                       color: '#31325F',
