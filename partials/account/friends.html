@@ -3,10 +3,10 @@
         <div class="main-wrap">
             <div class="container no-padding">
                 <div class="section-wrap section-wrap-combine article-title friend_question_icon">
-                    <h2>
-                        <span i18n="common.guardianFor" data-number="{{ friends.guardians.length || 0 }}"></span>
-                        <i class="fa icon-question_icon" ia-tooltip="tooltips.guardianFor" tooltip-placement="auto top" tooltip-append-to-body ="true"></i>
+                    <h2><span i18n="common.guardianFor" data-number="{{friends.guardians.length || 0}}"></span>
+                    <i class="fa icon-question_icon" ia-tooltip="tooltips.guardianFor" tooltip-placement="auto top" tooltip-append-to-body="true" ></i>
                     </h2>
+					<i class="ia-label-tooltip-icon icon-question_icon_main" ia-tooltip="tooltips.guardianFor" tooltip-placement="auto top" tooltip-append-to-body="true" ></i></h2>
                     <div class="no-info no-info-guard" ng-if="friends.guardians.length===0" i18n="common.noInformationToDisplay"></div>
                     <br/>
                     <div class="section-bdr clearfix">
@@ -16,7 +16,7 @@
                                     <ia-avatar avatar="{{ guardian.photo }}" badge="'icon-guardians_icon'"></ia-avatar>
                                 </div>
                                 <div class="col-sm-8 col-xs-8 pl-0-mob">
-                                    <h3 person-name email="{{ guardian.email }}" first-name="{{ guardian.first_name }}" middle-name="{{ guardian.middle_name }}" last-name="{{ guardian.last_name }}">
+                                    <h3 class="name-account" person-name email="{{ guardian.email }}" first-name="{{ guardian.first_name }}" middle-name="{{ guardian.middle_name }}" last-name="{{ guardian.last_name }}">
                                     </h3>
 									<h3 class="name-account" person-name email="{{ guardian.email }}" first-name="{{ guardian.first_name }}" middle-name="{{ guardian.middle_name }}" last-name="{{ guardian.last_name }}"></h3>
                                     <div class="info-section">
@@ -46,9 +46,10 @@
                 <!--section-wrap -->
 
                 <div class="section-wrap wrap_section section-wrap-combine article-title tooltip_alignment friend_question_icon">
-    				<div class="section-wrap wrap_section section-wrap-combine article-title tooltip_alignment">
+				<div class="section-wrap wrap_section section-wrap-combine article-title tooltip_alignment">
                     <h2> <span i18n="common.emergencyContactPersonFor" data-number="{{friends.contacts.length || 0}}"></span>
-                         <i class="fa icon-question_icon" ia-tooltip="tooltips.emergencyContactPersonFor" tooltip-placement="auto top" tooltip-append-to-body="true" ></i></h2>
+                         <i class="fa icon-question_icon" ia-tooltip="tooltips.guardianFor" tooltip-placement="auto top" tooltip-append-to-body="true" ></i></h2>
+						 <i class="ia-label-tooltip-icon icon-question_icon_main " ia-tooltip="tooltips.emergencyContactPersonFor" tooltip-placement="auto top" tooltip-append-to-body="true" ></i></h2>
                     <div class="no-info" ng-if="friends.contacts.length===0" i18n="common.noInformationToDisplay"></div>
                     <br/>
 
@@ -60,7 +61,7 @@
                                     <ia-avatar avatar="{{ contact.photo }}" badge="'icon-ecp_icon'"></ia-avatar>
                                 </div>
                                 <div class="col-sm-8 col-xs-8 pl-0-mob">
-                                    <h3 person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}"></h3>
+                                    <h3 class="name-account" person-name email="{{ contact.email }}" first-name="{{ contact.first_name }}" middle-name="{{ contact.middle_name }}" last-name="{{ contact.last_name }}"></h3>
 
                                     <div class="info-section">
                                         <p><em class="phone"><img src="images/sm-1.png" alt=""></em> <span full-phone-number phonecode="contact.phone.code" phonenumber="contact.phone.number"></span>

@@ -73,22 +73,30 @@
                               <div class="push popover__content">
                                 <span ng-if="!openImageLoad"><i class="fa fa-spinner" aria-hidden="true"></i></span>
                                 <div ng-if="openImageLoad">
-                                <a href="{{openImage}}" class="popover__message" target="_blank"><img ng-src="{{openImage}}" style="cursor:pointer;"></a>
+                                <a href="{{openImage}}" class="popover__message" target="_blank"><img src="{{openImage}}" style="cursor:pointer;"></a>
                                 </div>
                               </div>
                             </div>
                             <h3 i18n="common.downloadQRCode"></h3>
                             <div class="print_record_wall">
-                                 <a class="print_id_btn cardId_icon" ng-click="downloadScreen()" size="sm" class="nav-print section-bdr" href="">
-                                  <img src="images/lockScreenId.png"/>
-                                  <span i18n="common.idLockscreen"></span>
-                                </a>                             
-                                <span ng-show="reqLoading" class="fa-spinner-icons lockScreen_loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw" aria-hidden="true"></i></span>                              
-                               <a class="print_id_btn cardId_icon cardId_leftmargin" print-ice-id size="sm" templateUrl="partials/modal/print-ice-id.html"
+                              <div class="wechat_error" ng-if="browserName==true">
+                                <span i18n="common.cardIdNotDownload"></span>
+                              </div>
+                              <button class="prnt_id_ice">
+                                <a class="print_id_btn  cardId_icon" print-ice-id size="sm" templateUrl="partials/modal/print-ice-id.html"
                                   class="nav-print section-bdr" href="">
                                   <img src="images/CardID.png"/>
                                   <span i18n="common.idCard"></span>
-                                </a>                                                     
+                                </a>
+                              </button>
+                              <button class="prnt_id_ice">
+                                <a class="print_id_btn cardId_icon" ng-click="downloadScreen()" size="sm" class="nav-print section-bdr" href="">
+                                  <img src="images/lockScreenId.png"/>
+                                  <span i18n="common.idLockscreen"></span>
+                                </a>
+                                <span ng-show="reqLoading" class="fa-spinner-icons lockScreen_loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw" aria-hidden="true"></i></span>
+                              </button> 
+                        
                             </div>                  
                           </div>
                         </div>                       
@@ -122,11 +130,12 @@
                     </div>
                     <div class="col-lg-4 col-xs-12 col-sm-4 col-md-4 rescue_wallet_section">
                     <img src="images/wallet.png"/>
-                    <h4 i18n="common.storeAdditionalDetails"></h4>                     
-                        <a class="print_id_btn cardId_icon" access-records size="sm" templateUrl="partials/modal/access-records.html" class="nav-print section-bdr" href=""> 
-                         <button class="prnt_id_ice">                            
+                    <h4 i18n="common.storeAdditionalDetails"></h4>
+                      <button class="prnt_id_ice">
+                        <a class="print_id_btn cardId_icon" access-records size="sm" templateUrl="partials/modal/access-records.html" class="nav-print section-bdr" href="">                             
                           <span i18n="common.rescueWallet"></span>
-                      </button></a>
+                        </a>
+                      </button>
                     </div>       
                   </div>         
                 </div>

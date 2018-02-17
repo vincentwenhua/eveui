@@ -41,7 +41,7 @@
             </g>
         </svg>
                     </span>
-                        <div class="title" ng-if="iswechat" i18n="common.accbindTips"></div>
+                        <p i18n="common.ECPInvitationTips" ng-if="iswechat"></p>
                         <div class="row form-section">
                             <div ng-class="{'has-error' : (FormLogin.username.$hasVisited || FormLogin.$submitted) && FormLogin.username.$invalid}">
                                 <input class="form-control login-text field-user"
@@ -70,8 +70,7 @@
                                 </div>
                             </div>
 
-							<input type="hidden" name="invitation_id" ng-model="invitation_id" value= "{{invitation_id}}">
-							
+							<input type="hidden" name="wechat" ng-model="wechat">
 
                             <div ng-show="FormLogin.$submitted && errors">
                                 <div class="alert alert-danger" ng-repeat="error in errors">
@@ -84,6 +83,7 @@
                                     <label><input type="checkbox" ng-model="inputType" ng-checked="false"> <span i18n="common.displayPassword"></span></label>
                                 </p>
                                 <p class="forgot-password">
+								<p class="forgot-password hide">
                                     <label><input ng-model="remember" type="checkbox"> <span i18n="common.rememberMe"></span></label>
                                 </p>
                             </div>
@@ -95,7 +95,7 @@
                                             class="btn btn-lg btn-theme btn-150 block-mob mrb-16" i18n="common.logIn">
                                     </button>
 
-                                 <a href="{{hrefbase}}/weixin/getUserInfo" ng-if="iswechat" class="btn btn-lg btn-white btn-150 block-mob" i18n="common.register"></a>
+                                 <a href="{{hrefbase}}/weixin/getUserInfo?invitation_id={{invitation_id}}" ng-if="iswechat" class="btn btn-lg btn-white btn-150 block-mob" i18n="common.register"></a>
 
                                  <button ui-sref="base.registration.register" ng-click="register()" ng-if="!iswechat"
                                              class="btn btn-lg btn-white btn-150 block-mob" i18n="common.register">

@@ -1,0 +1,11 @@
+<div id="main-load-content">
+    <div class="main-wrap">
+        <div class="container">
+            <ng-include src="'partials/login/invitation_form.html'"></ng-include>
+        </div>
+    </div>
+</div>
+<div ng-if="ECPinvitation && logged">
+    <ecpinvitation-modal-pop templateUrl="partials/member/alert/alert-wechat.html"></ecpinvitation-modal-pop>
+</div>
+

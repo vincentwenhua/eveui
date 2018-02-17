@@ -1,9 +1,11 @@
 
                 <form role="form" id="registration-form" ia-form-error-scroller novalidate name="registrationForm" ng-submit="registrationForm.$valid && handle(account)">
-				<input type="text" name="invitation_id" ng-model="account.invitation_id">
-                <div class="title">
-                        <h3 i18n="common.personalInfo"></h3></div>
+
+                    <input type="text" name="invitation_id" ng-model="account.invitation_id">
+					
                     <div class="box-register account_info_box">
+                        <div i18n="common.ECPInvitationTips" ng-if="iswechat"></div>
+                        <p></p>
                         <div class="form-group">
                             <label ia-label required translation="common.dateOfBirth"></label>
                             <ia-date required type="past-16" model="account.birth_date" form="registrationForm"></ia-date>

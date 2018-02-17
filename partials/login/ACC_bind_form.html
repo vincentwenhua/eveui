@@ -25,10 +25,10 @@
                         <div class="row form-section">
                             <div ng-class="{'has-error' : (FormLogin.username.$hasVisited || FormLogin.$submitted) && FormLogin.username.$invalid}">
                                 <input class="form-control login-text field-user"
-                                type="text" name="username"
-                                ng-model="username" data-i18n-attr="{placeholder: 'common.emailOrMemberId'}"
-                                autocomplete=off
-                                required>
+                                       type="text" name="username"
+                                       ng-model="username" data-i18n-attr="{placeholder: 'common.emailOrMemberId'}"
+                                       autocomplete=off
+                                       required>
 
                                 <div ng-show="FormLogin.username.$hasVisited || FormLogin.$submitted" ng-messages="FormLogin.username.$error">
                                     <div class="alert alert-danger" ng-message="required"><span i18n="errors.iceIdOrEmailRequired"></span></div>
@@ -37,12 +37,12 @@
 
                             <div class="login-form-password" ng-class="{'has-error' : (FormLogin.password.$hasVisited || FormLogin.$submitted) && FormLogin.password.$invalid}">
                                 <input class="form-control login-text field-pass"
-                                ng-minlength=4
-                                ng-maxlength=12
-                                type="{{inputType?'text':'password'}}"
-                                name="password" ng-model="password"
-                                data-i18n-attr="{placeholder: 'common.password'}"
-                                required>
+                                       ng-minlength=4
+                                       ng-maxlength=12
+                                       type="{{inputType?'text':'password'}}"
+                                       name="password" ng-model="password"
+                                       data-i18n-attr="{placeholder: 'common.password'}"
+                                       required>
                                 <div ng-show="FormLogin.password.$hasVisited || FormLogin.$submitted" ng-messages="FormLogin.password.$error">
                                     <div class="alert alert-danger" ng-message="required"><span i18n="errors.passwordRequired"></span></div>
                                     <div class="alert alert-danger" ng-message="minlength"><span i18n="errors.minlength"></span></div>
@@ -68,10 +68,10 @@
                             <div class="text-center">
                                 <p class="login-btn">
                                     <button type="submit"
-                                    class="btn btn-lg btn-theme btn-150 block-mob mrb-16" i18n="common.logIn">
-                                </button>
-                                <!--<button ui-sref="base.registration.wct_sign_up" ng-click="register()"-->
-                                    <!--class="btn btn-lg btn-white btn-150 block-mob" i18n="common.register">-->
+                                            class="btn btn-lg btn-theme btn-150 block-mob mrb-16" i18n="common.logIn">
+                                    </button>
+                                    <!--<button ui-sref="base.registration.wct_sign_up" ng-click="register()"-->
+                                            <!--class="btn btn-lg btn-white btn-150 block-mob" i18n="common.register">-->
                                     <!--</button>-->
 
                                     <a href="{{hrefbase}}/weixin/getUserInfo" class="btn btn-lg btn-white btn-150 block-mob" i18n="common.register"></a>

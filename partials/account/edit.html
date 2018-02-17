@@ -25,15 +25,13 @@
                         </div>
                         <div class="row require-input">
                             <div class="col-xs-4" ng-class="{'has-error': editAccountForm.$submitted && editAccountForm.last_name.$invalid}">
-                                <input name="last_name" class="form-control" data-i18n-attr="{placeholder: 'common.lastName'}" ng-model="account.last_name" ng-if="globals.language  == 'en-US'" value="{{account.last_name}}" required>
-                                <input name="last_name" class="form-control" data-i18n-attr="{placeholder: 'common.lastName'}" ng-model="account.last_name" value = "{{account.last_name}}" required ng-if="globals.language  == 'zh-CN'" oninvalid="this.setCustomValidity('请填写此栏')">
+                                <input name="last_name" class="form-control" data-i18n-attr="{placeholder: 'common.lastName'}" ng-model="account.last_name" value="{{account.last_name}}" required>
                                 <span class="require">
                                     <i class="icon-star_icon"></i>
                                 </span>
                             </div>
                             <div class="col-xs-4" ng-class="{'has-error': editAccountForm.$submitted && editAccountForm.first_name.$invalid}">
-                                <input name="first_name" class="form-control" ng-model="account.first_name" data-i18n-attr="{placeholder: 'common.firstName'}" ng-value="account.first_name" required ng-if="globals.language  == 'en-US'">
-                                <input name="first_name" class="form-control" ng-model="account.first_name" data-i18n-attr="{placeholder: 'common.firstName'}" ng-value="account.first_name" required ng-if="globals.language  == 'zh-CN'" oninvalid="this.setCustomValidity('请填写此栏')">
+                                <input name="first_name" class="form-control" ng-model="account.first_name" data-i18n-attr="{placeholder: 'common.firstName'}" ng-value="account.first_name" required>
                                 <span class="require">
                                     <i class="icon-star_icon"></i>
                                 </span>

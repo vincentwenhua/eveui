@@ -21,15 +21,20 @@
                <p i18n="common.thankYouForSigningInWX" data-email="{{ account.email }}">
 
                </p>
-               <div id="forgot-pass-final-div">
-                   <div class="text-center btn-lg-wrap">
-                       <p>
-                         <button type="button" ng-click="getTokenFun()" class="btn btn-primary btn-lg btn-block btn-web" i18n="common.okWX"></button>
-                             <!--<a href="{{hrefbase}}/weixin/login" class="btn btn-primary btn-lg btn-block btn-web" i18n="common.okWX"></a>-->
-                       </p>
-                   </div>
+                    <p><img src="images/qrcode_reg.png" alt=""></p>
+               <!--<div id="forgot-pass-final-div">-->
+                   <!--<div class="text-center btn-lg-wrap">-->
+                       <!--<p>-->
+                         <!--<button type="button" ng-click="getTokenFun()" class="btn btn-primary btn-lg btn-block btn-web" i18n="common.okWX"></button>-->
+                             <!--&lt;!&ndash;<a href="{{hrefbase}}/weixin/login" class="btn btn-primary btn-lg btn-block btn-web" i18n="common.okWX"></a>&ndash;&gt;-->
+                       <!--</p>-->
+                   <!--</div>-->
 
-               </div>
+               <!--</div>-->
+                    <div ng-if="hasinvitation">
+                <p i18n="common.thankYouForSigningInWXTips"></p>
+                   <p class="text-center"> <img src="images/option-reg.png" alt=""></p>
+                    </div>
            </div>
             </div>
 

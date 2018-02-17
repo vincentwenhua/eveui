@@ -35,8 +35,7 @@
                    data-i18n-attr="{placeholder: 'common.password'}"
                    ng-minlength=8 ng-maxlength=12 name="password" required>
             <div ng-show="registrationForm.$error.pattern">
-                <div class="alert alert-danger"><span i18n="errors.alphanumericPassword"></span>
-                </div>
+                <div class="alert alert-danger"><span i18n="errors.alphanumericPassword"></span></div>
             </div>
             <div ng-show="registrationForm.password.$hasVisited || registrationForm.$submitted" ng-messages="registrationForm.password.$error">
                 <div class="alert alert-danger" ng-message="required"><span i18n="errors.passwordRequired"></span></div>

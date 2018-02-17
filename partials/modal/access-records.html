@@ -343,12 +343,13 @@ h5 {
 }
 </style>
 <div class="popup-login-final stripe_popup" id="accessRecordsModal" ng-controller="AccountController">
-  <div class="">   
+  <div class="">
+   
     <div class="modal-body text-center">
-      <div class="stripe_close" ng-click="cancel()">
-        <i href="javascript:void(0);">
-        <i class="fa fa-times" aria-hidden="true"></i></i>
-      </div>
+     <div class="stripe_close" ng-click="cancel()">
+      <i href="javascript:void(0);">
+      <i class="fa fa-times" aria-hidden="true"></i></i>
+    </div>
       <section class="content row">
         <div class="col-md-5 payment_ins">
           <h3>
@@ -373,7 +374,7 @@ h5 {
           <input type="hidden" name="token" />
           <div class="stripe-group">
             <label>
-              <input name="cardholder-name" ng-if="cardNameLanguage=='zh-CN'" class="field is-empty" placeholder=" 如卡片所示" required oninvalid="this.setCustomValidity('请填写此栏')" />
+              <input name="cardholder-name" ng-if="cardNameLanguage=='zh-CN'" class="field is-empty" placeholder=" 如卡片所示" required />
               <input name="cardholder-name" ng-if="cardNameLanguage=='en-US'" class="field is-empty" placeholder="As displayed on card" required />
               <span><span i18n="common.cardHolderName"></span></span>
             </label>
