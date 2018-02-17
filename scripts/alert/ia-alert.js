@@ -100,7 +100,7 @@
             var decorate = function (alert) {
                 return {
                     id: alert.id,
-                    email: alert.member.email,
+					email: alert.member.email,
                     type: alert.type,
                     first_name: alert.member.first_name,
                     last_name: alert.member.last_name,
