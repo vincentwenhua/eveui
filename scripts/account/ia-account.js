@@ -21,7 +21,7 @@
     });
     })
 
-    .factory('Account', function ($http,$rootScope, $q, $filter, Restangular, RequestCache, Store, iaSettings, API_BASE,AuthToken,MEDIA_BASE) {
+       .factory('Account', function ($http,$rootScope, $q, $filter, Restangular, RequestCache, Store, iaSettings, API_BASE,AuthToken,MEDIA_BASE) {
         var account = null,
         guardians = [],
         contacts = null,
@@ -211,7 +211,26 @@
                 }
 
                 data.language = iaSettings.getLanguage() || iaSettings.getLanguage();
+				if(window.location.href.indexOf('wct_sign_up')!=-1){
 
+                    Restangular.all('weixin').all('register').post(data).then(
+                        function (res) {
+                            // console.log("res//=====");
+                            // console.log(res);
+                            // console.log(res.account);
+                            account = res.account;
+
+                            //Remove nomination storage.
+                            Store.remove($rootScope.nomination);
+                            deferred.resolve(res);
+                        },
+                        function (err) {
+                            RequestCache.clear('/account', {});
+
+                            deferred.reject(err);
+                        });
+                }
+                else{
                 Restangular.all('account').all('register').post(data).then(
                     function (res) {
                         account = res.account;
@@ -225,7 +244,7 @@
 
                         deferred.reject(err);
                     });
-
+				}
                 return deferred.promise;
             }
 
@@ -240,7 +259,7 @@
                         resolve(account);
                     });
                 }
-                
+
                 if (accountPromise) {
                     return accountPromise;
                 }
@@ -254,7 +273,7 @@
                     }
 
 // get ip address
-               
+
                  // $http.get("https://ipinfo.io/").then(function (response) {
                   //  $http.get("https://ipinfo.io/112.196.24.206/country").then(function (response1) {
 //$scope.ip = response.data.ip;
@@ -276,7 +295,7 @@
                 .finally(function () {
                     accountPromise = null;
                 });
-                
+
                 return accountPromise;
 
                 function onAccountRetrieved (newAccount) {
@@ -307,7 +326,6 @@
 
                 deferred.reject(error);
             });
-
                return deferred.promise;
 
            }
@@ -376,7 +394,7 @@
 
                         eventProperties.failed = false;
 
-                        amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('account-destroy', eventProperties);
+                        amplitude.logEvent('account-destroy', eventProperties);
 
                         RequestCache.removeAll();
 
@@ -385,8 +403,8 @@
                     function(err) {
 
                         eventProperties.failed = true;
-                        
-                        amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('account-destroy', eventProperties);
+
+                        amplitude.logEvent('account-destroy', eventProperties);
 
                         deferred.reject(err);
                     }
@@ -413,7 +431,7 @@
              */
              function transfer (member_id, email) {
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('member-transfer');
+                amplitude.logEvent('member-transfer');
 
                 return Restangular.one('members', member_id).one('transfer').customPOST({email: email});
             }
@@ -478,7 +496,7 @@
                 Restangular.all('members').post(member).then(
                     function (res) {
                         account.members.push(res);
-                        
+
                         RequestCache.update('/account', {}, account);
 
                         deferred.resolve(res);
@@ -487,7 +505,7 @@
                         deferred.reject(err);
                     });
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('member-add');
+                amplitude.logEvent('member-add');
 
                 return deferred.promise;
             }
@@ -500,7 +518,7 @@
              */
              function getMember (id, dirty) {
                 var deferred = $q.defer();
-                
+
                 get()
                 .then(function (account) {
                     var filteredMembers = $filter('filter')(account.members, {id: id});
@@ -532,7 +550,7 @@
                     return deferred.reject();
                 });
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('member-get');
+                amplitude.logEvent('member-get');
 
                 return deferred.promise;
             }
@@ -556,7 +574,7 @@
              */
              function updateMember (data) {
                 var deferred = $q.defer();
-                
+
                 Restangular.one('members', data.id).customPUT(data).then(
                     function(res) {
 
@@ -582,7 +600,7 @@
                         deferred.reject(err);
                     });
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('member-update');
+                amplitude.logEvent('member-update');
 
                 return deferred.promise;
             }
@@ -1331,7 +1349,7 @@
              */
              function getEmergencyContactPermission (member_id, contact_id) {
                 var deferred = $q.defer();
-                
+
                 Restangular.one('members', member_id).one('contacts', contact_id).one('permissions').get().then(
                     function(res) {
 
@@ -1388,7 +1406,7 @@
 
                 var data = {member_id: member_id, contact_id: contact_id, permissions: fileds};
                 var url = ['/members',member_id,'contacts', contact_id, 'permissions'].join('/');
-                
+
                 Restangular.one('members', member_id).one('contacts', contact_id).one('permissions').customPUT(data).then(
                     function(res) {
                      RequestCache.clear(url, {});
@@ -1803,7 +1821,7 @@
                     }
                 });
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('ecp-update');
+                amplitude.logEvent('ecp-update');
 
             }
 
@@ -1982,10 +2000,10 @@ $scope.handle = function(partnerAccount){
             setTimeout(function() {
                 saveSuccessfully.fadeOut(500,0).slideUp(500);
             }, 6000);
-            addPartnerForm.reset();	
+            addPartnerForm.reset();
             partnerAccount.partner_ecp=true;
         });
-        
+
     })
     .catch(function (err) {
         errors = [];
@@ -2015,9 +2033,9 @@ $scope.removeECP=function(iceIdNumber){
         $scope.errors = [];
         Account.getFriends().then(function(friends) {
             $scope.friends = friends;
-            
+
         });
-        
+
     })
     .catch(function (err) {
         errors = [];
@@ -2043,13 +2061,12 @@ $scope.removeECP=function(iceIdNumber){
 }
 }])
 
-.controller('RegisterAccountController', ['$scope', '$controller', '$state', '$location', '$cookieStore', 'Account', 'Store', 'locale', function ($scope, $controller, $state, $location, $cookieStore, Account, Store, locale) {
+.controller('RegisterAccountController', ['$rootScope', '$scope', '$controller', '$state', '$location', '$cookieStore', 'Account', 'Store','Auth', 'locale', function ($rootScope, $scope, $controller, $state, $location, $cookieStore, Account, Store, Auth, locale) {
     var errors;
     var data;
     var key = 'tempAccount';
 
     $scope.errors = [];
-
     $scope.account = Store.get(key) || {
         emergency_channels: {},
         security_question_1: 1,
@@ -2057,13 +2074,76 @@ $scope.removeECP=function(iceIdNumber){
         security_answer_1:'',
         security_answer_2:''
     };
-
     Store.remove(key);
-
-    if ($state.current.name == 'base.registration.active-account' && angular.isUndefined($scope.account.email)) {
-        $state.go('base.registration.register');
+    /**
+     * VB
+     */
+    if($location.$$path.indexOf('wct_sign_up')!=-1){
+        //console.log(Config.API_BASE)
+        $.ajax({
+            type: 'GET',
+            url: Config.API_BASE + '/weixin/getLocalUserInfo',
+            dataType: 'json',
+            success: function(result){
+                // console.log($scope);
+                // console.log(result);
+                if(result.country!=null) $scope.account.nationality = parseInt($('select[name="nationality"]').find("option[label="+result.country+"]").attr('value'))+1;
+                if(result.language!=null) $scope.account.language = result.language=="zh_CN" ? "zh" : "en";
+                if(result.sex!=null) $scope.account.gender = result.sex==1 ? 1 : 2;
+                if(result.nickname!=null) $scope.account.last_name = result.nickname;
+                if(result.headimgurl!=null) $scope.account.photo = result.headimgurl;
+				if(result.invitation_id!=null) $scope.account.invitation_id = result.invitation_id;
+            }
+        });
     }
 
+    var ecp_params = $location.search();
+    if($location.$$path.indexOf('invitation_id')!=-1){
+
+      
+            $scope.account.invitation_id = $location.search().invitation_id; //Hidden input for invitation_id?
+
+        ecp_params['invitation'] = 1;
+        console.log(ecp_params);
+    }
+	if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) != "micromessenger") {
+		var redirectTo = $state.params['redirect-to'];
+	}else{
+		var redirectTo = $location.$$path.substring(1);
+	}
+    if ($state.current.name == 'base.registration.wct_active') {
+
+       window.location=Config.API_BASE +'/weixin/login';
+    }
+
+	 if ($state.current.name == 'base.registration.active-account' && angular.isUndefined($scope.account.email)) {
+        if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
+            $state.go('base.registration.wct_sign_up');
+        }
+        else{
+            $state.go('base.registration.register');
+        }
+    }
+	//if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
+    //    $rootScope.iswechat = true;
+    //}
+    //else{
+    //    $rootScope.iswechat = false;
+    //}cause error
+$scope.getTokenFun=function(){
+		 window.location=Config.API_BASE +'/weixin/login';
+
+    }
+    if ($state.current.name == 'base.registration.active-account' && navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger"){
+        if($location.$$search.invitation){
+            $scope.hasinvitation = $location.$$search.invitation;
+        }
+
+        // setTimeout(function () {
+			// 	window.location=Config.API_BASE +'/weixin/login';
+        //
+        // },5000);
+    }
     if (data = $location.$$search.data) {
         var result = {};
 
@@ -2097,9 +2177,21 @@ $scope.removeECP=function(iceIdNumber){
             /**
              * Handle Register Form
              */
+			 //Vicent Start
              $scope.handle = function (account) {
+				 $scope.iswechat = false;
+                 function is_weChat() {
+                     var ua = navigator.userAgent.toLowerCase();
+                     if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                         $scope.iswechat = true;
+                     }
+                 }
+                 is_weChat();
+				 //Vincent End
                 account.email = account.email.toLowerCase();
-                
+
+     console.log(account);
+
                 // handle the emergency channel 1.
                 if (account.email) {
                     account.emergency_channels = angular.extend(
@@ -2118,14 +2210,14 @@ $scope.removeECP=function(iceIdNumber){
                 Account.register(account)
                 .then(function (res) {
                     $scope.errors = [];
-                    $state.go('base.registration.active-account');
+                    $state.go('base.registration.active-account',ecp_params);
                 }, function (err) {
                     errors = [];
                     errors.push(err.data.error);
                     $scope.errors = errors;
                 });
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('account-register');
+                amplitude.logEvent('account-register');
 
             };
 
@@ -2145,24 +2237,21 @@ $scope.removeECP=function(iceIdNumber){
                 $state.go('base.login');
             }
 
-            amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('account-activate');
+    amplitude.logEvent('account-activate');
+}])
 
-        }])
+.controller('SecurityRedirectController', function ($scope,  $location,Restangular, $state, Account, $rootScope, $timeout) {
 
-         .controller('SecurityRedirectController', function ($scope,  $location, $state, Account, $rootScope, $timeout) {
-
-            if ($location.$$search.ref == 'unsubscribe'){
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('unsubscribe-attempt');
-            }
-
-            $scope.redirectLocation = function(){
-                    $location.path('/account/edit');
-                    $timeout(function() {
-                        $location.hash('security');
-                      }, 200);
-         }
-
-        })
+    if ($location.$$search.ref == 'unsubscribe'){
+        amplitude.logEvent('unsubscribe-attempt');
+    }
+    $scope.redirectLocation = function(){
+        $location.path('/account/edit');
+        $timeout(function() {
+            $location.hash('security');
+        }, 200);
+    }
+})
 
         /**
          * Edit account controller
@@ -2239,13 +2328,13 @@ $scope.removeECP=function(iceIdNumber){
                     saveSuccessfully.fadeIn(500,0).slideDown(500);
                     setTimeout(function() {
                         saveSuccessfully.fadeOut(500,0).slideUp(500);
-                        $state.transitionTo('account.show', {});
+						$state.transitionTo('account.show', {});
                     }, 3000);
                 }, function (err) {
                     alert(err.data.error.message);
                 });
 
-                amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('account-update');
+                amplitude.logEvent('account-update');
 
             }
 
@@ -2315,6 +2404,7 @@ $scope.removeECP=function(iceIdNumber){
                 })
                 return total;
             }
+
 
             $scope.resendGuardianNomination = function(email) {
                 Account.resendGuardianNomination(email).then(function(res) {
@@ -2547,6 +2637,7 @@ $scope.removeECP=function(iceIdNumber){
          * Trigger alert controller
          */
          .controller('TriggerAlertController', ['$scope', '$location', '$state', '$controller', '$filter', 'locale', 'Alert', 'UserLocation', 'Restangular', function ($scope, $location, $state, $controller, $filter, locale, Alert, UserLocation, Restangular) {
+
             $scope.alert = {};
             $scope.goToContacts = false;
             $scope.goToTrigger = false;
@@ -2556,9 +2647,6 @@ $scope.removeECP=function(iceIdNumber){
             }
 
             $scope.enterIceId = function(member_id) {
-              if(_.isUndefined(member_id)){
-                  member_id = $scope.alert.ice_id;
-              }
                 $scope.invalidId = false;
                 if(_.isUndefined(member_id)){
                  $scope.invalidId = true;
