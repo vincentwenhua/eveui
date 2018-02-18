@@ -48,7 +48,7 @@
             })
             var lnglatXY=[_t1, _t2];//地图上所标点的坐标
             marker.on('click',function(e){
-                console.log(e.pixel);
+                //console.log(e.pixel);
                 $('.msg-panel').css({top:e.pixel.y,left:e.pixel.x});
                 geocoder.getAddress(lnglatXY,function(status,result){
                     if(status=='complete'){$('#input').text(result.regeocode.formattedAddress);}

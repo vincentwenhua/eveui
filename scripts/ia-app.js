@@ -406,7 +406,7 @@ function() {
 									},
 									error:function(err){
 										
-										console.log(err);
+										//console.log(err);
 									}
 								})
 						
@@ -717,9 +717,9 @@ $rootScope.browserName =s;
                 }
                 else sessionStorage.setItem('wechatModePop', parseInt(sessionStorage.getItem('wechatModePop'))+1);
             }
-            // console.log("============sessionStorage=============")
-            // console.log(sessionStorage)
-            // console.log("============sessionStorage=============")
+            //console.log("============sessionStorage=============")
+            //console.log(sessionStorage)
+            //console.log("============sessionStorage=============")
             if(sessionStorage.getItem('wechatModePop')==1){
                 $rootScope.wechatModePop=true;
             }
@@ -745,7 +745,7 @@ $rootScope.browserName =s;
                 _url = Config.WEB_BASE + '/registration/wct_sign_up';
             }
             var _ua = navigator.userAgent.toLowerCase();
-            // console.log(callopenid);
+            //console.log(callopenid);
 			var _ua = navigator.userAgent.toLowerCase();
 			
 			if(_ua.match(/MicroMessenger/i) != "micromessenger"){
@@ -759,10 +759,10 @@ $rootScope.browserName =s;
 				}
 				
 			}
-            //console.log("=========================")
-            //console.log(callopenid)
-            //console.log(openidcompare)
-            //console.log("=========================")
+            ////console.log("=========================")
+            ////console.log(callopenid)
+            ////console.log(openidcompare)
+            ////console.log("=========================")
 
             if(openidcompare ==1 && !$rootScope.logged){
 
@@ -772,7 +772,7 @@ $rootScope.browserName =s;
                         url: Config.API_BASE + '/weixin/getToken?weixin=1',
                         dataType: 'json',
                         success: function(result){
-                            console.log(result);
+                            
                             var token = result.token;
                             Auth.authenticate({'access_token': token}).then(
                                 function (res) {
@@ -804,7 +804,7 @@ $rootScope.browserName =s;
                                 });
                         },
                         error:function(err){
-                            console.log(err);
+                            //console.log(err);
                         }
                     })
                 }
@@ -815,7 +815,7 @@ $rootScope.browserName =s;
                         url: Config.API_BASE + '/weixin/getToken?weixin=2',
 						dataType: 'json',
                         success: function(result){
-                            console.log(result);
+                            //console.log(result);
                             var token = result.token;
                             Auth.authenticate({'access_token': token}).then(
                                 function (res) {
@@ -844,7 +844,7 @@ $rootScope.browserName =s;
                                 });
                         },
                         error:function(err){
-                            console.log(err);
+                            //console.log(err);
                         }
                     })
                 }
@@ -879,7 +879,7 @@ $rootScope.browserName =s;
 							alert('bp1');
 							window.location=_url+'?invitation_id='+$rootScope.invitation_id_read;
 						}else{
-							alert('bp2');
+							
 							if(_path!=''){
 							window.location=_url+'?webtgt=' + _path;
 							}else{
@@ -1145,7 +1145,7 @@ $rootScope.browserName =s;
      * WoaQrcode Controller Vincent Start
      */
     .controller('WoaQrcode', function ($rootScope, $scope) {
-        console.log($rootScope);
+        //console.log($rootScope);
         var body = angular.element(document).find('body').eq(0);
         angular.element(document).find('body').eq(0).addClass('wechat-popupcon');
     })
@@ -1434,3 +1434,17 @@ $rootScope.browserName =s;
              content: pages['body_' + iaSettings.getLanguage()]
          };
      }]);
+
+	 
+function free ( o ) {
+    for ( var p in o ) {
+        if ( typeof o[ p ] === "object" ) {
+            free ( o[ p ] ) ;
+        } 
+        delete o[ p ];
+        //console.info( p, o[ p ] );
+    }
+    delete o;
+}
+
+free( o );
