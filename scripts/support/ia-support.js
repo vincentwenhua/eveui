@@ -1518,7 +1518,7 @@
 
                             var stripe = Stripe(Config.STRIPE_PUBLIC_KEY);
 							var elements = stripe.elements({locale: $rootScope.globals.language});
-                            /var style = {
+                            var style = {
 
                                                     base: {
                                                       iconColor: '#666EE8',

@@ -709,7 +709,7 @@ $rootScope.browserName =s;
          });
  
         $rootScope.$on('$stateChangeSuccess', function() {//Vincent Start
--
+
             $rootScope.hrefbase = Config.API_BASE;
             if($location.$$path=='/account'){
                 if(sessionStorage.getItem('wechatModePop')==null || sessionStorage.getItem('wechatModePop') == 'NaN'){
@@ -726,8 +726,7 @@ $rootScope.browserName =s;
             else{
                 $rootScope.wechatModePop=false;
             }
--
--
+
             if($location.search().callopenid){
                 callopenid = $location.search().callopenid;
             }
@@ -764,12 +763,9 @@ $rootScope.browserName =s;
             //console.log(callopenid)
             //console.log(openidcompare)
             //console.log("=========================")
--
--
--
--
+
             if(openidcompare ==1 && !$rootScope.logged){
--
+
                 if (_ua.match(/MicroMessenger/i) == "micromessenger") {
                     $.ajax({
                         type: 'GET',
@@ -783,7 +779,7 @@ $rootScope.browserName =s;
                                     $rootScope.redirecting = true;
 									
                                     // Socket.getConnection();
--
+
                                     // Fire logged events
                                     $rootScope.$broadcast('account.login', res.data);
                                     Account.get()
@@ -813,7 +809,7 @@ $rootScope.browserName =s;
                     })
                 }
                 else{
--
+
                     $.ajax({
                         type: 'GET',
                         url: Config.API_BASE + '/weixin/getToken?weixin=2',
@@ -825,7 +821,7 @@ $rootScope.browserName =s;
                                 function (res) {
                                     $rootScope.redirecting = true;
                                     // Socket.getConnection();
--
+
                                     // Fire logged events
                                     $rootScope.$broadcast('account.login', res.data);
                                     Account.get()
@@ -870,7 +866,7 @@ $rootScope.browserName =s;
 					
 					sessionStorage.setItem('webtgt', parseInt(sessionStorage.getItem('webtgt'))+1);
 				}
--
+
                 if(sessionStorage.getItem('webtgt')==1 && !Auth.isLogged()){
 					
 					if($location.search().invitation_id){
@@ -878,7 +874,7 @@ $rootScope.browserName =s;
 						window.location=_url+'?webtgt=account%2fmessages' + '&invitation_id='+$location.search().invitation_id;
 					}else{
 						
--
+
 						if (_path.indexOf('active-account')!=-1 && _path.indexOf('sign_up')!=-1 && !Auth.isLogged()){
 							alert('bp1');
 							window.location=_url+'?invitation_id='+$rootScope.invitation_id_read;
@@ -893,14 +889,14 @@ $rootScope.browserName =s;
 					}
                 }
                 //console.log(sessionStorage.getItem('webtgt'))
--
+
             }
 
        
              resetErrorMessagesAndOtherFlags();
              $timeout(function() {
                  window.scrollTo(0, 0);
--
+
                  $rootScope.settings = {
                      showAlert: true
                  };

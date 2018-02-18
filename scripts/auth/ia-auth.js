@@ -338,7 +338,7 @@
                          Account.get()
                              .then(function(res) {
 
-+								var _ua = navigator.userAgent.toLowerCase();
+								var _ua = navigator.userAgent.toLowerCase();
                                if (redirectTo && _ua.match(/MicroMessenger/i) == "micromessenger") {
                                   //$location.path(redirectTo).search(searchParams).replace();
                                   $window.location.reload();  // wechat click on account page after login not showing username need to refresh fixed
@@ -469,7 +469,6 @@
  
  
                  $scope.errors = [];
--
                  return Auth.authenticate({'access_token': token}).then(
                          function (res) {
  
