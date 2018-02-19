@@ -123,8 +123,8 @@
  
              $scope.onMemberLoaded = $scope.onAccountLoaded
                  .then(function onMemberLoaded () {
-                     $scope.openImage =  MEDIA_BASE + 'media/qr/iCE_' +$scope.member.ice_id+'.png';
-                     $scope.openImageLoad = true;
+                     //$scope.openImage =  MEDIA_BASE + 'media/qr/iCE_' +$scope.member.ice_id+'.png';
+                     //$scope.openImageLoad = true;
  
                      if (!$scope.member) {
                          $state.transitionTo('account.show');

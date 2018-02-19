@@ -1336,6 +1336,7 @@
 
                                         modalInstance.close();
                                         $state.go('account.show');
+										return;
                                     },
                                     function (err) {
                                         if (err.status == 401) {
@@ -1794,6 +1795,7 @@
                                 $rootScope.loginTransition=false;
                                 modalInstance.dismiss('cancel');
                                 $state.go('base.home');
+								return;
                             };
 
                             scope.register = scope.cancel;
@@ -2999,6 +3001,7 @@
                     function backState() {
                         $rootScope.isPanic = false;
                         $attrs.backButton ? $state.go($attrs.backButton) : $window.history.go(-1);
+						return;
                     }
 
                     document.addEventListener('backbutton', backState, false);
@@ -3073,6 +3076,7 @@
 
                             var next = _.isUndefined(paths[$location.$$path]) ? 'account.show' : paths[$location.$$path];
                             $state.go(next, {back: 1});
+							return;
 
                         }else{
 

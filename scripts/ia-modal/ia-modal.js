@@ -34,6 +34,7 @@
                         $modalInstance.dismiss('cancel');
 
                         $state.go('account.security-questions.question1');
+						return;
                     },
                     function (err) {
                         $scope.error = err.data.error;
@@ -66,6 +67,7 @@
                         }
                         
                         $state.go('account.change-email');
+						return;
                     },
                     function (err) {
                         $scope.error = err.data.error;
@@ -133,6 +135,7 @@
                         $rootScope.account = null;
                         $rootScope.farewell = true;
                         $state.go('base.home', {exit: 1});
+						return;
                     },
                     function (err) {
                         if (err.status == 401) {

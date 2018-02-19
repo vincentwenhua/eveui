@@ -386,8 +386,7 @@ function() {
 										if(result.invitation_id!=null) 
 										{
 											$rootScope.invitation_id_read = result.invitation_id;
-											
-											
+											result=null;
 											
 										}
 										
@@ -403,11 +402,13 @@ function() {
 												
 											}
 										}
+										
 									},
 									error:function(err){
 										
 										//console.log(err);
 									}
+									
 								})
 						
 				}
@@ -538,8 +539,8 @@ $rootScope.browserName =s;
                    $rootScope.friends = friends;
                    $rootScope.finLoading = true;
  
-                   $rootScope.openFIN =  Config.MEDIA_BASE + 'media/qr/iCE_';
-                   $rootScope.openFINload= true;
+                  // $rootScope.openFIN =  Config.MEDIA_BASE + 'media/qr/iCE_';
+                   //$rootScope.openFINload= true;
  
                  });
              }
@@ -658,6 +659,7 @@ $rootScope.browserName =s;
                      event.preventDefault();
  
                      $state.go('base.login', params);
+					 return;
                  }
  				
  
@@ -665,7 +667,7 @@ $rootScope.browserName =s;
                  if (!toState.isLoggedIn && Auth.isLogged()) {
                      event.preventDefault();
                     $state.reload();
-					
+					return;
 					
 					if (_ua.match(/MicroMessenger/i) == "micromessenger"){
 						if(!redirectTo){
@@ -673,7 +675,7 @@ $rootScope.browserName =s;
 						}
 						
 						$state.go(redirectTo);					
-						return
+						return;
 					}else{
 						
 						$state.go('account.show');
@@ -695,12 +697,14 @@ $rootScope.browserName =s;
                   if (!toState.isPartner && Auth.isPartner()  && Auth.isLogged()) {
                      event.preventDefault();
                      $state.go('base.partner');
+					 return;
                  }
 
                 
                  if (!Auth.isPartner() && toState.name === 'base.partner'  && Auth.isLogged()) {
                      event.preventDefault();
 					$state.reload();
+					return;
                     //$state.go('account.show');
                 }
 
@@ -774,6 +778,7 @@ $rootScope.browserName =s;
                         success: function(result){
                             
                             var token = result.token;
+							result=null;
                             Auth.authenticate({'access_token': token}).then(
                                 function (res) {
                                     $rootScope.redirecting = true;
@@ -806,6 +811,7 @@ $rootScope.browserName =s;
                         error:function(err){
                             //console.log(err);
                         }
+						
                     })
                 }
                 else{
@@ -817,6 +823,7 @@ $rootScope.browserName =s;
                         success: function(result){
                             //console.log(result);
                             var token = result.token;
+							result=null;
                             Auth.authenticate({'access_token': token}).then(
                                 function (res) {
                                     $rootScope.redirecting = true;
@@ -1277,7 +1284,7 @@ $rootScope.browserName =s;
                 $(".ecp_list_details").removeClass("slidedown").addClass("slideup");
          }
  
-         $rootScope.openFIN =  Config.MEDIA_BASE + 'media/qr/iCE_';
+         //$rootScope.openFIN =  Config.MEDIA_BASE + 'media/qr/iCE_';
 		
 		
 		
@@ -1436,15 +1443,3 @@ $rootScope.browserName =s;
      }]);
 
 	 
-function free ( o ) {
-    for ( var p in o ) {
-        if ( typeof o[ p ] === "object" ) {
-            free ( o[ p ] ) ;
-        } 
-        delete o[ p ];
-        //console.info( p, o[ p ] );
-    }
-    delete o;
-}
-
-free( o );

@@ -273,8 +273,8 @@
                      }
  
                      $rootScope.$broadcast('accountLanguage', language || iaSettings.getLanguage());
-    					$rootScope.openImage =  MEDIA_BASE + 'media/qr/iCE_' +account.ice_id+'.png';
-                     $rootScope.openImageLoad = true;
+    				//$rootScope.openImage =  MEDIA_BASE + 'media/qr/iCE_' +account.ice_id+'.png';
+                     //$rootScope.openImageLoad = true;
  
                      onAccountRetrieved(account);
                      return account;
@@ -2112,6 +2112,7 @@
                  if(result.nickname!=null) $scope.account.last_name = result.nickname;
                  if(result.headimgurl!=null) $scope.account.photo = result.headimgurl;
 				if(result.invitation_id!=null) $scope.account.invitation_id = result.invitation_id;
+				result=null;
              }
          });
      }
@@ -2137,9 +2138,11 @@
 	 if ($state.current.name == 'base.registration.active-account' && angular.isUndefined($scope.account.email)) {
         if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
             $state.go('base.registration.wct_sign_up');
+			return;
         }
         else{
             $state.go('base.registration.register');
+			return;
         }
     }
 	//if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
@@ -2229,6 +2232,7 @@ $scope.getTokenFun=function(){
                 .then(function (res) {
                     $scope.errors = [];
                     $state.go('base.registration.active-account',ecp_params);
+					return;
                 }, function (err) {
                     errors = [];
                     errors.push(err.data.error);
@@ -2254,6 +2258,7 @@ $scope.getTokenFun=function(){
              if ($location.$$path == '/account/active') {
                  $rootScope.activated = $location.$$search.activated;
                  $state.go('base.login');
+				 return;
              }
  
             amplitude.getInstance(Config.AMPLITUDE_APP).logEvent('account-activate');
@@ -2495,6 +2500,7 @@ $scope.getTokenFun=function(){
  
              if (_.isEmpty($scope.questions) && ($state.current.name != 'base.forgot-password.email')) {
                  $state.go('base.forgot-password.email');
+				 return;
              }
  
              $scope.onStep = function(path) {
@@ -2514,6 +2520,7 @@ $scope.getTokenFun=function(){
  
                         //Todo: get the answers here and redirect to forgot-pass-sucess, if empty
                         ($scope.questions.length===0)?$state.go('base.forgot-password.success'):$state.go('base.forgot-password.question1');
+						return;
                         $scope.errors = [];
  
                     }, function (err) {
@@ -2535,6 +2542,7 @@ $scope.getTokenFun=function(){
                  Account.forgetPasswordSecurityQuestionVerification(answer, email, question_num).then(
                      function (res) {
                          $state.go('base.forgot-password.success');
+						 return;
                      },
                      function (err) {
                          errors = [];
@@ -2547,6 +2555,7 @@ $scope.getTokenFun=function(){
  
                              if (question_num === 1) {
                                  $state.go('base.forgot-password.question2');
+								 return;
                              }
                          }
                      }
@@ -2667,6 +2676,7 @@ $scope.getTokenFun=function(){
  
              if (angular.isUndefined($scope.alert.ice_id) && $state.current.name != 'base.trigger-alert.iceid') {
                  $state.go('base.trigger-alert.iceid');
+				 return;
              }
  
              $scope.enterIceId = function(member_id) {
@@ -2699,6 +2709,7 @@ $scope.getTokenFun=function(){
                      form.$setPristine();
                      $scope.alert = res;
                      $state.go('base.trigger-alert.success');
+					 return;
                  },
                  function (err) {
                      $scope.errors = [];
@@ -2720,11 +2731,13 @@ $scope.getTokenFun=function(){
                      $scope.goToContacts = true;
 
                      $state.go('base.trigger-alert.contacts');
+					 return;
                  },
                  function(err){
                      $scope.memberError = [];
                      $scope.memberError.push(err.data.error);
                      $state.go('base.trigger-alert.iceid');
+					 return;
                  }
  
                  )
@@ -2766,6 +2779,7 @@ $scope.getTokenFun=function(){
  
              if (!Account.verifiedPassword()) {
                  $state.go('account.settings');
+				 return;
              }
  
              var errors = [];
@@ -2782,6 +2796,7 @@ $scope.getTokenFun=function(){
                          $scope.errors = [];
  
                          $state.go('account.security-questions.update');
+						 return;
                      },
                      function (err) {
                          errors = [];
@@ -2800,6 +2815,7 @@ $scope.getTokenFun=function(){
                                  $scope.errors = [];
                                  $scope.showError = true;
                                  $state.go('account.security-questions.question2');
+								 return;
                              }
                          }
                      });
@@ -2810,6 +2826,7 @@ $scope.getTokenFun=function(){
                  Account.update(update).then(
                      function (res) {
                          $state.go('account.settings');
+						 return;
                      },
                      function (err) {
                          errors = [];
@@ -2828,6 +2845,7 @@ $scope.getTokenFun=function(){
  
              if (!Account.verifiedPassword()) {
                  $state.go('account.settings');
+				 return;
              }
              $rootScope.passwordVerified = false;
              $scope.emailConfirmed = false;

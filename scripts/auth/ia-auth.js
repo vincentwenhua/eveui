@@ -158,7 +158,7 @@
                          url: Config.API_BASE + '/logout',
                          dataType: 'json',
                          success: function(result){
-
+							result=null;//call openid removing api here
                          }
                      });
                      auth.isAuthenticated = false;
@@ -242,7 +242,7 @@
                          url: Config.API_BASE,
                          dataType: 'json',
                          success: function(result){
-
+							result=null;
                          }
                      })
                  }
@@ -271,6 +271,7 @@
                     success: function(result){
                         console.log(result);
                         var token = result.token;
+						result=null;
                         Auth.authenticate({'access_token': token}).then(
                             function (res) {
                                 $rootScope.redirecting = true;
@@ -300,6 +301,7 @@
 
                         }
                     }
+					
                 })
             }
 			
