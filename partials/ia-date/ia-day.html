@@ -1,3 +1,0 @@
-<select class="form-control" ng-disabled="disabled || !model.year || !model.month" ng-model="model.day" ng-options="date.id as date.name for date in dates" ng-required="required" name="day" ng-class="{ 'has-error': form.$submitted && form.day.$invalid }">
-    <option style="display: none" value="" i18n="common.day" ng-if="false"></option>
-</select>

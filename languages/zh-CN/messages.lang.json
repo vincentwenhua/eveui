@@ -1,5 +1,0 @@
-{
-	"resendNominationSuccess": "发送成功!",
-    "resetPasswordSuccess": "您的账号密码已修改成功<a ui-sref='base.login' href='' i18n='common.here'></a>回到登陆页面。",
-    "resendSuccess": "发送成功!"
-}
